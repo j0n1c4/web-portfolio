@@ -1,10 +1,18 @@
 /**
- * EmailJS — même configuration que v1/config/email.ts, adaptée aux
- * variables d'environnement de Vite (prefixe `VITE_` au lieu de
- * `NEXT_PUBLIC_`). Voir `.env.example`.
+ * EmailJS — configuration pour le build Vite.
  *
- * Les clés publiques EmailJS (`userId`) sont exposées côté client par
- * conception : ne jamais y mettre de secret.
+ * Les identifiants sont injectés par Vercel au moment du build, avec le
+ * préfixe `VITE_` (convention Vite) :
+ *
+ *   VITE_EMAILJS_SERVICE_ID   → serviceId   (ex. service_xxxxxxx)
+ *   VITE_EMAILJS_TEMPLATE_ID  → templateId  (ex. template_xxxxxxx)
+ *   VITE_EMAILJS_PUBLIC_KEY   → publicKey   (ancienne « user id » EmailJS)
+ *
+ * → En production : rien à faire, le build Vercel récupère ces variables.
+ * → En local : `cp .env.example .env`, puis `pnpm dev`.
+ *
+ * Ces identifiants sont publics par conception (ils sont livrés au navigateur
+ * pour envoyer le formulaire) : ne jamais y mettre de secret.
  */
 export const emailjsConfig = {
   serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID ?? "",
