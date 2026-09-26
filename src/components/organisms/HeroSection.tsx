@@ -3,6 +3,7 @@ import { CodeTag } from "@/components/atoms"
 import { ProfileCard } from "@/components/molecules/ProfileCard"
 import { Sidebar } from "@/components/molecules/Sidebar"
 import { StatsCard } from "@/components/molecules/StatsCard"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 interface Stat {
@@ -13,6 +14,7 @@ interface Stat {
 interface HeroSectionProps {
   name: string
   title: string
+  headline: string
   subtitle: string
   description: string
   avatar: string
@@ -24,22 +26,19 @@ interface HeroSectionProps {
   downloadCVUrl?: string
   stats?: Stat[]
   ctaText?: string
+  /** Section visible (scroll-spy) — pilote l'icône active de la Sidebar. */
+  activeSection?: string
   onCTAClick?: () => void
   className?: string
   bgColor?: string
   accentColor?: string
 }
 
-const DEFAULT_STATS: Stat[] = [
-  { value: 4, label: "Programming\nLanguage" },
-  { value: 6, label: "Development\nTools" },
-  { value: 8, label: "Years of\nExperience" },
-]
-
 /** Organism — full hero with sidebar, profile card, headline & stats */
 export function HeroSection({
   name,
   title,
+  headline,
   subtitle,
   description,
   avatar,
@@ -49,22 +48,25 @@ export function HeroSection({
   website,
   skills = [],
   downloadCVUrl,
-  stats = DEFAULT_STATS,
-  ctaText = "Let's Talk",
+  stats = [],
+  ctaText,
+  activeSection,
   onCTAClick,
   className,
   bgColor = "#292F36",
   accentColor = "#12F7D6",
 }: HeroSectionProps) {
+  const { t } = useI18n()
   const firstName = name.split(" ")[0]
 
   return (
     <section
+      id="hero"
       className={cn("relative min-h-screen overflow-hidden", className)}
       style={{ backgroundColor: bgColor }}
     >
       {/* Sidebar */}
-      <Sidebar accentColor={accentColor} />
+      <Sidebar activeItem={activeSection} accentColor={accentColor} />
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-8">
@@ -92,7 +94,7 @@ export function HeroSection({
               className="text-7xl font-bold tracking-tight md:text-8xl lg:text-9xl"
               style={{ color: accentColor }}
             >
-              Developer
+              {headline ?? t("hero.headline")}
             </h1>
 
             {/* Heading with code tags */}
@@ -121,7 +123,7 @@ export function HeroSection({
                 className="font-mono text-2xl font-bold transition-all duration-300 group-hover:translate-x-2 md:text-3xl"
                 style={{ color: accentColor }}
               >
-                {ctaText}
+                {ctaText ?? t("hero.cta")}
               </span>
               <div
                 className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"

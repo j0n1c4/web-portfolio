@@ -1,3 +1,4 @@
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 interface BlogCTAButtonsProps {
@@ -13,11 +14,13 @@ interface BlogCTAButtonsProps {
 export function BlogCTAButtons({
   onViewMore,
   onSubscribe,
-  viewMoreText = "View More",
-  subscribeText = "Subscribe",
+  viewMoreText,
+  subscribeText,
   className,
   accentColor = "#12F7D6",
 }: BlogCTAButtonsProps) {
+  const { t } = useI18n()
+
   return (
     <div className={cn("flex flex-wrap items-center justify-center gap-4", className)}>
       {/* View More Button */}
@@ -27,7 +30,7 @@ export function BlogCTAButtons({
         className="rounded-full px-8 py-3 font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: accentColor, color: "#292F36" }}
       >
-        {viewMoreText}
+        {viewMoreText ?? t("blog.viewMore")}
       </button>
 
       {/* Subscribe Button */}
@@ -45,7 +48,7 @@ export function BlogCTAButtons({
           e.currentTarget.style.color = accentColor
         }}
       >
-        {subscribeText}
+        {subscribeText ?? t("blog.subscribe")}
       </button>
     </div>
   )

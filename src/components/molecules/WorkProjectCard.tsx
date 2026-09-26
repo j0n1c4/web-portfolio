@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 export interface WorkProject {
@@ -27,6 +28,8 @@ export function WorkProjectCard({
   className,
   accentColor = "#12F7D6",
 }: WorkProjectCardProps) {
+  const { t } = useI18n()
+
   return (
     <div
       className={cn(
@@ -52,7 +55,7 @@ export function WorkProjectCard({
             className="inline-flex translate-y-4 items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-[#292F36] transition-transform duration-300 group-hover:translate-y-0"
             style={undefined}
           >
-            <span style={{ color: "#292F36" }}>View Details</span>
+            <span style={{ color: "#292F36" }}>{t("works.viewDetails")}</span>
             <ExternalLink className="h-4 w-4" style={{ color: accentColor }} />
           </div>
         </div>

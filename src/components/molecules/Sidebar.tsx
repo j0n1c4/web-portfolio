@@ -1,15 +1,18 @@
-import { Code2, LayoutGrid, Mail, Monitor, PenLine, User } from "lucide-react"
+import { Code2, LayoutGrid, Mail, Monitor, PenLine, User, type LucideIcon } from "lucide-react"
 import { SidebarIcon } from "@/components/atoms"
+import { useI18n } from "@/i18n"
+import { SECTION_IDS, SECTION_LABEL_KEYS, type SectionId } from "@/data/sections"
 import { cn } from "@/lib/utils"
 
-const sidebarItems = [
-  { id: "dashboard", icon: LayoutGrid, label: "Dashboard" },
-  { id: "profile", icon: User, label: "Profile" },
-  { id: "code", icon: Code2, label: "Code" },
-  { id: "projects", icon: Monitor, label: "Projects" },
-  { id: "edit", icon: PenLine, label: "Edit" },
-  { id: "contact", icon: Mail, label: "Contact" },
-]
+/** Une icône par section, dans l'ordre défini par `SECTION_IDS`. */
+const SECTION_ICONS: Record<SectionId, LucideIcon> = {
+  hero: LayoutGrid,
+  about: User,
+  skills: Code2,
+  projects: Monitor,
+  blog: PenLine,
+  contact: Mail,
+}
 
 interface SidebarProps {
   activeItem?: string
@@ -18,13 +21,15 @@ interface SidebarProps {
   accentColor?: string
 }
 
-/** Molecule — fixed floating vertical sidebar */
+/** Molecule — barre latérale fixe verticale, synchronisée avec le scroll-spy */
 export function Sidebar({
-  activeItem = "dashboard",
+  activeItem = "hero",
   onItemClick,
   className,
   accentColor = "#12F7D6",
 }: SidebarProps) {
+  const { t } = useI18n()
+
   return (
     <div
       className={cn(
@@ -32,14 +37,17 @@ export function Sidebar({
         className,
       )}
     >
-      {sidebarItems.map((item) => (
+      {SECTION_IDS.map((id) => (
         <SidebarIcon
-          key={item.id}
-          icon={item.icon}
-          label={item.label}
-          active={activeItem === item.id}
+          key={id}
+          icon={SECTION_ICONS[id]}
+          label={t(SECTION_LABEL_KEYS[id])}
+          active={activeItem === id}
           accentColor={accentColor}
-          onClick={() => onItemClick?.(item.id)}
+          onClick={() => {
+            document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+            onItemClick?.(id)
+          }}
         />
       ))}
     </div>

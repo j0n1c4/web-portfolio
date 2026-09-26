@@ -1,9 +1,17 @@
-import IMG_ABOUT_ME from "@/assets/about-me.jpg";
+import IMG_ABOUT_ME from "@/assets/me/about-me.jpeg";
 import BG_ABOUT_ME from "@/assets/background/about-me.svg";
-import { ScrollIndicator, SectionTitle } from "@/components/atoms";
+import { InfoRow, ScrollIndicator, SectionTitle } from "@/components/atoms";
 import { AboutContent } from "@/components/molecules/AboutContent";
 import { AboutImage } from "@/components/molecules/AboutImage";
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils";
+import type { LucideIcon } from "lucide-react";
+
+/** Ligne d'identité affichée sous le titre (localisation, formation, objectif). */
+export interface AboutInfoItem {
+  icon: LucideIcon;
+  text: string;
+}
 
 interface Highlight {
   text: string;
@@ -13,6 +21,7 @@ interface Highlight {
 interface AboutSectionProps {
   title?: string;
   greeting?: string;
+  info?: AboutInfoItem[];
   paragraphs?: string[];
   highlights?: Highlight[];
   imageSrc?: string;
@@ -22,44 +31,21 @@ interface AboutSectionProps {
   accentColor?: string;
 }
 
-const DEFAULT_PARAGRAPHS = [
-  "My name is Sinan and I specialize in web developement that utilizes HTML, CSS, JS, and REACT etc.",
-  "I am a highly motivated individual and eternal optimist dedicated to writing clear, concise, robust code that works. Striving to never stop learning and improving.",
-  "When I'm not coding, I am writing blogs, reading, or picking up some new hands-on art project like photography.",
-  "I like to have my perspective and belief systems challenged so that I see the world through new eyes.",
-];
-
-const DEFAULT_HIGHLIGHTS: Highlight[] = [
-  {
-    text: "My name is Sinan and I specialize in web developement that utilizes HTML, CSS, JS, and REACT etc.",
-    words: ["HTML", "CSS", "JS", "REACT"],
-  },
-  {
-    text: "I am a highly motivated individual and eternal optimist dedicated to writing clear, concise, robust code that works. Striving to never stop learning and improving.",
-    words: [],
-  },
-  {
-    text: "When I'm not coding, I am writing blogs, reading, or picking up some new hands-on art project like photography.",
-    words: ["writing blogs", "photography"],
-  },
-  {
-    text: "I like to have my perspective and belief systems challenged so that I see the world through new eyes.",
-    words: [],
-  },
-];
-
 /** Organism — about me section with scroll indicator, title, content & image */
 export function AboutSection({
-  title = "About Me",
-  greeting = "Hello!",
-  paragraphs = DEFAULT_PARAGRAPHS,
-  highlights = DEFAULT_HIGHLIGHTS,
+  title,
+  greeting,
+  info = [],
+  paragraphs = [],
+  highlights = [],
   imageSrc = IMG_ABOUT_ME,
   imageAlt = "About me coding",
   className,
   bgColor = BG_ABOUT_ME,
   accentColor = "#12F7D6",
 }: AboutSectionProps) {
+  const { t } = useI18n()
+
   return (
     <section
       id="about"
@@ -79,15 +65,29 @@ export function AboutSection({
 
         {/* Section Title */}
         <div className="mb-12">
-          <SectionTitle title={title} accentColor={accentColor} />
+          <SectionTitle title={title ?? t("about.title")} accentColor={accentColor} />
         </div>
+
+        {/* Identity facts */}
+        {info.length > 0 && (
+          <div className="mb-12 flex flex-wrap gap-x-10 gap-y-4">
+            {info.map((item) => (
+              <InfoRow
+                key={item.text}
+                icon={item.icon}
+                text={item.text}
+                accentColor={accentColor}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Content Grid */}
         <div className="grid items-start gap-12 lg:grid-cols-3">
           {/* Left - About Content (2/3) */}
           <div className="order-2 lg:order-1 lg:col-span-2">
             <AboutContent
-              greeting={greeting}
+              greeting={greeting ?? t("about.greeting")}
               paragraphs={paragraphs}
               highlights={highlights}
               accentColor={accentColor}

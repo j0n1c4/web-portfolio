@@ -1,5 +1,6 @@
 import { Briefcase, Download, Link2, Mail, MapPin } from "lucide-react"
 import { InfoRow, SkillBadge } from "@/components/atoms"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 interface ProfileCardProps {
@@ -30,6 +31,8 @@ export function ProfileCard({
   className,
   accentColor = "#12F7D6",
 }: ProfileCardProps) {
+  const { t } = useI18n()
+
   return (
     <div
       className={cn(
@@ -92,7 +95,7 @@ export function ProfileCard({
             onClick={() => window.open(downloadCVUrl, "_blank")}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-[#292F36] transition-all duration-300 hover:scale-105 hover:bg-gray-100"
           >
-            <span>Download CV</span>
+            <span>{t("hero.downloadCv")}</span>
             <Download className="h-5 w-5" />
           </button>
         )}

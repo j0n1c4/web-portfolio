@@ -4,6 +4,8 @@ import {
   FooterSocialLinks,
   type FooterSocialLinkItem,
 } from "@/components/molecules/FooterSocialLinks";
+import { useI18n } from "@/i18n";
+import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 interface FooterProps {
@@ -12,6 +14,7 @@ interface FooterProps {
   creditUrl?: string;
   socialLinks?: FooterSocialLinkItem[];
   showDivider?: boolean;
+  showCredit?: boolean;
   className?: string;
   bgColor?: string;
   accentColor?: string;
@@ -19,17 +22,18 @@ interface FooterProps {
 
 /** Organism — page footer with social links, copyright & credit */
 export function Footer({
-  copyright = "© 2023 SinanTokmak. All rights reserved.",
-  creditName = "JohannLeon",
-  creditUrl = "https://johannleon.com",
+  copyright,
+  creditName,
+  creditUrl,
   socialLinks,
   showDivider = true,
+  showCredit = true,
   className,
   bgColor = "#1A1E23",
   accentColor = "#12F7D6",
 }: FooterProps) {
-  const currentYear = new Date().getFullYear();
-  const copyrightText = copyright.replace("2023", String(currentYear));
+  const { t } = useI18n()
+  const copyrightText = copyright ?? `\u00A9 ${new Date().getFullYear()} ${profile.handle}. ${t("footer.rights")}`;
 
   return (
     <footer
@@ -56,13 +60,15 @@ export function Footer({
           </div>
 
           {/* Right — Credit */}
-          <div className="order-3">
-            <CreditLink
-              name={creditName}
-              href={creditUrl}
-              accentColor={accentColor}
-            />
-          </div>
+          {showCredit && creditName && creditUrl && (
+            <div className="order-3">
+              <CreditLink
+                name={creditName}
+                href={creditUrl}
+                accentColor={accentColor}
+              />
+            </div>
+          )}
         </div>
       </div>
     </footer>

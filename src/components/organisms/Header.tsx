@@ -1,38 +1,37 @@
 import { useEffect, useState } from "react"
-import { GitBranch, Camera, Menu, MessageCircle, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Logo } from "@/components/atoms"
-import { Navigation, SearchBar, SocialLinks, type NavItem, type SocialLinkItem } from "@/components/molecules/Navigation"
+import {
+  Navigation,
+  SocialLinks,
+  type NavItem,
+  type SocialLinkItem,
+} from "@/components/molecules/Navigation"
+import { LanguageSwitcher } from "@/components/molecules/LanguageSwitcher"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
-
-const DEFAULT_NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/", active: true },
-  { label: "Blogs", href: "/blogs", active: false },
-]
-
-const DEFAULT_SOCIAL_LINKS: SocialLinkItem[] = [
-  { platform: "Instagram", url: "https://instagram.com", icon: Camera },
-  { platform: "Discord", url: "https://discord.com", icon: MessageCircle },
-  { platform: "Github", url: "https://github.com", icon: GitBranch },
-]
 
 interface HeaderProps {
   logoText?: string
   navItems?: NavItem[]
   socialLinks?: SocialLinkItem[]
+  activeSection?: string
   className?: string
   bgColor?: string
   accentColor?: string
 }
 
-/** Organism — fixed site header with mobile menu */
+/** Organism — fixed site header with language switcher & mobile menu */
 export function Header({
-  logoText = "SinanTokmak",
-  navItems = DEFAULT_NAV_ITEMS,
-  socialLinks = DEFAULT_SOCIAL_LINKS,
+  logoText = "j0n1c4",
+  navItems = [],
+  socialLinks = [],
+  activeSection,
   className,
   bgColor = "#292F36",
   accentColor = "#12F7D6",
 }: HeaderProps) {
+  const { t } = useI18n()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -60,16 +59,17 @@ export function Header({
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-8 md:flex">
-            <Navigation items={navItems} />
+            <Navigation
+              items={navItems.map((item) => ({
+                ...item,
+                active: activeSection ? item.href === `#${activeSection}` : item.active,
+              }))}
+            />
           </div>
 
-          {/* Search Bar - Desktop */}
-          <div className="mx-8 hidden max-w-md flex-1 items-center justify-center lg:flex">
-            <SearchBar iconColor={accentColor} />
-          </div>
-
-          {/* Social Links - Desktop */}
-          <div className="hidden items-center md:flex">
+          {/* Language Switcher & Social Links - Desktop */}
+          <div className="hidden items-center gap-6 md:flex">
+            <LanguageSwitcher accentColor={accentColor} />
             <SocialLinks links={socialLinks} iconColor={accentColor} />
           </div>
 
@@ -78,7 +78,7 @@ export function Header({
             type="button"
             className="p-2 text-white transition-colors hover:text-[#12F7D6] md:hidden"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            aria-label="Toggle menu"
+            aria-label={isMobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -87,11 +87,15 @@ export function Header({
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="space-y-4 border-t border-white/10 py-4 md:hidden">
-            <Navigation items={navItems} className="flex-col gap-4" />
-            <div className="border-t border-white/10 pt-4">
-              <SearchBar iconColor={accentColor} className="justify-start" />
-            </div>
-            <div className="border-t border-white/10 pt-4">
+            <Navigation
+              items={navItems.map((item) => ({
+                ...item,
+                active: activeSection ? item.href === `#${activeSection}` : item.active,
+              }))}
+              className="flex-col gap-4"
+            />
+            <div className="flex items-center justify-between border-t border-white/10 pt-4">
+              <LanguageSwitcher accentColor={accentColor} />
               <SocialLinks
                 links={socialLinks}
                 iconColor={accentColor}

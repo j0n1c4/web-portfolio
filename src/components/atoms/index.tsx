@@ -1,5 +1,6 @@
-import type { CSSProperties, ReactNode } from "react"
+import type { ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import { useI18n } from "@/i18n"
 
 interface BadgeProps {
   children: ReactNode
@@ -46,7 +47,7 @@ export function Button({ children, className, variant = "primary", ...props }: B
 }
 
 import { useState } from "react"
-import { Search, type LucideIcon } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 
 interface LogoProps {
   className?: string
@@ -55,7 +56,7 @@ interface LogoProps {
 }
 
 /** Atom — site logo with `<C/>` code prefix */
-export function Logo({ className, text = "SinanTokmak", codeColor = "#12F7D6" }: LogoProps) {
+export function Logo({ className, text = "j0n1c4", codeColor = "#12F7D6" }: LogoProps) {
   return (
     <a href="/" className={cn("group flex items-center gap-2", className)}>
       <span className="font-mono text-2xl font-bold">
@@ -89,41 +90,6 @@ export function NavLink({ href, children, active = false, className }: NavLinkPr
         <span className="absolute -bottom-1 right-0 left-0 h-0.5 rounded-full bg-[#12F7D6]" />
       )}
     </a>
-  )
-}
-
-interface SearchInputProps {
-  placeholder?: string
-  className?: string
-  iconColor?: string
-}
-
-/** Atom — search input that widens on focus */
-export function SearchInput({
-  placeholder = "Search...",
-  className,
-  iconColor = "#12F7D6",
-}: SearchInputProps) {
-  const [isFocused, setIsFocused] = useState(false)
-
-  return (
-    <div
-      className={cn(
-        "relative flex items-center transition-all duration-300",
-        isFocused ? "w-64" : "w-48",
-        className,
-      )}
-    >
-      <input
-        type="text"
-        placeholder={placeholder}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className="w-full rounded-full bg-white px-4 py-2 pr-10 text-sm text-gray-900 placeholder:text-gray-500 transition-all focus:ring-2 focus:outline-none"
-        style={{ "--tw-ring-color": iconColor } as CSSProperties}
-      />
-      <Search className="pointer-events-none absolute right-3 h-4 w-4" style={{ color: iconColor }} />
-    </div>
   )
 }
 
@@ -435,11 +401,13 @@ export function CarouselButton({
   className,
   accentColor = "#12F7D6",
 }: CarouselButtonProps) {
+  const { t } = useI18n()
+
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={direction === "prev" ? "Previous project" : "Next project"}
+      aria-label={direction === "prev" ? t("common.previous") : t("common.next")}
       className={cn(
         "relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 transition-all duration-300 hover:scale-110 hover:shadow-lg",
         className,
@@ -467,6 +435,8 @@ export function DotIndicator({
   className,
   accentColor = "#12F7D6",
 }: DotIndicatorProps) {
+  const { t } = useI18n()
+
   return (
     <div className={cn("flex items-center justify-center gap-3", className)}>
       {Array.from({ length: total }).map((_, index) => (
@@ -474,7 +444,7 @@ export function DotIndicator({
           key={index}
           type="button"
           onClick={() => onDotClick(index)}
-          aria-label={`Go to slide ${index + 1}`}
+          aria-label={`${t("common.goToSlide")} ${index + 1}`}
           className={cn(
             "rounded-full transition-all duration-300",
             index === currentIndex ? "h-3 w-8" : "h-3 w-3 bg-gray-600 hover:bg-gray-500",
@@ -528,8 +498,9 @@ interface ReadMoreLinkProps {
   accentColor?: string
 }
 
-/** Atom — "Read More >>" link styled with accent color */
+/** Atom — "Read more >>" link styled with accent color */
 export function ReadMoreLink({ href, onClick, className, accentColor = "#12F7D6" }: ReadMoreLinkProps) {
+  const { t } = useI18n()
   const Component = href ? "a" : "button"
 
   return (
@@ -542,7 +513,7 @@ export function ReadMoreLink({ href, onClick, className, accentColor = "#12F7D6"
       )}
       style={{ color: accentColor, borderColor: accentColor }}
     >
-      <span>Read More</span>
+      <span>{t("blog.readMore")}</span>
       <span>&gt;&gt;</span>
     </Component>
   )

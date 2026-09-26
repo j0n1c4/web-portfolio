@@ -1,4 +1,5 @@
 import { BlogCategoryBadge, BlogMetaItem, ReadMoreLink } from "@/components/atoms"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 export interface BlogPost {
@@ -22,6 +23,8 @@ interface BlogCardProps {
 
 /** Molecule — horizontal blog card (image left, content right) */
 export function BlogCard({ post, onReadMore, className, accentColor = "#12F7D6" }: BlogCardProps) {
+  const { t } = useI18n()
+
   return (
     <article
       className={cn(
@@ -62,9 +65,9 @@ export function BlogCard({ post, onReadMore, className, accentColor = "#12F7D6" 
             <BlogCategoryBadge category={post.category} />
 
             <div className="flex items-center gap-4 text-sm">
-              <BlogMetaItem label="Text" value={post.author} />
-              <BlogMetaItem label="Date" value={post.date} />
-              <BlogMetaItem label="Read" value={post.readTime} />
+              <BlogMetaItem label={t("blog.author")} value={post.author} />
+              <BlogMetaItem label={t("blog.date")} value={post.date} />
+              <BlogMetaItem label={t("blog.readTime")} value={post.readTime} />
             </div>
           </div>
         </div>

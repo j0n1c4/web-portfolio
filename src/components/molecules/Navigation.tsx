@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { NavLink, SearchInput, SocialIcon } from "@/components/atoms"
+import { NavLink, SocialIcon } from "@/components/atoms"
 import type { LucideIcon } from "lucide-react"
 
 interface NavItem {
@@ -48,21 +48,6 @@ export function SocialLinks({
           iconColor={iconColor}
         />
       ))}
-    </div>
-  )
-}
-
-/** Molecule — centered search input */
-export function SearchBar({
-  className,
-  iconColor = "#12F7D6",
-}: {
-  className?: string
-  iconColor?: string
-}) {
-  return (
-    <div className={cn("flex items-center justify-center", className)}>
-      <SearchInput iconColor={iconColor} />
     </div>
   )
 }

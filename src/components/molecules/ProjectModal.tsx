@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { ExternalLink, GitBranch, X } from "lucide-react"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 import type { WorkProject } from "@/components/molecules/WorkProjectCard"
 
@@ -16,6 +17,8 @@ export function ProjectModal({
   isOpen,
   onClose,
 }: ProjectModalProps) {
+  const { t } = useI18n()
+
   // Lock body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -55,6 +58,7 @@ export function ProjectModal({
           type="button"
           onClick={onClose}
           className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition-all hover:bg-[#12F7D6] hover:text-[#292F36]"
+          aria-label={t("common.close")}
         >
           <X className="h-5 w-5" />
         </button>
@@ -93,7 +97,7 @@ export function ProjectModal({
           {/* Technologies */}
           {project.technologies && project.technologies.length > 0 && (
             <div>
-              <h4 className="mb-3 text-lg font-semibold text-white">Technologies Used</h4>
+              <h4 className="mb-3 text-lg font-semibold text-white">{t("works.technologies")}</h4>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
                   <span
@@ -116,7 +120,7 @@ export function ProjectModal({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-[#12F7D6] px-6 py-3 font-medium text-[#292F36] transition-colors hover:bg-[#12F7D6]/90"
               >
-                <span>View Live Site</span>
+                <span>{t("works.viewLive")}</span>
                 <ExternalLink className="h-4 w-4" />
               </a>
             )}
@@ -127,7 +131,7 @@ export function ProjectModal({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 font-medium text-white transition-colors hover:bg-white/10"
               >
-                <span>View Code</span>
+                <span>{t("works.viewCode")}</span>
                 <GitBranch className="h-4 w-4" />
               </a>
             )}
