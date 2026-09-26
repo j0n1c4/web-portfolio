@@ -1,9 +1,9 @@
-import IMG_ABOUT_ME from "@/assets/me/about-me.jpeg";
 import BG_ABOUT_ME from "@/assets/background/about-me.svg";
+import IMG_ABOUT_ME from "@/assets/me/about-me.jpeg";
 import { InfoRow, ScrollIndicator, SectionTitle } from "@/components/atoms";
 import { AboutContent } from "@/components/molecules/AboutContent";
 import { AboutImage } from "@/components/molecules/AboutImage";
-import { useI18n } from "@/i18n"
+import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
 
@@ -44,17 +44,17 @@ export function AboutSection({
   bgColor = BG_ABOUT_ME,
   accentColor = "#12F7D6",
 }: AboutSectionProps) {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return (
     <section
       id="about"
-      className={cn("relative overflow-hidden py-24 md:py-28", className)}
+      className={cn("relative w-full overflow-hidden py-24 md:py-28", className)}
     >
       {/* Blurred background layer */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-contain bg-no-repeat bg-center"
+        className="absolute inset-0 -z-10 bg-contain bg-cover bg-no-repeat bg-center"
         style={{ backgroundImage: `url("${bgColor}")` }}
       />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -65,7 +65,10 @@ export function AboutSection({
 
         {/* Section Title */}
         <div className="mb-12">
-          <SectionTitle title={title ?? t("about.title")} accentColor={accentColor} />
+          <SectionTitle
+            title={title ?? t("about.title")}
+            accentColor={accentColor}
+          />
         </div>
 
         {/* Identity facts */}

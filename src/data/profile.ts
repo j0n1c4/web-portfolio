@@ -103,9 +103,9 @@ export const heroSkills = ["Next.js", "TypeScript", "NestJS", "Docker"]
  * they follow the active locale.
  */
 export const heroStats = [
-  { value: `${yearsOfStudy}+`, labelKey: "hero.stats.experience" },
-  { value: "14+", labelKey: "hero.stats.projects" },
-  { value: "5", labelKey: "hero.stats.professional" },
+  { value: `2+`, labelKey: "hero.stats.experience" },
+  { value: "10+", labelKey: "hero.stats.projects" },
+  { value: "4", labelKey: "hero.stats.professional" },
 ]
 
 /** Stats band — derived from v1 skills/projects/library content. */
