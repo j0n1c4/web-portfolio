@@ -51,10 +51,10 @@ export function SkillsColumn({
     <div className={cn("space-y-8", className)}>
       {/* Column Title */}
       <div className="mb-8 text-center">
-        <h3 className="font-mono text-2xl font-bold md:text-3xl" style={{ color: accentColor }}>
+        <h3 className="font-mono text-2xl  font-bold md:text-3xl" style={{ color: accentColor }}>
           {title}
         </h3>
-        <div className="mx-auto mt-2 h-0.5 w-16" style={{ backgroundColor: accentColor }} />
+        <div className="mx-auto mt-2 h-0.5 w-16 " style={{ backgroundColor: accentColor }} />
       </div>
 
       {/* Skill Cards */}

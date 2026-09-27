@@ -1,33 +1,33 @@
-import { type LucideIcon } from "lucide-react"
-import { CodeIcon, ScrollIndicator, SectionTitle } from "@/components/atoms"
-import { DividerLine } from "@/components/molecules/DividerLine"
-import { SkillsColumn } from "@/components/molecules/SkillsColumn"
-import { useI18n } from "@/i18n"
-import { cn } from "@/lib/utils"
+import { CodeIcon, ScrollIndicator, SectionTitle } from "@/components/atoms";
+import { DividerLine } from "@/components/molecules/DividerLine";
+import { SkillsColumn } from "@/components/molecules/SkillsColumn";
+import { useI18n } from "@/i18n";
+import { cn } from "@/lib/utils";
+import { type LucideIcon } from "lucide-react";
 
 interface SkillCategory {
-  icon: LucideIcon
+  icon: LucideIcon;
   /** Clé de dictionnaire i18n pour le titre. */
-  titleKey: string
-  subtitle: string
+  titleKey: string;
+  subtitle: string;
 }
 
 interface SkillItem {
-  icon: LucideIcon
-  label: string
-  color: string
+  icon: LucideIcon;
+  label: string;
+  color: string;
 }
 
 interface SkillsSectionProps {
-  title?: string
-  subtitle?: string
-  devCategories?: SkillCategory[]
-  devSkills?: SkillItem[]
-  devopsCategories?: SkillCategory[]
-  devopsSkills?: SkillItem[]
-  className?: string
-  bgColor?: string
-  accentColor?: string
+  title?: string;
+  subtitle?: string;
+  devCategories?: SkillCategory[];
+  devSkills?: SkillItem[];
+  devopsCategories?: SkillCategory[];
+  devopsSkills?: SkillItem[];
+  className?: string;
+  bgColor?: string;
+  accentColor?: string;
 }
 
 /** Organism — skills section split into DEV / DEVOPS columns */
@@ -42,12 +42,15 @@ export function SkillsSection({
   bgColor = "#292F36",
   accentColor = "#12F7D6",
 }: SkillsSectionProps) {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   // Les titres de catégories sont des clés i18n : on les résout une fois ici
   // pour que `SkillsColumn` reste un composant dumb.
   const resolveCategories = (categories: SkillCategory[]) =>
-    categories.map((category) => ({ ...category, title: t(category.titleKey) }))
+    categories.map((category) => ({
+      ...category,
+      title: t(category.titleKey),
+    }));
 
   return (
     <section
@@ -103,5 +106,5 @@ export function SkillsSection({
         </div>
       </div>
     </section>
-  )
+  );
 }
