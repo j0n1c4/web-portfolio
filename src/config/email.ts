@@ -9,7 +9,7 @@
  *   VITE_EMAILJS_PUBLIC_KEY   → publicKey   (ex. zAvt1tXd_nYSJwmMs)
  *
  * → En production : rien à faire, le build Vercel récupère ces variables.
- * → En local : `cp .env.example .env`, puis `pnpm dev`.
+ * → En local : `cp .env.example .env`, puis `npm run dev`.
  *
  * Ces identifiants sont publics par conception (ils sont livrés au navigateur
  * pour envoyer le formulaire) : ne jamais y mettre de secret.

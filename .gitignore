@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Le projet est passé en npm : un lockfile pnpm ressuscité ici ferait
+# diverger Vercel (qui détecte le lockfile) de l'install locale.
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
 # Variables d'environnement
 .env
 .env.*
