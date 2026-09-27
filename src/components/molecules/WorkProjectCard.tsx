@@ -12,6 +12,8 @@ export interface WorkProject {
   tags?: string[]
   longDescription?: string
   technologies?: string[]
+  /** Poste occupé sur le projet — porte le signal DevOps sur la carte. */
+  role?: string
 }
 
 interface WorkProjectCardProps {
@@ -20,6 +22,21 @@ interface WorkProjectCardProps {
   className?: string
   accentColor?: string
 }
+
+/**
+ * Met le segment « DevOps » en couleur dans le libellé de rôle : c'est le
+ * signal que le lecteur doit voir sur la carte, sans ouvrir la modale.
+ */
+const renderRole = (role: string, accentColor: string) =>
+  role.split(/(DevOps|Devops)/g).map((part, index) =>
+    /^devops$/i.test(part) ? (
+      <span key={index} className="font-semibold" style={{ color: accentColor }}>
+        {part}
+      </span>
+    ) : (
+      <span key={index}>{part}</span>
+    ),
+  )
 
 /** Molecule — project card with hover overlay & tags */
 export function WorkProjectCard({
@@ -63,6 +80,11 @@ export function WorkProjectCard({
 
       {/* Content */}
       <div className="bg-[#2d343c] p-6">
+        {project.role && (
+          <p className="mb-2 font-mono text-xs uppercase tracking-wide text-gray-400">
+            {renderRole(project.role, accentColor)}
+          </p>
+        )}
         <h3 className="mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#12F7D6]">
           {project.title}
         </h3>

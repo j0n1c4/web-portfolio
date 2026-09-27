@@ -2,17 +2,20 @@ import type { Locale } from "@/i18n"
 import type { WorkProject } from "@/components/molecules/WorkProjectCard"
 
 /**
- * Projets — repris depuis v1/lib/data/projects.ts, réordonnés :
- * projets professionnels d'abord, puis hackathons et projets académiques.
+ * Réalisations — reprises depuis v1/lib/data/projects.ts, réordonnées :
+ * réalisations professionnelles d'abord, puis hackathons et projets académiques.
  *
  * `liveUrl` de MadAtlas a été mis à jour vers le nouveau domaine madatlas.mg.
- * Les textes (description / longDescription) sont bilingues ; `tags` et
+ * Les textes (description / longDescription / role) sont bilingues ; `tags` et
  * `technologies` sont des noms de technologies, donc identiques.
  */
 
-interface LocalizedProject extends Omit<WorkProject, "description" | "longDescription"> {
+interface LocalizedProject
+  extends Omit<WorkProject, "description" | "longDescription" | "role"> {
   description: Record<Locale, string>
   longDescription: Record<Locale, string>
+  /** Bilingue — repris de v1, où la carte affichait le poste occupé. */
+  role: Record<Locale, string>
 }
 
 const localizedProjects: LocalizedProject[] = [
@@ -20,6 +23,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "agroesthet",
     image: "/images/projects/AgroEsthet.png",
     title: "AgroEsthet",
+    role: {
+      fr: "Développeur Fullstack & DevOps",
+      en: "Fullstack Developer & DevOps",
+    },
     description: {
       fr: "Plateforme de recherche et de publications sur l'agro-esthétique — projet ANR.",
       en: "Research and publishing platform for agro-aesthetics — an ANR funded project.",
@@ -28,8 +35,8 @@ const localizedProjects: LocalizedProject[] = [
       fr: "AGROESTHET (Agroécologie et esthétique des paysages) est un projet de recherche-action financé par l'ANR. Il vise à faire reconnaître, en Inde et à Madagascar, la beauté des paysages agraires produits par des pratiques respectueuses de l'environnement. J'ai développé la plateforme en fullstack : gestion des publications scientifiques, des articles de vulgarisation, des événements et des ressources multimedia, avec stockage objet Minio et déploiement conteneurisé.",
       en: "AGROESTHET (agroecology and landscape aesthetics) is an action-research project funded by the ANR. It aims to have the beauty of farming landscapes produced by environmentally respectful practices recognised in India and Madagascar. I developed the platform end to end: scientific publications, outreach articles, events and multimedia resources, with Minio object storage and a containerized deployment.",
     },
-    liveUrl: "https://agroesthet.mg/",
-    githubUrl: "https://github.com/AGROESTHET/agroesthet",
+    liveUrl: "https://agroesthet.org/",
+    githubUrl: "/",
     tags: ["Next.js", "Express.js", "MySQL", "Minio", "Tailwind CSS"],
     technologies: [
       "Next.js",
@@ -46,6 +53,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "madatlas",
     image: "/images/projects/MADATLAS.png",
     title: "MadAtlas",
+    role: {
+      fr: "Développeur Fullstack",
+      en: "Fullstack Developer",
+    },
     description: {
       fr: "Filière de formation supérieure en cartographie numérique à l'Université de Fianarantsoa.",
       en: "Higher-education programme in digital cartography at the University of Fianarantsoa.",
@@ -55,7 +66,7 @@ const localizedProjects: LocalizedProject[] = [
       en: "MadAtlas was launched through the AFD PeA call for proposals (Africa-France Academic Partnerships) to build and run a teaching and research programme in digital cartography applied to sustainable development — Bachelor, Master and PhD — at the University of Fianarantsoa. I develop the platform end to end in partnership with Gustave Eiffel University, the IRD, Bordeaux Montaigne University and MAROLOOK Fianarantsoa.",
     },
     liveUrl: "https://madatlas.mg/",
-    githubUrl: "https://github.com/AGROESTHET/madatlas-refonte-frontend",
+    githubUrl: "/",
     tags: ["Next.js", "Express.js", "PostgreSQL", "Minio", "Tailwind CSS"],
     technologies: [
       "Next.js",
@@ -72,6 +83,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "keho",
     image: "/images/projects/Keho-UGD.jpeg",
     title: "Keho",
+    role: {
+      fr: "Lead développeur Mobile & Keycloak",
+      en: "Mobile & Keycloak Lead Developer",
+    },
     description: {
       fr: "Plateforme de notification et d'alerte pour la gestion des urgences et des événements critiques.",
       en: "Notification and alerting platform for emergencies and critical events.",
@@ -98,6 +113,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "connecter-ia",
     image: "/images/projects/Connecter-IA.png",
     title: "Connecter IA",
+    role: {
+      fr: "Développeur Backend & DevOps",
+      en: "Backend Developer & DevOps",
+    },
     description: {
       fr: "Plateforme du colloque scientifique international sur l'IA en éducation.",
       en: "Platform for the international conference on AI in education.",
@@ -123,6 +142,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "torolalana-ia",
     image: "/images/projects/Torolalana_IA.png",
     title: "Torolalana IA",
+    role: {
+      fr: "Développeur Frontend",
+      en: "Frontend Developer",
+    },
     description: {
       fr: "Assistant intelligent de mobilité urbaine pour Fianarantsoa — itinéraire, trafic et bon prix.",
       en: "Smart urban-mobility assistant for Fianarantsoa — routes, traffic and the right fare.",
@@ -152,6 +175,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "pandemio-tech",
     image: "/images/projects/pandemioTech.jpg",
     title: "Pandemio Tech",
+    role: {
+      fr: "Développeur Frontend",
+      en: "Frontend Developer",
+    },
     description: {
       fr: "Plateforme de gestion des épidémies — 2e prix au hackathon EMIT (EMIHACK 3.0).",
       en: "Epidemic management platform — 2nd prize at the EMIT hackathon (EMIHACK 3.0).",
@@ -175,6 +202,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "hair-transplantation-africa",
     image: "/images/projects/Clinics-hta.png",
     title: "Hair Transplantation Africa",
+    role: {
+      fr: "Développeur Fullstack",
+      en: "Fullstack Developer",
+    },
     description: {
       fr: "Plateforme de mise en relation entre patients et cliniques africaines.",
       en: "Platform connecting patients with African hair transplant clinics.",
@@ -192,6 +223,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "mozik",
     image: "/images/projects/Mozik.png",
     title: "Mozik",
+    role: {
+      fr: "Développeur Fullstack & IA",
+      en: "Fullstack & AI Developer",
+    },
     description: {
       fr: "Application de reconnaissance musicale basée sur le modèle d'IA YAMNet.",
       en: "Music recognition app built on the YAMNet AI model.",
@@ -218,6 +253,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "next-auth",
     image: "/images/projects/NextAuth.png",
     title: "Next-Auth",
+    role: {
+      fr: "Développeur Fullstack",
+      en: "Fullstack Developer",
+    },
     description: {
       fr: "Application d'authentification avec NextAuth.",
       en: "Authentication app built with NextAuth.",
@@ -235,6 +274,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "energy-prediction",
     image: "/images/projects/EnergyPredict.png",
     title: "Prédiction de crise énergétique",
+    role: {
+      fr: "Développeur IA",
+      en: "AI Developer",
+    },
     description: {
       fr: "Réseau de neurones LSTM pour l'analyse et la prédiction de consommation énergétique.",
       en: "LSTM neural network for energy consumption analysis and forecasting.",
@@ -251,6 +294,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "qda-analytic",
     image: "/images/projects/QDA-analytic.png",
     title: "QDA Analytic",
+    role: {
+      fr: "Développeur IA",
+      en: "AI Developer",
+    },
     description: {
       fr: "Classification supervisée par QDA — comparez Sklearn et PyTorch sur vos données CSV.",
       en: "QDA supervised classification — compare Sklearn and PyTorch on your CSV data.",
@@ -275,6 +322,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "e-commerce-simulation",
     image: "/images/projects/technoweb.png",
     title: "Simulation e-commerce",
+    role: {
+      fr: "Développeur Fullstack",
+      en: "Fullstack Developer",
+    },
     description: {
       fr: "Application e-commerce avec Vue.js et Node.js.",
       en: "E-commerce application built with Vue.js and Node.js.",
@@ -299,6 +350,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "gestion-inscription",
     image: "/images/projects/Gestion_inscription.png",
     title: "Gestion d'inscription",
+    role: {
+      fr: "Développeur Fullstack",
+      en: "Fullstack Developer",
+    },
     description: {
       fr: "Application web pour gérer les inscriptions aux concours d'entrée à l'université.",
       en: "Web app to manage applications for university entrance exams.",
@@ -316,6 +371,10 @@ const localizedProjects: LocalizedProject[] = [
     id: "securepass",
     image: "/images/projects/SecurePass-Home-visible-parts.png",
     title: "SecurePass",
+    role: {
+      fr: "Développeur Backend & DevOps",
+      en: "Backend Developer & DevOps",
+    },
     description: {
       fr: "Application sécurisée de gestion de mots de passe avec Docker.",
       en: "Secure password manager application, containerized with Docker.",
@@ -333,8 +392,9 @@ const localizedProjects: LocalizedProject[] = [
 
 /** Projets resuelus dans la locale active. */
 export const getWorkProjects = (locale: Locale): WorkProject[] =>
-  localizedProjects.map(({ description, longDescription, ...project }) => ({
+  localizedProjects.map(({ description, longDescription, role, ...project }) => ({
     ...project,
     description: description[locale],
     longDescription: longDescription[locale],
+    role: role[locale],
   }))

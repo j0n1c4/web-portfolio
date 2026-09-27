@@ -2,6 +2,20 @@ import { BlogCategoryBadge, BlogMetaItem, ReadMoreLink } from "@/components/atom
 import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
+/**
+ * Bloc de contenu d'un article. Un petit graphe de blocs plutôt que du
+ * Markdown : le contenu vit dans `src/data/blog.ts` et n'a pas besoin d'un
+ * parseur au runtime. `BlogPostBody` (molecule) sait rendre ces 6 formes.
+ */
+export type BlogBlock =
+  | { type: "p"; text: string }
+  | { type: "h2"; text: string }
+  | { type: "h3"; text: string }
+  | { type: "ul"; items: string[] }
+  | { type: "ol"; items: string[] }
+  | { type: "code"; language: string; code: string }
+  | { type: "quote"; text: string }
+
 export interface BlogPost {
   id: string
   image: string
@@ -12,6 +26,8 @@ export interface BlogPost {
   date: string
   readTime: string
   slug?: string
+  /** Corps de l'article, lu dans `BlogPostModal`. */
+  content: BlogBlock[]
 }
 
 interface BlogCardProps {

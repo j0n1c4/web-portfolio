@@ -60,7 +60,7 @@ export function SkillsSection({
         <CodeIcon accentColor={accentColor} />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4">
         {/* Scroll Indicator */}
         <div className="mb-16 flex justify-center">
           <ScrollIndicator accentColor={accentColor} />
@@ -83,6 +83,8 @@ export function SkillsSection({
             title={t("skills.dev")}
             categories={resolveCategories(devCategories)}
             skills={devSkills}
+            showMoreLabel={t("skills.showMore")}
+            showLessLabel={t("skills.showLess")}
             accentColor={accentColor}
           />
 
@@ -94,6 +96,8 @@ export function SkillsSection({
             title={t("skills.devops")}
             categories={resolveCategories(devopsCategories)}
             skills={devopsSkills}
+            showMoreLabel={t("skills.showMore")}
+            showLessLabel={t("skills.showLess")}
             accentColor={accentColor}
           />
         </div>

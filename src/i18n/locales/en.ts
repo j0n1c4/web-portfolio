@@ -5,7 +5,7 @@ const en: Dictionary = {
     home: "Home",
     about: "About",
     skills: "Expertise",
-    projects: "Projects",
+    projects: "Achievements",
     blog: "Blog",
     contact: "Contact",
     openMenu: "Open menu",
@@ -24,8 +24,8 @@ const en: Dictionary = {
     objective: "Objective",
     stats: {
       experience: "Years of\nexperience",
-      projects: "Projects\ndelivered",
-      professional: "Professional\nprojects",
+      projects: "Achievements\nshipped",
+      professional: "Professional\nwork",
     },
   },
   about: {
@@ -38,6 +38,8 @@ const en: Dictionary = {
     subtitle: "Modern stack and results-oriented skills",
     dev: "DEV",
     devops: "DEVOPS",
+    showMore: "Show more",
+    showLess: "Show less",
     categories: {
       frontend: "Frontend",
       backend: "Backend & Data",
@@ -47,13 +49,13 @@ const en: Dictionary = {
   },
   stats: {
     technologies: "Technologies mastered",
-    proProjects: "Professional projects",
+    proProjects: "Professional work",
     awards: "Hackathon awards",
   },
   works: {
-    title: "Projects",
+    title: "Achievements",
     subtitle:
-      "Products running in production and hackathon projects, from research to deployment.",
+      "Products running in production and hackathon work, from research to deployment.",
     viewDetails: "View details",
     technologies: "Technologies used",
     viewLive: "View live site",
@@ -63,6 +65,7 @@ const en: Dictionary = {
     title: "Blog",
     subtitle: "My thoughts on development and DevOps",
     viewMore: "View more",
+    showLess: "Show less",
     subscribe: "Subscribe",
     readMore: "Read more",
     author: "Author",
@@ -94,8 +97,8 @@ const en: Dictionary = {
     rights: "All rights reserved.",
   },
   common: {
-    previous: "Previous project",
-    next: "Next project",
+    previous: "Previous achievement",
+    next: "Next achievement",
     close: "Close",
     goToSlide: "Go to slide",
   },

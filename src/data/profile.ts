@@ -58,28 +58,28 @@ export const yearsOfStudy = new Date().getFullYear() - profile.studyStartYear
  */
 export const aboutParagraphs: Record<Locale, string[]> = {
   fr: [
-    "Développeur full-stack & ingénieur DevOps, je conçois des applications web modernes et les déploie sur une infrastructure fiable : conteneurisation Docker, reverse proxy Nginx, TLS et GitOps.",
-    "Au quotidien, je travaille avec Next.js, TypeScript et NestJS pour des produits de recherche, de santé et de mobilité — de la modélisation des données jusqu'à la mise en production.",
-    "Je m'attache à un code clair, versionné et reproductible : chaque projet part d'un workflow CI/CD, d'une revue rigoureuse et d'un déploiement réversible.",
+    "Développeur full-stack & DevOps : j'automatise le flux du dev au déploiement — pour assurer un MVP (Minimum Viable Product) à temps avec l'approche agile entre client et l'équipe de dev, en appliquant ainsi le principe du Continuous Integration / Continuous Delivery.",
+    "J'ai travaillé avec de nombreuses équipes sur la plupart de mes projets professionnels, et l'expérience en équipe m'a permis de développer mes compétences relationnelles et mon sens de l'organisation.",
+    "Les projets AgroEsthet et MadAtlas sont deux de mes réalisations en équipe que je vous invite à découvrir juste au-dessous.",
   ],
   en: [
-    "Full-stack developer and DevOps engineer: I design modern web applications and ship them on reliable infrastructure — Docker containerization, Nginx reverse proxy, TLS and GitOps.",
-    "Day to day I work with Next.js, TypeScript and NestJS on products spanning research, healthcare and mobility — from data modeling all the way to production.",
-    "I care about clean, versioned and reproducible code: every project starts with a CI/CD workflow, a rigorous review process and a reversible deployment.",
+    "Full-stack developer & DevOps: I automate the flow from development to deployment — to ship an MVP (Minimum Viable Product) on time with an agile approach, working with the client and the dev team, applying the Continuous Integration / Continuous Delivery principle.",
+    "I have worked with a lot of teams on most of my professional projects, and the team experience has helped me develop my interpersonal skills and my sense of organization.",
+    "AgroEsthet and MadAtlas are two of my team achievements that I invite you to discover just below.",
   ],
 }
 
 /** Mots-clés surlignés dans le texte « À propos », un tableau par paragraphe. */
 const aboutHighlightWords: Record<Locale, string[][]> = {
   fr: [
-    ["Docker", "Nginx", "GitOps", "TLS"],
-    ["Next.js", "TypeScript", "NestJS"],
-    ["CI/CD", "reproductible"],
+    ["déploiement", "MVP", "agile", "Continuous Integration"],
+    ["nombreuses équipes", "compétences relationnelles", "organisation"],
+    ["réalisations en équipe"],
   ],
   en: [
-    ["Docker", "Nginx", "GitOps", "TLS"],
-    ["Next.js", "TypeScript", "NestJS"],
-    ["CI/CD", "reproducible"],
+    ["deployment", "MVP", "agile", "Continuous Integration"],
+    ["a lot of teams", "interpersonal skills", "organization"],
+    ["team achievements"],
   ],
 }
 

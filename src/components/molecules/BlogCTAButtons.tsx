@@ -2,20 +2,25 @@ import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 interface BlogCTAButtonsProps {
-  onViewMore?: () => void
+  /** Bascule « Voir plus » / « Voir moins ». */
+  onToggle?: () => void
   onSubscribe?: () => void
-  viewMoreText?: string
+  /** Libellé du bouton de bascule, déjà résolu par l'appelant. */
+  toggleText: string
   subscribeText?: string
+  /** Masque la bascule quand l'état affiché est déjà définitif. */
+  showToggle?: boolean
   className?: string
   accentColor?: string
 }
 
-/** Molecule — "View More" + "Subscribe" CTA button pair */
+/** Molecule — "View more/less" + "Subscribe" CTA button pair */
 export function BlogCTAButtons({
-  onViewMore,
+  onToggle,
   onSubscribe,
-  viewMoreText,
+  toggleText,
   subscribeText,
+  showToggle = true,
   className,
   accentColor = "#12F7D6",
 }: BlogCTAButtonsProps) {
@@ -23,21 +28,23 @@ export function BlogCTAButtons({
 
   return (
     <div className={cn("flex flex-wrap items-center justify-center gap-4", className)}>
-      {/* View More Button */}
-      <button
-        type="button"
-        onClick={onViewMore}
-        className="rounded-full px-8 py-3 font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-        style={{ backgroundColor: accentColor, color: "#292F36" }}
-      >
-        {viewMoreText ?? t("blog.viewMore")}
-      </button>
+      {/* View More / View Less Button */}
+      {showToggle && (
+        <button
+          type="button"
+          onClick={onToggle}
+          className="cursor-pointer rounded-full px-8 py-3 font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          style={{ backgroundColor: accentColor, color: "#292F36" }}
+        >
+          {toggleText}
+        </button>
+      )}
 
       {/* Subscribe Button */}
       <button
         type="button"
         onClick={onSubscribe}
-        className="rounded-full border-2 px-8 py-3 font-medium transition-all duration-300 hover:scale-105"
+        className="cursor-pointer rounded-full border-2 px-8 py-3 font-medium transition-all duration-300 hover:scale-105"
         style={{ borderColor: accentColor, color: accentColor }}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = accentColor

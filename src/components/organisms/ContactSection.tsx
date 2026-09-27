@@ -36,10 +36,18 @@ export function ContactSection({
   return (
     <section
       id="contact"
-      className={cn("relative py-24 md:py-32 bg-center bg-no-repeat bg-cover", className)}
-      style={{ backgroundImage: `url("${bgColor}")` }}
+      className={cn(
+        "relative isolate overflow-hidden bg-[#1A1E23] py-24 md:py-32",
+        className,
+      )}
     >
-      <div className="mx-auto max-w-4xl px-6 lg:px-8">
+      {/* Background layer — aplat sur mobile, image à partir de lg */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat lg:block"
+        style={{ backgroundImage: `url("${bgColor}")` }}
+      />
+      <div className="mx-auto max-w-4xl px-4">
         {/* Scroll Indicator */}
         {showScrollIndicator && (
           <div className="mb-16 flex justify-center">

@@ -169,7 +169,7 @@ export function ContactForm({ onSubmit, className, accentColor = "#12F7D6" }: Co
         onChange={update("message")}
         required
         error={errors.message}
-        rows={4}
+        rows={2}
         accentColor={accentColor}
       />
 

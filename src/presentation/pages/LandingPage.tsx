@@ -108,10 +108,7 @@ export function LandingPage() {
         devopsSkills={devopsSkills.map((skill) => ({ ...skill }))}
       />
       <WorksSection projects={getWorkProjects(locale)} />
-      <BlogsSection
-        posts={getBlogPosts(locale)}
-        onReadMore={() => scrollTo("projects")}
-      />
+      <BlogsSection posts={getBlogPosts(locale)} />
       <ContactSection />
       <Footer
         copyright={getCopyright(locale)}

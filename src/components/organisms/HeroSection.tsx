@@ -69,7 +69,7 @@ export function HeroSection({
       <Sidebar activeItem={activeSection} accentColor={accentColor} />
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-20 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-20">
         <div className="grid items-center gap-8 lg:grid-cols-12 lg:min-h-[calc(100vh-8rem)]">
           {/* Left Column - Profile Card */}
           <div className="flex justify-center lg:col-span-3 lg:justify-start">
@@ -91,7 +91,7 @@ export function HeroSection({
           <div className="space-y-8 px-4 lg:col-span-6">
             {/* Big "Developer" text */}
             <h1
-              className="text-7xl font-bold tracking-tight md:text-8xl lg:text-9xl"
+              className="text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl"
               style={{ color: accentColor }}
             >
               {headline ?? t("hero.headline")}
@@ -141,17 +141,17 @@ export function HeroSection({
         </div>
       </div>
 
-      {/* Decorative elements */}
+      {/* Decorative element — symbole de code en filigrane, lg et plus */}
       <div
         aria-hidden
-        className="absolute top-20 right-20 h-96 w-96 rounded-full opacity-10 blur-3xl"
-        style={{ backgroundColor: accentColor }}
-      />
-      <div
-        aria-hidden
-        className="absolute bottom-20 left-20 h-64 w-64 rounded-full opacity-5 blur-3xl"
-        style={{ backgroundColor: accentColor }}
-      />
+        className="pointer-events-none absolute top-20 right-20 hidden select-none lg:block"
+        style={{
+          maskImage: "linear-gradient(to bottom, black 45%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 45%, transparent 100%)",
+        }}
+      >
+        <span className="font-mono text-[20rem] leading-none text-slate-900/15">{"</>"}</span>
+      </div>
     </section>
   )
 }

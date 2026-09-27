@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { createPortal } from "react-dom"
 import { ExternalLink, GitBranch, X } from "lucide-react"
 import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
@@ -42,8 +43,11 @@ export function ProjectModal({
 
   if (!isOpen || !project) return null
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+  // Rendue via un portail sur `document.body` : la section parente déclare
+  // `isolate`, ce qui crée un contexte d'empilement dans lequel le `z` de la
+  // modale resterait piégé — le header, en `z-50` racine, passerait au-dessus.
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
 
@@ -138,6 +142,7 @@ export function ProjectModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

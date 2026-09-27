@@ -49,15 +49,18 @@ export function AboutSection({
   return (
     <section
       id="about"
-      className={cn("relative w-full overflow-hidden py-24 md:py-28", className)}
+      className={cn(
+        "relative isolate w-full overflow-hidden bg-[#1A1E23] py-24 md:py-28",
+        className,
+      )}
     >
-      {/* Blurred background layer */}
+      {/* Background layer — aplat sur mobile, image à partir de lg */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-contain bg-cover bg-no-repeat bg-center"
+        className="absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat lg:block"
         style={{ backgroundImage: `url("${bgColor}")` }}
       />
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4">
         {/* Scroll Indicator */}
         <div className="mb-16 flex justify-center">
           <ScrollIndicator accentColor={accentColor} />

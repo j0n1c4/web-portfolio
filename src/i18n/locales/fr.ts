@@ -3,7 +3,7 @@ const fr = {
     home: "Accueil",
     about: "À propos",
     skills: "Expertise",
-    projects: "Projets",
+    projects: "Réalisations",
     blog: "Blog",
     contact: "Contact",
     openMenu: "Ouvrir le menu",
@@ -22,8 +22,8 @@ const fr = {
     objective: "Objectif",
     stats: {
       experience: "Années\nd'expérience",
-      projects: "Projets\nréalisés",
-      professional: "Projets\nprofessionnels",
+      projects: "Réalisations\nlivrées",
+      professional: "Réalisations\nprofessionnelles",
     },
   },
   about: {
@@ -36,6 +36,8 @@ const fr = {
     subtitle: "Stack moderne et compétences orientées résultats",
     dev: "DEV",
     devops: "DEVOPS",
+    showMore: "Voir plus",
+    showLess: "Réduire",
     categories: {
       frontend: "Frontend",
       backend: "Backend & Data",
@@ -45,13 +47,13 @@ const fr = {
   },
   stats: {
     technologies: "Technologies maîtrisées",
-    proProjects: "Projets professionnels",
+    proProjects: "Réalisations professionnelles",
     awards: "Prix en hackathon",
   },
   works: {
-    title: "Projets",
+    title: "Réalisations",
     subtitle:
-      "Des produits en production et des projets de hackathon, de la recherche à la mise en ligne.",
+      "Des produits en production et des travaux de hackathon, de la recherche à la mise en ligne.",
     viewDetails: "Voir les détails",
     technologies: "Technologies utilisées",
     viewLive: "Voir le site",
@@ -61,6 +63,7 @@ const fr = {
     title: "Blog",
     subtitle: "Mes réflexions sur le développement et le DevOps",
     viewMore: "Voir plus",
+    showLess: "Voir moins",
     subscribe: "S'abonner",
     readMore: "Lire la suite",
     author: "Auteur",
@@ -93,8 +96,8 @@ const fr = {
     rights: "Tous droits réservés.",
   },
   common: {
-    previous: "Projet précédent",
-    next: "Projet suivant",
+    previous: "Réalisation précédente",
+    next: "Réalisation suivante",
     close: "Fermer",
     goToSlide: "Aller à la diapositive",
   },

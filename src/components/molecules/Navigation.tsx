@@ -11,7 +11,9 @@ interface NavItem {
 /** Molecule — list of navigation links */
 export function Navigation({ items, className }: { items: NavItem[]; className?: string }) {
   return (
-    <nav className={cn("flex items-center gap-8", className)}>
+    // gap resserré entre md et lg : « Réalisations » est plus long que
+    // l'ancien libellé, et 6 liens + switcher + socials ne tiennent pas à 768px.
+    <nav className={cn("flex items-center gap-6 lg:gap-8", className)}>
       {items.map((item) => (
         <NavLink key={item.href} href={item.href} active={item.active}>
           {item.label}

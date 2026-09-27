@@ -36,7 +36,7 @@ export function ProfileCard({
   return (
     <div
       className={cn(
-        "relative w-72 overflow-hidden rounded-tl-[80px] rounded-br-[80px] border-2 border-white bg-[#292F36]",
+        "relative w-full  md:w-72 overflow-hidden rounded-tl-[80px] rounded-br-[80px] border-2 border-white bg-[#292F36]",
         className,
       )}
     >
