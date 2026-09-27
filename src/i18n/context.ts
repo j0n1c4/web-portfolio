@@ -4,7 +4,15 @@ import type { Dictionary } from "@/i18n/locales/fr"
 export type Locale = "fr" | "en"
 
 export const LOCALES: Locale[] = ["fr", "en"]
-export const LOCALE_LABELS: Record<Locale, string> = { fr: "FR", en: "EN" }
+/**
+ * Nom accessible de chaque langue, dans la langue elle-même (endonyme) —
+ * convention des sélecteurs de langue : un visiteur qui ne parle pas français
+ * reconnaît « English » plus facilement que « EN ».
+ *
+ * Sert de `aria-label` aux boutons du sélecteur, dont le contenu visible est
+ * un drapeau. Volontairement hors dictionnaire : un endonyme ne se traduit pas.
+ */
+export const LOCALE_LABELS: Record<Locale, string> = { fr: "Français", en: "English" }
 
 /** Clé de persistance de la locale dans `localStorage`. */
 export const STORAGE_KEY = "portfolio-locale"
@@ -33,14 +41,22 @@ export function resolve(dictionary: unknown, key: string): string | undefined {
   return typeof value === "string" ? value : undefined
 }
 
-/** Locale initiale : `localStorage`, sinon la langue du navigateur (FR par défaut). */
+/**
+ * Locale initiale : `localStorage` si l'utilisateur a déjà choisi, sinon
+ * l'anglais.
+ *
+ * La langue du navigateur n'est plus consultée : avec un défaut `en`, elle
+ * ne pouvait plus rien décider (un navigateur `en` donnait `en`, tout autre
+ * tombait sur le défaut `en`). Ne la réintroduire que si tu veux que le
+ * site suive la langue du visiteur plutôt que l'anglais.
+ */
 export function detectLocale(): Locale {
-  if (typeof window === "undefined") return "fr"
+  if (typeof window === "undefined") return "en"
 
   const stored = window.localStorage.getItem(STORAGE_KEY)
   if (stored === "fr" || stored === "en") return stored
 
-  return window.navigator.language.toLowerCase().startsWith("en") ? "en" : "fr"
+  return "en"
 }
 
 /** Hook d'accès au dictionnaire — à utiliser dans tout composant affichant du texte. */

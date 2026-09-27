@@ -1,12 +1,20 @@
-import { LOCALES, LOCALE_LABELS, useI18n } from "@/i18n"
+import enFlag from "@/assets/flags/en.svg"
+import frFlag from "@/assets/flags/fr.svg"
+import { LOCALES, LOCALE_LABELS, type Locale, useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
+
+/**
+ * Drapeau de chaque locale. Import simple : Vite renvoie une URL, consommée
+ * par `<img src>` — pas de `?react`, qui produirait un composant.
+ */
+const LOCALE_FLAGS: Record<Locale, string> = { fr: frFlag, en: enFlag }
 
 interface LanguageSwitcherProps {
   className?: string
   accentColor?: string
 }
 
-/** Molecule — FR / EN toggle */
+/** Molecule — drapeau FR / EN toggle */
 export function LanguageSwitcher({ className, accentColor = "#12F7D6" }: LanguageSwitcherProps) {
   const { locale, setLocale, t } = useI18n()
 
@@ -28,13 +36,22 @@ export function LanguageSwitcher({ className, accentColor = "#12F7D6" }: Languag
             type="button"
             onClick={() => setLocale(item)}
             aria-pressed={isActive}
+            aria-label={LOCALE_LABELS[item]}
+            title={LOCALE_LABELS[item]}
             className={cn(
-              "rounded-full px-3 py-1 font-mono text-xs font-bold transition-all duration-300",
-              isActive ? "text-[#292F36]" : "text-gray-300 hover:text-white",
+              "flex items-center justify-center rounded-full p-1 transition-all duration-300",
+              isActive ? "scale-105" : "opacity-50 hover:opacity-100",
             )}
             style={isActive ? { backgroundColor: accentColor } : undefined}
           >
-            {LOCALE_LABELS[item]}
+            <img
+              src={LOCALE_FLAGS[item]}
+              alt=""
+              aria-hidden="true"
+              width={24}
+              height={16}
+              className="h-4 w-6 rounded-[2px] object-cover ring-1 ring-black/30"
+            />
           </button>
         )
       })}
