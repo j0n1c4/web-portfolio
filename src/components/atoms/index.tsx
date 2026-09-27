@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { cn } from "@/lib/utils"
+import { cn, ensureLegibleOn, readableTextColor } from "@/lib/utils"
 import { useI18n } from "@/i18n"
 
 interface BadgeProps {
@@ -376,9 +376,12 @@ export function SkillCircle({ icon: Icon, label, color, className }: SkillCircle
         className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl md:h-28 md:w-28"
         style={{ backgroundColor: color }}
       >
-        <Icon className="h-12 w-12 text-white" />
+        <Icon className="h-12 w-12" style={{ color: readableTextColor(color) }} />
       </div>
-      <span className="font-mono text-lg font-bold" style={{ color }}>
+      <span
+        className="font-mono text-lg font-bold"
+        style={{ color: ensureLegibleOn(color, "#292F36") }}
+      >
         {label}
       </span>
     </div>
