@@ -168,7 +168,7 @@ export function HeroSection({
           </div>
 
           {/* Center Column — texte principal */}
-          <div className="animate-hero-in flex flex-col gap-6 px-4 lg:col-span-6">
+          <div className="animate-hero-in flex flex-col gap-6 lg:col-span-6">
             <div data-reveal className="flex flex-col gap-3">
               <span className="font-mono text-xs font-bold tracking-widest text-gray-300 uppercase">
                 {subtitle}

@@ -40,13 +40,13 @@ export function Footer({
   return (
     <footer
       className={cn(
-        "relative flex flex-col w-full bg-[#000A1F] px-5 py-10",
+        "relative flex flex-col w-full bg-[#000A1F] px-4 py-10",
         showDivider && "border-t border-[#192742]",
         className,
       )}
       style={{ backgroundColor: bgColor }}
     >
-      <div className="m-auto grid w-full max-w-4xl grid-cols-2 items-start justify-between gap-8 sm:grid-cols-3">
+      <div className="m-auto grid w-full max-w-7xl grid-cols-2 items-start justify-between gap-8 sm:grid-cols-3">
         {/* Réseaux sociaux */}
         <div className="mb-5 flex flex-col text-left sm:mb-0">
           <h4 className="text-sm font-bold tracking-widest text-gray-400 uppercase">
@@ -111,7 +111,7 @@ export function Footer({
       {/* Made with + copyright */}
       <div
         data-reveal
-        className="m-auto mt-8 w-full max-w-4xl border-t border-[#192742] pt-6 text-center sm:mt-4 sm:pt-4"
+        className="m-auto mt-8 w-full max-w-7xl border-t border-[#192742] pt-6 text-center sm:mt-4 sm:pt-4"
       >
         <p className="flex flex-col items-center justify-center">
           <span className="inline-flex items-center text-xs font-bold tracking-widest uppercase">

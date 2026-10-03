@@ -76,7 +76,7 @@ export function ContactSection({
         />
       </DoodleLayer>
 
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-8 px-4">
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-8 px-4">
         {/* Titre centré */}
         <div data-reveal className="flex flex-col items-center gap-4 text-center">
           <h2 className="text-3xl font-bold tracking-tighter text-white md:text-5xl">
@@ -105,7 +105,7 @@ export function ContactSection({
         )}
 
         {/* Formulaire */}
-        <div id="contact-form" data-reveal className="w-full pt-6">
+        <div id="contact-form" data-reveal className="w-full max-w-3xl pt-6">
           <ContactForm onSubmit={onSubmit} accentColor={accentColor} />
         </div>
       </div>

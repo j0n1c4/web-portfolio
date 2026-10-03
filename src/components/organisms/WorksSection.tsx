@@ -44,7 +44,9 @@ export function WorksSection({
 
   // 14 réalisations => 03 / 06 / 09 disponibles ; 4 réalisations => 03 seul.
   const perPageOptions = useMemo(() => {
-    const options = PER_PAGE_OPTIONS.filter((option) => option < projects.length);
+    const options = PER_PAGE_OPTIONS.filter(
+      (option) => option < projects.length,
+    );
     return options.length > 0 ? options : [projects.length];
   }, [projects.length]);
 
@@ -112,7 +114,7 @@ export function WorksSection({
         {/* Titre à gauche, sous-titre à droite */}
         <div
           data-reveal
-          className="flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-20"
+          className="flex flex-col justify-between md:flex-row md:items-end md:gap-20"
         >
           <SectionTitle
             title={title ?? t("works.title")}
@@ -126,10 +128,10 @@ export function WorksSection({
 
         {/* Grille paginée — `perPage` réalisations par page */}
         {projects.length > 0 && (
-          <div data-reveal className="flex flex-col gap-12">
+          <div data-reveal className="flex flex-col gap-8">
             <div
               ref={gridRef}
-              className="grid scroll-mt-28 grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3"
+              className="grid scroll-mt-28 grid-cols-1 items-start md:grid-cols-2 md:gap-6 lg:grid-cols-3 gap-6"
             >
               {visibleProjects.map((project) => (
                 <WorkProjectCard

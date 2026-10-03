@@ -68,7 +68,7 @@ export function WorkProjectCard({
       onKeyDown={(e) => e.key === "Enter" && onClick()}
     >
       {/* Visuel — cadre `rounded-xl border p-2` du template */}
-      <div className="rounded-xl border border-[#192742] p-2 transition-colors duration-300 group-hover:border-[#00C7FF]">
+      <div className="rounded-xl border border-[#192742] transition-colors duration-300 group-hover:border-[#00C7FF]">
         <img
           src={project.image}
           alt={project.title}
@@ -126,7 +126,7 @@ export function WorkProjectCard({
         )}
 
         {project.tags && project.tags.length > 0 && (
-          <ul className="mt-3 flex flex-wrap -ml-2 list-none">
+          <ul className="mt-3 flex flex-wrap list-none">
             {project.tags.map((tag) => (
               <li
                 key={tag}

@@ -230,7 +230,7 @@ export function SkillBadge({
 }: SkillBadgeProps) {
   return (
     <span
-      className={cn("rounded-full px-3 py-1 text-xs font-medium", className)}
+      className={cn("rounded-full px-3 py-1 text-sm sm:text-xs font-medium", className)}
       style={{ backgroundColor: accentColor, color: "#000F2E" }}
     >
       {label}
