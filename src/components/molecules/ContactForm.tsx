@@ -32,7 +32,7 @@ type SubmitStatus = "idle" | "sending" | "success" | "error" | "unconfigured"
 const EMPTY_FORM: ContactFormData = { name: "", email: "", subject: "", message: "" }
 
 /** Molecule — validated contact form with floating labels, sent via EmailJS */
-export function ContactForm({ onSubmit, className, accentColor = "#12F7D6" }: ContactFormProps) {
+export function ContactForm({ onSubmit, className, accentColor = "#00C7FF" }: ContactFormProps) {
   const { t } = useI18n()
   const [formData, setFormData] = useState<ContactFormData>(EMPTY_FORM)
   const [errors, setErrors] = useState<FormErrors>({})
@@ -183,7 +183,7 @@ export function ContactForm({ onSubmit, className, accentColor = "#12F7D6" }: Co
             "hover:scale-105 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100",
             status === "success" && "bg-green-500 text-white",
           )}
-          style={status === "success" ? undefined : { backgroundColor: accentColor, color: "#292F36" }}
+          style={status === "success" ? undefined : { backgroundColor: accentColor, color: "#000F2E" }}
         >
           {status === "sending" ? (
             <>

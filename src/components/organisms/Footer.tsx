@@ -1,5 +1,4 @@
 import { CopyrightText, CreditLink } from "@/components/atoms";
-import { FooterDivider } from "@/components/molecules/FooterDivider";
 import {
   FooterSocialLinks,
   type FooterSocialLinkItem,
@@ -20,7 +19,10 @@ interface FooterProps {
   accentColor?: string;
 }
 
-/** Organism — page footer with social links, copyright & credit */
+/**
+ * Organism — footer (design `blue-portfolio` : bord haut cyan, liens en
+ * colonnes, ligne « Made with » et mention de copyright).
+ */
 export function Footer({
   copyright,
   creditName,
@@ -29,50 +31,96 @@ export function Footer({
   showDivider = true,
   showCredit = true,
   className,
-  bgColor = "#1A1E23",
-  accentColor = "#12F7D6",
+  bgColor = "#000A1F",
+  accentColor = "#00C7FF",
 }: FooterProps) {
   const { t } = useI18n()
   const copyrightText = copyright ?? `\u00A9 ${new Date().getFullYear()} ${profile.handle}. ${t("footer.rights")}`;
 
   return (
     <footer
-      className={cn("relative py-8", className)}
+      className={cn(
+        "relative flex flex-col w-full bg-[#000A1F] px-5 py-10",
+        showDivider && "border-t border-[#192742]",
+        className,
+      )}
       style={{ backgroundColor: bgColor }}
     >
-      {/* Top Divider */}
-      {showDivider && (
-        <div className="absolute top-0 right-0 left-0">
-          <FooterDivider accentColor={accentColor} />
-        </div>
-      )}
-
-      <div className="mx-auto max-w-7xl px-4">
-        <div
-          data-reveal
-          className="flex flex-col items-center justify-between gap-6 md:flex-row"
-        >
-          {/* Left — Copyright */}
-          <div className="order-2 md:order-1">
-            <CopyrightText text={copyrightText} />
-          </div>
-
-          {/* Center — Social Links */}
-          <div className="order-1 md:order-2">
+      <div className="m-auto grid w-full max-w-4xl grid-cols-2 items-start justify-between gap-8 sm:grid-cols-3">
+        {/* Réseaux sociaux */}
+        <div className="mb-5 flex flex-col text-left sm:mb-0">
+          <h4 className="text-sm font-bold tracking-widest text-gray-400 uppercase">
+            {t("footer.social")}
+          </h4>
+          <div className="mt-4">
             <FooterSocialLinks links={socialLinks} accentColor={accentColor} />
           </div>
+        </div>
 
-          {/* Right — Credit */}
-          {showCredit && creditName && creditUrl && (
-            <div className="order-3">
+        {/* Navigation / Contact */}
+        <div className="mb-5 flex flex-col text-left sm:mb-0">
+          <h4 className="text-sm font-bold tracking-widest text-gray-400 uppercase">
+            {t("footer.explore")}
+          </h4>
+          <ul className="mt-4 flex flex-col gap-3">
+            {[
+              { label: t("nav.about"), href: "#about" },
+              { label: t("nav.skills"), href: "#skills" },
+              { label: t("nav.projects"), href: "#projects" },
+              { label: t("nav.blog"), href: "#blog" },
+              { label: t("nav.contact"), href: "#contact" },
+            ].map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="text-sm text-gray-300 transition-colors duration-300 hover:text-[#00C7FF]"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Crédit */}
+        {showCredit && creditName && creditUrl ? (
+          <div className="col-span-2 flex flex-col border-t border-[#192742] pt-6 text-left text-gray-400 sm:col-auto sm:mt-0 sm:border-0 sm:pt-0">
+            <h4 className="text-sm font-bold tracking-widest uppercase">
+              {t("footer.credit")}
+            </h4>
+            <div className="mt-4">
               <CreditLink
                 name={creditName}
                 href={creditUrl}
                 accentColor={accentColor}
               />
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="col-span-2 flex flex-col border-t border-[#192742] pt-6 text-left text-gray-400 sm:col-auto sm:mt-0 sm:border-0 sm:pt-0">
+            <h4 className="text-sm font-bold tracking-widest uppercase">
+              {t("footer.stack")}
+            </h4>
+            <p className="mt-4 font-mono text-xs">
+              React · TypeScript · Vite · TailwindCSS
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Made with + copyright */}
+      <div
+        data-reveal
+        className="m-auto mt-8 w-full max-w-4xl border-t border-[#192742] pt-6 text-center sm:mt-4 sm:pt-4"
+      >
+        <p className="flex flex-col items-center justify-center">
+          <span className="inline-flex items-center text-xs font-bold tracking-widest uppercase">
+            {t("footer.madeWith")}
+          </span>
+          <div className="mt-2">
+            <CopyrightText text={copyrightText} />
+          </div>
+        </p>
       </div>
     </footer>
   );

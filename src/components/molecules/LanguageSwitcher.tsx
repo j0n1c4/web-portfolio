@@ -15,7 +15,7 @@ interface LanguageSwitcherProps {
 }
 
 /** Molecule — drapeau FR / EN toggle */
-export function LanguageSwitcher({ className, accentColor = "#12F7D6" }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ className, accentColor = "#00C7FF" }: LanguageSwitcherProps) {
   const { locale, setLocale, t } = useI18n()
 
   return (

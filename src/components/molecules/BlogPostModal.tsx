@@ -14,7 +14,7 @@ interface BlogPostModalProps {
 }
 
 /** Molecule — full article reader. Miroir de `ProjectModal` pour la section blog. */
-export function BlogPostModal({ post, isOpen, onClose, accentColor = "#12F7D6" }: BlogPostModalProps) {
+export function BlogPostModal({ post, isOpen, onClose, accentColor = "#00C7FF" }: BlogPostModalProps) {
   const { t } = useI18n()
 
   // Verrouille le scroll du body quand l'article est ouvert
@@ -46,15 +46,15 @@ export function BlogPostModal({ post, isOpen, onClose, accentColor = "#12F7D6" }
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/85" onClick={onClose} />
 
       {/* Article */}
-      <div className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/10 bg-[#1E242B] shadow-2xl">
+      <div className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/10 bg-[#000C24] shadow-2xl">
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/50 text-white transition-all hover:bg-[#12F7D6] hover:text-[#292F36]"
+          className="absolute top-4 right-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/50 text-white transition-all hover:bg-[#00C7FF] hover:text-[#000F2E]"
           aria-label={t("common.close")}
         >
           <X className="h-5 w-5" />
@@ -63,14 +63,14 @@ export function BlogPostModal({ post, isOpen, onClose, accentColor = "#12F7D6" }
         {/* Cover */}
         <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl">
           <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1E242B] via-[#1E242B]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#000C24] via-[#000C24]/40 to-transparent" />
         </div>
 
         <article className="space-y-6 p-6 md:p-8">
           {/* Meta */}
           <div className="flex flex-wrap items-center gap-4">
             <BlogCategoryBadge category={post.category} />
-            <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-gray-400">
+            <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-gray-300">
               <span className="flex items-center gap-1.5">
                 <CalendarDays className="h-3.5 w-3.5" style={{ color: accentColor }} />
                 {post.date}
@@ -89,7 +89,7 @@ export function BlogPostModal({ post, isOpen, onClose, accentColor = "#12F7D6" }
           </h2>
 
           {/* Standfirst */}
-          <p className="border-l-2 pl-4 text-base text-gray-400" style={{ borderColor: accentColor }}>
+          <p className="border-l-2 pl-4 text-base text-gray-300" style={{ borderColor: accentColor }}>
             {post.excerpt}
           </p>
 

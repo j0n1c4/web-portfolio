@@ -41,10 +41,10 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors cursor-pointer",
+        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border-2 px-8 py-3 text-sm font-bold transition-colors duration-300",
         variant === "primary" &&
-          "bg-primary text-primary-foreground hover:bg-primary/90",
-        variant === "ghost" && "border border-border hover:bg-muted",
+          "border-[#00C7FF] bg-transparent text-white hover:bg-[#00C7FF] hover:text-[#000A1F]",
+        variant === "ghost" && "border-border hover:bg-muted",
         className,
       )}
       {...props}
@@ -55,7 +55,6 @@ export function Button({
 }
 
 import { type LucideIcon } from "lucide-react";
-import { useState } from "react";
 
 interface LogoProps {
   className?: string;
@@ -63,17 +62,26 @@ interface LogoProps {
   codeColor?: string;
 }
 
-/** Atom — site logo with `<C/>` code prefix */
+/** Atom — site logo with `<C/>` code prefix; letters lift on hover (template) */
 export function Logo({
   className,
   text = "j0n1c4",
-  codeColor = "#12F7D6",
+  codeColor = "#00C7FF",
 }: LogoProps) {
   return (
     <a href="/" className={cn("group flex items-center gap-2", className)}>
       <span className="font-mono text-2xl font-bold">
         <span style={{ color: codeColor }}>&lt;C/&gt;</span>
-        <span className="ml-2 text-white">{text}</span>
+        <span className="ml-2 inline-flex text-white">
+          {text.split("").map((letter, index) => (
+            <span
+              key={`${letter}-${index}`}
+              className="transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:text-[#00C7FF]"
+            >
+              {letter}
+            </span>
+          ))}
+        </span>
       </span>
     </a>
   );
@@ -98,13 +106,13 @@ export function NavLink({
       href={href}
       className={cn(
         "relative text-sm font-medium transition-all duration-300",
-        active ? "text-[#12F7D6]" : "text-gray-300 hover:text-[#12F7D6]",
+        active ? "text-[#00C7FF]" : "text-gray-300 hover:text-[#00C7FF]",
         className,
       )}
     >
       {children}
       {active && (
-        <span className="absolute -bottom-1 right-0 left-0 h-0.5 rounded-full bg-[#12F7D6]" />
+        <span className="absolute -bottom-1 right-0 left-0 h-0.5 rounded-full bg-[#00C7FF]" />
       )}
     </a>
   );
@@ -124,7 +132,7 @@ export function SocialIcon({
   href,
   label,
   className,
-  iconColor = "#12F7D6",
+  iconColor = "#00C7FF",
 }: SocialIconProps) {
   return (
     <a
@@ -162,7 +170,7 @@ export function SidebarIcon({
   label,
   active = false,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
   onClick,
 }: SidebarIconProps) {
   return (
@@ -173,8 +181,8 @@ export function SidebarIcon({
       className={cn(
         "flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-300",
         active
-          ? "text-[#292F36]"
-          : "text-white hover:bg-white/5 hover:text-[#12F7D6]",
+          ? "text-[#000F2E]"
+          : "text-white hover:bg-white/5 hover:text-[#00C7FF]",
         className,
       )}
       style={active ? { backgroundColor: accentColor } : undefined}
@@ -196,7 +204,7 @@ export function CodeTag({
   tag,
   closing = false,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: CodeTagProps) {
   return (
     <span
@@ -218,12 +226,12 @@ interface SkillBadgeProps {
 export function SkillBadge({
   label,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: SkillBadgeProps) {
   return (
     <span
       className={cn("rounded-full px-3 py-1 text-xs font-medium", className)}
-      style={{ backgroundColor: accentColor, color: "#292F36" }}
+      style={{ backgroundColor: accentColor, color: "#000F2E" }}
     >
       {label}
     </span>
@@ -242,7 +250,7 @@ export function InfoRow({
   icon: Icon,
   text,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: InfoRowProps) {
   return (
     <div className={cn("flex items-center gap-3 text-sm", className)}>
@@ -264,7 +272,7 @@ export function StatItem({
   value,
   label,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: StatItemProps) {
   return (
     <div className={cn("flex items-center gap-4", className)}>
@@ -285,53 +293,61 @@ interface SectionTitleProps {
   accentColor?: string;
 }
 
-/** Atom — section heading: "corner" (About) or "centered" with decorative line (Skills) */
+/**
+ * Atom — titre de section.
+ *
+ * La ligne d'accent est un vrai élément en flex (`flex-1`) et non un
+ * pseudo-element : elle remplit exactement la place restante, donc jamais de
+ * débordement horizontal (le `100vw` d'avant sortait de l'écran et、推动ait
+ * la mise en page).
+ */
 export function SectionTitle({
   title,
   subtitle,
   variant = "corner",
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: SectionTitleProps & { variant?: "corner" | "centered" }) {
   if (variant === "centered") {
     return (
-      <div className={cn("space-y-4 text-center", className)}>
-        <h2
-          className="text-5xl font-bold md:text-6xl"
-          style={{ color: accentColor }}
-        >
+      <div
+        className={cn(
+          "flex flex-col items-center gap-4 text-center",
+          className,
+        )}
+      >
+        <span
+          aria-hidden="true"
+          className="h-2 w-[150px] rounded-full"
+          style={{ backgroundColor: accentColor }}
+        />
+        <h2 className="text-3xl font-bold tracking-tighter text-white md:text-5xl">
           {title}
         </h2>
-        {/* Decorative line with dots */}
-        <div className="flex items-center justify-center gap-2">
-          <div
-            className="h-2 w-2 rounded-full"
-            style={{ backgroundColor: accentColor }}
-          />
-          <div
-            className="h-0.5 w-24"
-            style={{ backgroundColor: accentColor }}
-          />
-          <div
-            className="h-2 w-2 rounded-full"
-            style={{ backgroundColor: accentColor }}
-          />
-        </div>
-        {subtitle && (
-          <p className="font-mono text-sm text-gray-300">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-sm text-gray-400">{subtitle}</p>}
       </div>
     );
   }
+
   return (
-    <div
-      className={cn(
-        "inline-block rounded-tl-3xl border-b-2 border-l-2 px-8 py-4 text-4xl font-bold text-white md:text-5xl",
-        className,
-      )}
-      style={{ borderColor: accentColor, backgroundColor: "#292F36" }}
-    >
-      {title}
+    <div className={cn("flex flex-col gap-3", className)}>
+      {/* Filet court sur mobile, ligne jusqu'au bord de la colonne dès `md` */}
+      <span
+        aria-hidden="true"
+        className="h-1 w-14 rounded-full md:hidden"
+        style={{ backgroundColor: accentColor }}
+      />
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
+        <h2 className="text-3xl font-bold tracking-tighter text-white md:text-5xl">
+          {title}
+        </h2>
+        <span
+          aria-hidden="true"
+          className="hidden h-px flex-1 md:block"
+          style={{ backgroundColor: `${accentColor}80` }}
+        />
+      </div>
+      {subtitle && <p className="text-sm text-gray-400">{subtitle}</p>}
     </div>
   );
 }
@@ -346,7 +362,7 @@ interface HighlightTextProps {
 export function HighlightText({
   children,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: HighlightTextProps) {
   return (
     <span
@@ -366,17 +382,17 @@ interface ScrollIndicatorProps {
 /** Atom — animated scroll cue (oval + dashed line + diamond) */
 export function ScrollIndicator({
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: ScrollIndicatorProps) {
   return (
     <div className={cn("flex flex-col items-center gap-2", className)}>
       {/* Oval */}
       <div
-        className="flex h-10 w-6 items-start justify-center rounded-full border-2 pt-2"
+        className="flex h-10 w-6 animate-float items-start justify-center rounded-full border-2 pt-2"
         style={{ borderColor: accentColor }}
       >
         <div
-          className="h-1.5 w-1.5 animate-bounce rounded-full"
+          className="h-1.5 w-1.5 rounded-full"
           style={{ backgroundColor: accentColor }}
         />
       </div>
@@ -402,7 +418,7 @@ interface CodeIconProps {
 /** Atom — decorative `</>` code glyph */
 export function CodeIcon({
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: CodeIconProps) {
   return (
     <div className={cn("font-mono text-6xl font-bold md:text-8xl", className)}>
@@ -427,7 +443,7 @@ export function SkillCard({
   title,
   subtitle,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: SkillCardProps) {
   return (
     <div
@@ -438,9 +454,9 @@ export function SkillCard({
       style={{ backgroundColor: accentColor, borderColor: accentColor }}
     >
       <div className="absolute top-0 right-0 h-20 w-20 rounded-bl-full bg-white/10" />
-      <Icon className="mb-3 h-8 w-8 text-[#292F36]!" />
-      <h4 className="mb-1 text-lg font-bold text-[#292F36]!">{title}</h4>
-      <p className="font-mono text-sm text-[#292F36]/80!">{subtitle}</p>
+      <Icon className="mb-3 h-8 w-8 text-[#000F2E]!" />
+      <h4 className="mb-1 text-lg font-bold text-[#000F2E]!">{title}</h4>
+      <p className="font-mono text-sm text-[#000F2E]/80!">{subtitle}</p>
     </div>
   );
 }
@@ -472,7 +488,7 @@ export function SkillCircle({
       </div>
       <span
         className="font-mono text-lg font-bold"
-        style={{ color: ensureLegibleOn(color, "#292F36") }}
+        style={{ color: ensureLegibleOn(color, "#000F2E") }}
       >
         {label}
       </span>
@@ -494,7 +510,7 @@ export function CarouselButton({
   onClick,
   direction,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: CarouselButtonProps) {
   const { t } = useI18n();
 
@@ -530,7 +546,7 @@ export function DotIndicator({
   currentIndex,
   onDotClick,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: DotIndicatorProps) {
   const { t } = useI18n();
 
@@ -572,7 +588,7 @@ export function BlogCategoryBadge({
   return (
     <span
       className={cn(
-        "rounded-full border border-[#12F7D6]/20 bg-[#12F7D6]/10 px-3 py-1 text-xs font-medium text-[#12F7D6]",
+        "rounded-full border border-[#00C7FF]/20 bg-[#00C7FF]/10 px-3 py-1 text-xs font-medium text-[#00C7FF]",
         className,
       )}
     >
@@ -609,7 +625,7 @@ export function ReadMoreLink({
   href,
   onClick,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: ReadMoreLinkProps) {
   const { t } = useI18n();
   const Component = href ? "a" : "button";
@@ -642,7 +658,7 @@ interface FloatingLabelInputProps {
   accentColor?: string;
 }
 
-/** Atom — text input with floating label (Material style) */
+/** Atom — champ texte avec label au-dessus (style `blue-portfolio`) */
 export function FloatingLabelInput({
   id,
   label,
@@ -652,41 +668,29 @@ export function FloatingLabelInput({
   required = false,
   error,
   className,
-  accentColor = "#12F7D6",
 }: FloatingLabelInputProps) {
-  const [isFocused, setIsFocused] = useState(false);
-  const hasValue = value.length > 0;
-  const isLabelFloating = isFocused || hasValue;
-
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("flex flex-col gap-2", className)}>
+      <label htmlFor={id} className="font-mono text-xs text-gray-400">
+        {label}
+        {required && " *"}
+      </label>
       <input
         id={id}
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         required={required}
         className={cn(
-          "w-full border-b-2 bg-transparent pb-2 pt-6 text-base outline-none transition-colors duration-300",
-          error ? "border-red-500" : "border-gray-600 focus:border-[#12F7D6]",
+          "w-full rounded-lg border bg-[#000F2E] px-4 py-3 text-base outline-none transition-colors duration-300",
+          error
+            ? "border-red-400"
+            : "border-[#3E5480] hover:border-[#4E639C] focus:border-[#00C7FF]",
         )}
         style={{ color: "#fff" }}
       />
-      <label
-        htmlFor={id}
-        className={cn(
-          "pointer-events-none absolute left-0 transition-all duration-300",
-          isLabelFloating ? "top-0 text-xs" : "top-6 text-base",
-        )}
-        style={{ color: accentColor }}
-      >
-        {label}
-        {required && " *"}
-      </label>
       {error && (
-        <p className="mt-1 text-xs text-red-500" role="alert">
+        <p className="text-xs text-red-500" role="alert">
           {error}
         </p>
       )}
@@ -706,7 +710,7 @@ interface FloatingLabelTextareaProps {
   accentColor?: string;
 }
 
-/** Atom — textarea with floating label (Material style) */
+/** Atom — zone de texte avec label au-dessus (style `blue-portfolio`) */
 export function FloatingLabelTextarea({
   id,
   label,
@@ -716,41 +720,29 @@ export function FloatingLabelTextarea({
   error,
   rows = 4,
   className,
-  accentColor = "#12F7D6",
 }: FloatingLabelTextareaProps) {
-  const [isFocused, setIsFocused] = useState(false);
-  const hasValue = value.length > 0;
-  const isLabelFloating = isFocused || hasValue;
-
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("flex flex-col gap-2", className)}>
+      <label htmlFor={id} className="font-mono text-xs text-gray-400">
+        {label}
+        {required && " *"}
+      </label>
       <textarea
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         required={required}
         rows={rows}
         className={cn(
-          "w-full resize-none border-b-2 bg-transparent pb-2 pt-6 text-base outline-none transition-colors duration-300",
-          error ? "border-red-500" : "border-gray-600 focus:border-[#12F7D6]",
+          "w-full resize-none rounded-lg border bg-[#000F2E] px-4 py-3 text-base outline-none transition-colors duration-300",
+          error
+            ? "border-red-400"
+            : "border-[#3E5480] hover:border-[#4E639C] focus:border-[#00C7FF]",
         )}
         style={{ color: "#fff" }}
       />
-      <label
-        htmlFor={id}
-        className={cn(
-          "pointer-events-none absolute left-0 transition-all duration-300",
-          isLabelFloating ? "top-0 text-xs" : "top-6 text-base",
-        )}
-        style={{ color: accentColor }}
-      >
-        {label}
-        {required && " *"}
-      </label>
       {error && (
-        <p className="mt-1 text-xs text-red-500" role="alert">
+        <p className="text-xs text-red-500" role="alert">
           {error}
         </p>
       )}
@@ -772,7 +764,7 @@ export function FooterSocialIcon({
   href,
   label,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: FooterSocialIconProps) {
   return (
     <a
@@ -786,7 +778,7 @@ export function FooterSocialIcon({
       )}
       style={{ backgroundColor: accentColor }}
     >
-      <Icon className="h-5 w-5" style={{ color: "#292F36" }} />
+      <Icon className="h-5 w-5" style={{ color: "#000F2E" }} />
     </a>
   );
 }
@@ -815,7 +807,7 @@ export function CreditLink({
   name,
   href,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: CreditLinkProps) {
   const Component = href ? "a" : "span";
 

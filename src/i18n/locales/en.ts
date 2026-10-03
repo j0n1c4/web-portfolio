@@ -17,6 +17,7 @@ const en: Dictionary = {
   hero: {
     headline: "Developer",
     cta: "Contact me",
+    ctaProjects: "View my work",
     downloadCv: "Download CV",
     badge: "Developer & DevOps engineer",
     location: "Location",
@@ -58,6 +59,8 @@ const en: Dictionary = {
       "Products running in production and hackathon work, from research to deployment.",
     viewDetails: "View details",
     technologies: "Technologies used",
+    collaborators: "Collaborators",
+    with: "with",
     viewLive: "View live site",
     viewCode: "View code",
   },
@@ -95,6 +98,11 @@ const en: Dictionary = {
   },
   footer: {
     rights: "All rights reserved.",
+    social: "Social",
+    explore: "Explore",
+    credit: "Credit",
+    stack: "Stack",
+    madeWith: "Made with",
   },
   common: {
     previous: "Previous achievement",

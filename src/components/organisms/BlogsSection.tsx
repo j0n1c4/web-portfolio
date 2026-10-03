@@ -1,7 +1,8 @@
-import { ScrollIndicator, SectionTitle } from "@/components/atoms";
+import { SectionTitle } from "@/components/atoms";
 import { BlogCard, type BlogPost } from "@/components/molecules/BlogCard";
 import { BlogCTAButtons } from "@/components/molecules/BlogCTAButtons";
 import { BlogPostModal } from "@/components/molecules/BlogPostModal";
+import { Doodle, DoodleLayer } from "@/components/molecules/Doodles";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -14,7 +15,6 @@ interface BlogsSectionProps {
   title?: string;
   subtitle?: string;
   posts?: BlogPost[];
-  showScrollIndicator?: boolean;
   showCTAButtons?: boolean;
   /** Remplace la bascule « Voir plus / Voir moins » interne. */
   onViewMore?: () => void;
@@ -26,19 +26,18 @@ interface BlogsSectionProps {
   accentColor?: string;
 }
 
-/** Organism — blog posts list with CTA buttons */
+/** Organism — articles du blog en grille (mêmes cartes que les projets) */
 export function BlogsSection({
   title,
   subtitle,
   posts = [],
-  showScrollIndicator = true,
   showCTAButtons = true,
   onViewMore,
   onSubscribe,
   onReadMore,
   className,
-  bgColor = "#292F36",
-  accentColor = "#12F7D6",
+  bgColor = "#000A1F",
+  accentColor = "#00C7FF",
 }: BlogsSectionProps) {
   const { t } = useI18n()
   const [visiblePosts, setVisiblePosts] = useState(posts.slice(0, PREVIEW_POSTS));
@@ -83,43 +82,67 @@ export function BlogsSection({
   return (
     <section
       id="blog"
-      className={cn("relative py-24 md:py-32", className)}
+      className={cn("relative overflow-hidden py-24 md:py-32", className)}
       style={{ backgroundColor: bgColor }}
     >
-      <div className="mx-auto max-w-5xl px-4">
-        {/* Scroll Indicator */}
-        {showScrollIndicator && (
-          <div data-reveal className="mb-16 flex justify-center">
-            <ScrollIndicator accentColor={accentColor} />
-          </div>
-        )}
+      <DoodleLayer>
+        <Doodle
+          src="/static/doodles/testimonials/speech.svg"
+          position="right-[6%] top-[8%] hidden lg:block"
+          width={68}
+          opacity={0.55}
+          delay={0.9}
+        />
+        <Doodle
+          src="/static/doodles/testimonials/underline.svg"
+          position="left-[34%] top-[3%] hidden md:block"
+          width={96}
+          opacity={0.5}
+          delay={2.1}
+        />
+        <Doodle
+          src="/static/doodles/testimonials/squiggle2.svg"
+          position="left-[4%] bottom-[10%] hidden xl:block"
+          width={42}
+          opacity={0.5}
+          delay={3.2}
+        />
+      </DoodleLayer>
 
-        {/* Section Title */}
-        <div data-reveal className="mb-16">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 md:gap-20">
+        {/* Titre à gauche, sous-titre à droite */}
+        <div
+          data-reveal
+          className="flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-20"
+        >
           <SectionTitle
-            variant="centered"
             title={title ?? t("blog.title")}
-            subtitle={subtitle ?? t("blog.subtitle")}
+            className="shrink-0 md:max-w-lg"
             accentColor={accentColor}
           />
+          <p className="max-w-md text-base text-gray-300">
+            {subtitle ?? t("blog.subtitle")}
+          </p>
         </div>
 
-        {/* Blog Posts List */}
-        <div data-reveal className="space-y-0">
-          {visiblePosts.map((post, index) => (
+        {/* Grille d'articles */}
+        <div
+          data-reveal
+          className="grid grid-cols-1 items-start gap-x-6 gap-y-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-20"
+        >
+          {visiblePosts.map((post) => (
             <BlogCard
               key={post.id}
               post={post}
               onReadMore={openPost}
               accentColor={accentColor}
-              className={index === 0 ? "border-t-2" : ""}
             />
           ))}
         </div>
 
         {/* CTA Buttons */}
         {showCTAButtons && visiblePosts.length > 0 && (
-          <div data-reveal className="mt-16">
+          <div data-reveal className="flex justify-center">
             <BlogCTAButtons
               onToggle={handleToggle}
               onSubscribe={handleSubscribe}

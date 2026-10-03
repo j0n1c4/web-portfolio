@@ -26,14 +26,14 @@ export function Sidebar({
   activeItem = "hero",
   onItemClick,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: SidebarProps) {
   const { t } = useI18n()
 
   return (
     <div
       className={cn(
-        "fixed top-1/2 left-6 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 rounded-full border border-white/20 bg-[#292F36]/80 p-3 backdrop-blur-sm lg:flex",
+        "fixed top-1/2 left-6 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 rounded-full border border-white/20 bg-[#000F2E]/80 p-3 backdrop-blur-sm lg:flex",
         className,
       )}
     >

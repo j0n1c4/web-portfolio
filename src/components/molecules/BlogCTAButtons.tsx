@@ -22,7 +22,7 @@ export function BlogCTAButtons({
   subscribeText,
   showToggle = true,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: BlogCTAButtonsProps) {
   const { t } = useI18n()
 
@@ -34,7 +34,7 @@ export function BlogCTAButtons({
           type="button"
           onClick={onToggle}
           className="cursor-pointer rounded-full px-8 py-3 font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          style={{ backgroundColor: accentColor, color: "#292F36" }}
+          style={{ backgroundColor: accentColor, color: "#000F2E" }}
         >
           {toggleText}
         </button>
@@ -48,7 +48,7 @@ export function BlogCTAButtons({
         style={{ borderColor: accentColor, color: accentColor }}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = accentColor
-          e.currentTarget.style.color = "#292F36"
+          e.currentTarget.style.color = "#000F2E"
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.backgroundColor = "transparent"

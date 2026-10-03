@@ -20,7 +20,7 @@ export function CarouselControls({
   onNext,
   onDotClick,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: CarouselControlsProps) {
   return (
     <div className={cn("mt-12 flex items-center justify-center gap-8", className)}>

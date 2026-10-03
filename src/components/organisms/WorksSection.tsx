@@ -1,6 +1,6 @@
-import BG_WORK from "@/assets/background/work.svg";
-import { ScrollIndicator, SectionTitle } from "@/components/atoms";
+import { SectionTitle } from "@/components/atoms";
 import { CarouselControls } from "@/components/molecules/CarouselControls";
+import { Doodle, DoodleLayer } from "@/components/molecules/Doodles";
 import { ProjectModal } from "@/components/molecules/ProjectModal";
 import {
   WorkProjectCard,
@@ -8,60 +8,50 @@ import {
 } from "@/components/molecules/WorkProjectCard";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+
+/** Nombre de projets affichés par page. */
+const PROJECTS_PER_PAGE = 3;
 
 interface WorksSectionProps {
   title?: string;
   subtitle?: string;
   projects?: WorkProject[];
-  showScrollIndicator?: boolean;
   className?: string;
-  bgColor?: string;
   accentColor?: string;
 }
 
-/** Organism — projects carousel (2 per slide) with detail modal */
+/**
+ * Organism — réalisations paginées par 3 (design `blue-portfolio` :
+ * cartes `rounded-xl border p-2`, hover `-translate-y-2` + bordure cyan) avec
+ * la modale de détail conservée.
+ */
 export function WorksSection({
   title,
   subtitle,
   projects = [],
-  showScrollIndicator = true,
   className,
-  bgColor = BG_WORK,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: WorksSectionProps) {
-  const { t } = useI18n()
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const { t } = useI18n();
+  const [page, setPage] = useState(0);
   const [selectedProject, setSelectedProject] = useState<WorkProject | null>(
     null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Group projects into pairs (2 per slide)
-  const slides = useMemo(() => {
-    const result: WorkProject[][] = [];
-    for (let i = 0; i < projects.length; i += 2) {
-      result.push(projects.slice(i, i + 2));
-    }
-    return result;
-  }, [projects]);
-
-  const totalSlides = slides.length;
-
-  const goToSlide = useCallback(
-    (index: number) => {
-      setCurrentSlide(Math.max(0, Math.min(index, totalSlides - 1)));
-    },
-    [totalSlides],
+  const totalPages = Math.max(1, Math.ceil(projects.length / PROJECTS_PER_PAGE));
+  const visibleProjects = useMemo(
+    () =>
+      projects.slice(
+        page * PROJECTS_PER_PAGE,
+        page * PROJECTS_PER_PAGE + PROJECTS_PER_PAGE,
+      ),
+    [projects, page],
   );
 
-  const next = useCallback(() => {
-    goToSlide((currentSlide + 1) % totalSlides);
-  }, [currentSlide, totalSlides, goToSlide]);
-
-  const prev = useCallback(() => {
-    goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
-  }, [currentSlide, totalSlides, goToSlide]);
+  const goToPage = (index: number) =>
+    setPage(Math.max(0, Math.min(index, totalPages - 1)));
 
   const openModal = (project: WorkProject) => {
     setSelectedProject(project);
@@ -77,75 +67,74 @@ export function WorksSection({
     <section
       id="projects"
       className={cn(
-        "relative isolate overflow-hidden bg-[#1A1E23] py-24 md:py-32",
+        "relative isolate w-full overflow-hidden bg-[#000A1F] py-24 md:py-32",
         className,
       )}
     >
-      {/* Background layer — aplat sur mobile, image à partir de lg */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 hidden scale-110 bg-cover bg-center bg-no-repeat lg:block"
-        style={{ backgroundImage: `url("${bgColor}")` }}
-      />
+      <DoodleLayer>
+        <Doodle
+          src="/static/doodles/projects/ahh.svg"
+          position="right-[8%] top-[6%] hidden lg:block"
+          width={104}
+          opacity={0.5}
+          delay={0.5}
+        />
+        <Doodle
+          src="/static/doodles/projects/ooh.svg"
+          position="right-[20%] top-[26%] hidden xl:block"
+          width={96}
+          opacity={0.45}
+          delay={1.8}
+        />
+        <Doodle
+          src="/static/doodles/projects/squiggle.svg"
+          position="left-[3%] bottom-[14%] hidden lg:block"
+          width={52}
+          opacity={0.5}
+          delay={2.6}
+        />
+      </DoodleLayer>
 
-      <div className="mx-auto max-w-7xl px-4 z-20">
-        {/* Scroll Indicator */}
-        {showScrollIndicator && (
-          <div className="mb-16 flex justify-center">
-            <ScrollIndicator accentColor={accentColor} />
-          </div>
-        )}
-
-        {/* Section Title */}
-        <div className="mb-20">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 md:gap-16">
+        {/* Titre à gauche, sous-titre à droite */}
+        <div
+          data-reveal
+          className="flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-20"
+        >
           <SectionTitle
-            variant="centered"
             title={title ?? t("works.title")}
-            subtitle={subtitle ?? t("works.subtitle")}
+            className="shrink-0 md:max-w-lg"
             accentColor={accentColor}
           />
+          <p className="max-w-md text-base text-gray-300">
+            {subtitle ?? t("works.subtitle")}
+          </p>
         </div>
 
-        {/* Carousel Container */}
-        {totalSlides > 0 && (
-          <div className="relative mx-auto max-w-6xl">
-          {/* Slides Track */}
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-              {slides.map((slideProjects, slideIndex) => (
-                <div key={slideIndex} className="w-full shrink-0 px-4">
-                  <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-                    {slideProjects.map((project) => (
-                      <WorkProjectCard
-                        key={project.id}
-                        project={project}
-                        onClick={() => openModal(project)}
-                        accentColor={accentColor}
-                      />
-                    ))}
-
-                    {/* Empty placeholder if odd number of projects */}
-                    {slideProjects.length === 1 && (
-                      <div className="hidden md:block" />
-                    )}
-                  </div>
-                </div>
+        {/* Grille de projets — 3 par page */}
+        {projects.length > 0 && (
+          <div data-reveal className="flex flex-col gap-12">
+            <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+              {visibleProjects.map((project) => (
+                <WorkProjectCard
+                  key={project.id}
+                  project={project}
+                  onClick={() => openModal(project)}
+                  accentColor={accentColor}
+                />
               ))}
             </div>
-          </div>
 
-          {/* Controls */}
-          <CarouselControls
-            total={totalSlides}
-            currentIndex={currentSlide}
-            onPrev={prev}
-            onNext={next}
-            onDotClick={goToSlide}
-            accentColor={accentColor}
-          />
+            {totalPages > 1 && (
+              <CarouselControls
+                total={totalPages}
+                currentIndex={page}
+                onPrev={() => goToPage(page - 1)}
+                onNext={() => goToPage(page + 1)}
+                onDotClick={goToPage}
+                accentColor={accentColor}
+              />
+            )}
           </div>
         )}
       </div>

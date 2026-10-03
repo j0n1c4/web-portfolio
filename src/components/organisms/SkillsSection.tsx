@@ -1,5 +1,5 @@
-import { CodeIcon, ScrollIndicator, SectionTitle } from "@/components/atoms";
-import { DividerLine } from "@/components/molecules/DividerLine";
+import { SectionTitle } from "@/components/atoms";
+import { Doodle, DoodleLayer } from "@/components/molecules/Doodles";
 import { SkillsColumn } from "@/components/molecules/SkillsColumn";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -30,7 +30,10 @@ interface SkillsSectionProps {
   accentColor?: string;
 }
 
-/** Organism — skills section split into DEV / DEVOPS columns */
+/**
+ * Organism — section Expertise (design `blue-portfolio` : titre à gauche,
+ * paragraphe à droite, grille d'icônes centrée).
+ */
 export function SkillsSection({
   title,
   subtitle,
@@ -39,8 +42,8 @@ export function SkillsSection({
   devopsCategories = [],
   devopsSkills = [],
   className,
-  bgColor = "#292F36",
-  accentColor = "#12F7D6",
+  bgColor = "#000A1F",
+  accentColor = "#00C7FF",
 }: SkillsSectionProps) {
   const { t } = useI18n();
 
@@ -58,33 +61,62 @@ export function SkillsSection({
       className={cn("relative overflow-hidden py-24 md:py-32", className)}
       style={{ backgroundColor: bgColor }}
     >
-      {/* Code Icon Decoration */}
-      <div className="absolute top-20 right-10 opacity-20 md:right-20">
-        <CodeIcon accentColor={accentColor} />
-      </div>
+      <DoodleLayer>
+        <Doodle
+          src="/static/doodles/skills/laptop.svg"
+          position="left-[4%] top-[12%] hidden lg:block"
+          width={130}
+          opacity={0.4}
+          delay={0.3}
+        />
+        <Doodle
+          src="/static/doodles/skills/coding.svg"
+          position="left-1/2 top-[2%] hidden -translate-x-1/2 md:block"
+          width={72}
+          opacity={0.5}
+          delay={1.4}
+        />
+        <Doodle
+          src="/static/doodles/skills/youtube.svg"
+          position="right-[5%] top-[16%] hidden lg:block"
+          width={74}
+          opacity={0.5}
+          delay={2.2}
+        />
+        <Doodle
+          src="/static/doodles/skills/fillStar.svg"
+          position="left-[12%] bottom-[8%] hidden xl:block"
+          width={52}
+          opacity={0.5}
+          delay={3}
+        />
+        <Doodle
+          src="/static/doodles/skills/star-outline.svg"
+          position="right-[10%] bottom-[10%] hidden xl:block"
+          width={44}
+          opacity={0.45}
+          delay={1.7}
+        />
+      </DoodleLayer>
 
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Scroll Indicator */}
-        <div data-reveal className="mb-16 flex justify-center">
-          <ScrollIndicator accentColor={accentColor} />
-        </div>
-
-        {/* Section Title */}
-        <div data-reveal className="mb-20">
-          <SectionTitle
-            variant="centered"
-            title={title ?? t("skills.title")}
-            subtitle={subtitle ?? t("skills.subtitle")}
-            accentColor={accentColor}
-          />
-        </div>
-
-        {/* Skills Grid with Divider */}
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 md:gap-12">
+        {/* Titre à gauche, paragraphe à droite */}
         <div
           data-reveal
-          className="grid items-start gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-12"
+          className="flex flex-col justify-between gap-6 md:flex-row md:gap-20"
         >
-          {/* DEV Column */}
+          <SectionTitle
+            title={title ?? t("skills.title")}
+            className="shrink-0 md:max-w-lg"
+            accentColor={accentColor}
+          />
+          <p className="max-w-md self-end pb-2 text-base text-gray-300">
+            {subtitle ?? t("skills.subtitle")}
+          </p>
+        </div>
+
+        {/* Colonnes DEV / DEVOPS */}
+        <div data-reveal className="flex flex-col gap-14">
           <SkillsColumn
             title={t("skills.dev")}
             categories={resolveCategories(devCategories)}
@@ -94,10 +126,8 @@ export function SkillsSection({
             accentColor={accentColor}
           />
 
-          {/* Vertical Divider */}
-          <DividerLine accentColor={accentColor} className="hidden lg:flex" />
+          <div className="border-t border-[#192742]" />
 
-          {/* DEVOPS Column */}
           <SkillsColumn
             title={t("skills.devops")}
             categories={resolveCategories(devopsCategories)}

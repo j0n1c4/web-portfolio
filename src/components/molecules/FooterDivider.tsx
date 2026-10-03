@@ -6,7 +6,7 @@ interface FooterDividerProps {
 }
 
 /** Molecule — thin accent divider line */
-export function FooterDivider({ className, accentColor = "#12F7D6" }: FooterDividerProps) {
+export function FooterDivider({ className, accentColor = "#00C7FF" }: FooterDividerProps) {
   return (
     <div
       className={cn("h-px w-full", className)}

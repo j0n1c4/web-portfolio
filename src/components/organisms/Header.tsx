@@ -28,8 +28,8 @@ export function Header({
   socialLinks = [],
   activeSection,
   className,
-  bgColor = "#292F36",
-  accentColor = "#12F7D6",
+  bgColor = "#000F2E",
+  accentColor = "#00C7FF",
 }: HeaderProps) {
   const { t } = useI18n()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -79,7 +79,7 @@ export function Header({
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className="p-2 text-white transition-colors hover:text-[#12F7D6] md:hidden"
+            className="p-2 text-white transition-colors hover:text-[#00C7FF] md:hidden"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label={isMobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
           >

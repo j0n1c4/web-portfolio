@@ -1,5 +1,9 @@
-@import "@fontsource-variable/sora";
-@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource/be-vietnam-pro/300.css";
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/dm-mono/400.css";
+@import "@fontsource/dm-mono/500.css";
 @import "tailwindcss";
 
 @theme {
@@ -7,21 +11,39 @@
      FOUT. `index.css` est le seul endroit où elles sont déclarées : le token
      `--font-sans` alimente `body`, `--font-mono` alimente les ~30 usages de
      l'utilitaire `font-mono` (labels, badges, code). */
-  --font-sans: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
-    "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas,
-    monospace;
+    "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --color-background: #0a0a0a;
-  --color-foreground: #fafafa;
-  --color-muted: #262626;
-  --color-muted-foreground: #a3a3a3;
-  --color-primary: #8b5cf6;
-  --color-primary-foreground: #fafafa;
-  --color-border: #262626;
+  /* Palette bleu nuit du template `blue-portfolio`. Les noms du template
+     (`fun-pink`…) sont conservés en commentaire : `#00c7ff` est un cyan, le
+     nom n'a de sens que pour ceux qui ont lu sa config Tailwind. */
+  --color-background: #000a1f; /* bg */
+  --color-foreground: #ffffff;
+  --color-muted: #000f2e; /* fun-pink-darker */
+  --color-muted-foreground: #9aa8c4; /* fun-gray, éclairci pour le contraste */
+  --color-primary: #00c7ff; /* fun-pink */
+  --color-primary-foreground: #000a1f;
+  --color-border: #192742; /* fun-pink-dark */
+
+  --color-accent: #00c7ff;
+  --color-accent-light: #009ac5; /* fun-pink-light */
+  --color-surface: #000c24; /* fun-pink-darkest */
+  --color-surface-2: #000f2e; /* fun-pink-darker */
+  --color-panel: #192742; /* fun-pink-dark */
+  --color-fg-dim: #b2bbcf; /* fun-gray-light */
+
+  /* Échelle de gris reteintée : le template n'a que des gris bleutés. */
+  --color-gray-200: #d5ddee;
+  --color-gray-300: #c2cce0; /* fun-gray-light */
+  --color-gray-400: #aab7d0;
+  --color-gray-500: #95a4c2; /* fun-gray */
+  --color-gray-600: #2b3f66;
 
   --animate-marquee: marquee var(--duration) linear infinite;
   --animate-border-beam: border-beam calc(var(--duration) * 1s) infinite linear;
+  --animate-hero-in: hero-in 1.5s cubic-bezier(0.87, 0, 0.13, 1) both;
+  --animate-float: float 2s ease-in-out infinite;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -32,10 +54,38 @@
     0% { offset-distance: 0%; }
     100% { offset-distance: 100%; }
   }
+
+  /* Entrée du hero : le texte arrive en zoom, pas en fondu. */
+  @keyframes hero-in {
+    from { opacity: 0; transform: scale(4); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
 }
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #ffffff26 transparent;
+  scrollbar-width: thin;
+}
+
+/* Scrollbar du template : 8 px, translucide, flouté sur le pouce. */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #ffffff26;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
 }
 
 /* Même exigence que le JS (src/lib/gsap.ts) : si l'utilisateur demande des
@@ -43,6 +93,11 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .animate-hero-in,
+  .animate-float {
+    animation: none !important;
   }
 }
 

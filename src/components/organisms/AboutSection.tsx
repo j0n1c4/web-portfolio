@@ -1,8 +1,8 @@
-import BG_ABOUT_ME from "@/assets/background/about-me.svg";
 import IMG_ABOUT_ME from "@/assets/me/about-me.jpeg";
-import { InfoRow, ScrollIndicator, SectionTitle } from "@/components/atoms";
+import { InfoRow, SectionTitle } from "@/components/atoms";
 import { AboutContent } from "@/components/molecules/AboutContent";
 import { AboutImage } from "@/components/molecules/AboutImage";
+import { Doodle, DoodleLayer } from "@/components/molecules/Doodles";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
@@ -27,11 +27,13 @@ interface AboutSectionProps {
   imageSrc?: string;
   imageAlt?: string;
   className?: string;
-  bgColor?: string;
   accentColor?: string;
 }
 
-/** Organism — about me section with scroll indicator, title, content & image */
+/**
+ * Organism — section « À propos » (design `blue-portfolio` : titre à gauche avec
+ * barre cyan, contenu à droite, aucune carte, aucun fond illustré).
+ */
 export function AboutSection({
   title,
   greeting,
@@ -41,8 +43,7 @@ export function AboutSection({
   imageSrc = IMG_ABOUT_ME,
   imageAlt = "About me coding",
   className,
-  bgColor = BG_ABOUT_ME,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: AboutSectionProps) {
   const { t } = useI18n();
 
@@ -50,59 +51,81 @@ export function AboutSection({
     <section
       id="about"
       className={cn(
-        "relative isolate w-full overflow-hidden bg-[#1A1E23] py-24 md:py-28",
+        "relative isolate w-full overflow-hidden bg-[#000A1F] py-24 md:py-32",
         className,
       )}
     >
-      {/* Background layer — aplat sur mobile, image à partir de lg */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 hidden bg-cover bg-center bg-no-repeat lg:block"
-        style={{ backgroundImage: `url("${bgColor}")` }}
-      />
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Scroll Indicator */}
-        <div className="mb-16 flex justify-center">
-          <ScrollIndicator accentColor={accentColor} />
-        </div>
+      <DoodleLayer>
+        <Doodle
+          src="/static/doodles/banner-right.svg"
+          position="right-[-60px] top-[6%] hidden opacity-70 xl:block"
+          width={420}
+          opacity={0.28}
+          delay={0.2}
+        />
+        <Doodle
+          src="/static/doodles/projects/corner.svg"
+          position="left-[46%] top-[18%] hidden lg:block"
+          width={54}
+          opacity={0.7}
+          delay={0.6}
+        />
+        <Doodle
+          src="/static/doodles/skills/star-outline.svg"
+          position="right-[6%] top-[24%] hidden xl:block"
+          width={40}
+          opacity={0.6}
+          delay={1.9}
+        />
+        <Doodle
+          src="/static/doodles/projects/squiggle.svg"
+          position="right-[12%] bottom-[12%] hidden lg:block"
+          width={48}
+          opacity={0.5}
+          delay={2.7}
+        />
+      </DoodleLayer>
 
-        {/* Section Title */}
-        <div className="mb-12">
-          <SectionTitle
-            title={title ?? t("about.title")}
-            accentColor={accentColor}
-          />
-        </div>
-
-        {/* Identity facts */}
-        {info.length > 0 && (
-          <div className="mb-12 flex flex-wrap gap-x-10 gap-y-4">
-            {info.map((item) => (
-              <InfoRow
-                key={item.text}
-                icon={item.icon}
-                text={item.text}
-                accentColor={accentColor}
-              />
-            ))}
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-4 lg:flex-row lg:items-start lg:justify-between lg:gap-12 xl:gap-16">
+        {/* Titre + identité (colonne gauche) */}
+        <div className="flex w-full flex-col lg:max-w-xs lg:shrink-0">
+          <div data-reveal>
+            <SectionTitle
+              title={title ?? t("about.title")}
+              accentColor={accentColor}
+            />
           </div>
-        )}
 
-        {/* Content Grid */}
-        <div className="grid items-start gap-12 lg:grid-cols-3">
-          {/* Left - About Content (2/3) */}
-          <div className="order-2 lg:order-1 lg:col-span-2">
+          {info.length > 0 && (
+            <div
+              data-reveal
+              className="mt-8 flex flex-col gap-3 border-t border-[#192742] pt-6"
+            >
+              {info.map((item) => (
+                <InfoRow
+                  key={item.text}
+                  icon={item.icon}
+                  text={item.text}
+                  accentColor={accentColor}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Contenu (colonne droite) : portrait à côté du texte dès xl */}
+        <div className="flex w-full flex-1 flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
+          <div data-reveal className="w-full shrink-0 xl:max-w-[280px]">
+            <AboutImage src={imageSrc} alt={imageAlt} />
+          </div>
+
+          <div data-reveal className="min-w-0 flex-1">
             <AboutContent
               greeting={greeting ?? t("about.greeting")}
               paragraphs={paragraphs}
               highlights={highlights}
               accentColor={accentColor}
             />
-          </div>
-
-          {/* Right - Image (1/3) */}
-          <div className="order-1 lg:order-2 lg:col-span-1">
-            <AboutImage src={imageSrc} alt={imageAlt} className="h-[500px]" />
           </div>
         </div>
       </div>

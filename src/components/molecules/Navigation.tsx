@@ -33,7 +33,7 @@ interface SocialLinkItem {
 export function SocialLinks({
   links,
   className,
-  iconColor = "#12F7D6",
+  iconColor = "#00C7FF",
 }: {
   links: SocialLinkItem[]
   className?: string

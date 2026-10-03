@@ -35,7 +35,7 @@ function contrastRatio(a: string, b: string) {
  * fixe disparaît sur les fonds clairs, une icône en foncé disparaît sur les
  * fonds sombres.
  */
-export function readableTextColor(background: string, dark = "#292F36", light = "#FFFFFF") {
+export function readableTextColor(background: string, dark = "#000F2E", light = "#FFFFFF") {
   const hex = background.replace("#", "")
   if (!/^[0-9a-f]{6}$/i.test(hex)) return light
   return contrastRatio(hex, dark) >= contrastRatio(hex, light) ? dark : light

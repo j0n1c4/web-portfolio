@@ -6,8 +6,18 @@ import type { WorkProject } from "@/components/molecules/WorkProjectCard"
  * réalisations professionnelles d'abord, puis hackathons et projets académiques.
  *
  * `liveUrl` de MadAtlas a été mis à jour vers le nouveau domaine madatlas.mg.
- * Les textes (description / longDescription / role) sont bilingues ; `tags` et
- * `technologies` sont des noms de technologies, donc identiques.
+ * Les textes (description / longDescription / role) sont bilingues ; `tags`,
+ * `technologies` et `collaborators` sont des noms propres, donc identiques.
+ *
+ * `collaborators` (optionnel) mentionne les personnes avec qui le projet a été
+ * réalisé ; le nom est cliquable si un portfolio est fourni :
+ *
+ * ```ts
+ * collaborators: [
+ *   { name: "Prénom Nom", link: "https://exemple.dev" },
+ *   { name: "Autre personne" }, // sans lien : affiché en texte simple
+ * ]
+ * ```
  */
 
 interface LocalizedProject

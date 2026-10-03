@@ -15,6 +15,7 @@ const fr = {
   hero: {
     headline: "Développeur",
     cta: "Me contacter",
+    ctaProjects: "Voir mes réalisations",
     downloadCv: "Télécharger le CV",
     badge: "Développeur & ingénieur DevOps",
     location: "Localisation",
@@ -56,6 +57,8 @@ const fr = {
       "Des produits en production et des travaux de hackathon, de la recherche à la mise en ligne.",
     viewDetails: "Voir les détails",
     technologies: "Technologies utilisées",
+    collaborators: "Collaborateurs",
+    with: "avec",
     viewLive: "Voir le site",
     viewCode: "Voir le code",
   },
@@ -94,6 +97,11 @@ const fr = {
   },
   footer: {
     rights: "Tous droits réservés.",
+    social: "Réseaux",
+    explore: "Navigation",
+    credit: "Crédit",
+    stack: "Stack",
+    madeWith: "Fait avec",
   },
   common: {
     previous: "Réalisation précédente",

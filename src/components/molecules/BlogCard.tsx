@@ -1,5 +1,4 @@
-import { BlogCategoryBadge, BlogMetaItem, ReadMoreLink } from "@/components/atoms"
-import { useI18n } from "@/i18n"
+import { BlogCategoryBadge, ReadMoreLink } from "@/components/atoms"
 import { cn } from "@/lib/utils"
 
 /**
@@ -37,55 +36,47 @@ interface BlogCardProps {
   accentColor?: string
 }
 
-/** Molecule — horizontal blog card (image left, content right) */
-export function BlogCard({ post, onReadMore, className, accentColor = "#12F7D6" }: BlogCardProps) {
-  const { t } = useI18n()
-
+/** Molecule — carte d'article (design `blue-portfolio`, même cadre que les projets) */
+export function BlogCard({ post, onReadMore, className, accentColor = "#00C7FF" }: BlogCardProps) {
   return (
     <article
       className={cn(
-        "group border-y border-white/10 py-8 transition-colors duration-300 hover:bg-white/[0.02] md:py-12",
+        "group mx-auto flex w-full max-w-sm cursor-pointer flex-col transition duration-300 hover:-translate-y-2 hover:opacity-80",
         className,
       )}
+      onClick={() => onReadMore?.(post)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && onReadMore?.(post)}
     >
-      <div className="grid items-start gap-8 md:grid-cols-[280px_1fr]">
-        {/* Image */}
-        <div className="relative aspect-[4/3] overflow-hidden rounded-lg md:aspect-auto md:h-48">
-          <img
-            src={post.image}
-            alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10" />
+      {/* Visuel — cadre `rounded-xl border p-2` */}
+      <div className="rounded-xl border border-[#192742] p-2 transition-colors duration-300 group-hover:border-[#00C7FF]">
+        <img
+          src={post.image}
+          alt={post.title}
+          loading="lazy"
+          className="max-h-[220px] w-full rounded-md object-cover object-top md:max-h-[240px]"
+        />
+      </div>
+
+      {/* Métadonnées */}
+      <div className="mt-5 w-full">
+        <div className="mb-2 flex items-center gap-3">
+          <BlogCategoryBadge category={post.category} />
+          <span className="font-mono text-xs text-gray-400">{post.date}</span>
         </div>
 
-        {/* Content */}
-        <div className="space-y-4">
-          {/* Title */}
-          <h3
-            className="cursor-pointer text-2xl font-bold transition-colors duration-300 md:text-3xl"
-            style={{ color: accentColor }}
-            onClick={() => onReadMore?.(post)}
-          >
-            {post.title}
-          </h3>
+        <h3 className="text-lg font-bold text-white transition-colors group-hover:text-[#00C7FF]">
+          {post.title}
+        </h3>
 
-          {/* Excerpt */}
-          <p className="line-clamp-2 text-sm leading-relaxed text-gray-400">{post.excerpt}</p>
+        <p className="mt-1 line-clamp-3 text-sm text-gray-300">{post.excerpt}</p>
 
-          {/* Read More */}
+        <div className="mt-3 flex flex-wrap items-center gap-4">
           <ReadMoreLink onClick={() => onReadMore?.(post)} accentColor={accentColor} />
-
-          {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <BlogCategoryBadge category={post.category} />
-
-            <div className="flex items-center gap-4 text-sm">
-              <BlogMetaItem label={t("blog.author")} value={post.author} />
-              <BlogMetaItem label={t("blog.date")} value={post.date} />
-              <BlogMetaItem label={t("blog.readTime")} value={post.readTime} />
-            </div>
-          </div>
+          <span className="font-mono text-xs text-gray-400">
+            {post.author} · {post.readTime}
+          </span>
         </div>
       </div>
     </article>

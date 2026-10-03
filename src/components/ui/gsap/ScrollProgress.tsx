@@ -15,7 +15,7 @@ interface ScrollProgressProps {
  */
 export function ScrollProgress({
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: ScrollProgressProps) {
   const barRef = useRef<HTMLDivElement>(null);
 

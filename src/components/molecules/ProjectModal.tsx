@@ -49,28 +49,28 @@ export function ProjectModal({
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/85" onClick={onClose} />
 
       {/* Modal Content */}
       <div
         className={cn(
-          "relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-white/10 bg-[#2d343c] shadow-2xl",
+          "relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-white/10 bg-[#192742] shadow-2xl",
         )}
       >
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition-all hover:bg-[#12F7D6] hover:text-[#292F36]"
+          className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white transition-all hover:bg-[#00C7FF] hover:text-[#000F2E]"
           aria-label={t("common.close")}
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Hero Image */}
-        <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl">
+        <div className="relative max-h-[320px] w-full overflow-hidden rounded-t-2xl">
           <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2d343c] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#192742] to-transparent" />
         </div>
 
         {/* Content */}
@@ -83,7 +83,7 @@ export function ProjectModal({
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-[#12F7D6]/10 px-3 py-1 font-mono text-sm text-[#12F7D6]"
+                    className="rounded-full bg-[#00C7FF]/10 px-3 py-1 font-mono text-sm text-[#00C7FF]"
                   >
                     {tag}
                   </span>
@@ -98,6 +98,36 @@ export function ProjectModal({
             {project.longDescription && <p>{project.longDescription}</p>}
           </div>
 
+          {/* Collaborateurs */}
+          {project.collaborators && project.collaborators.length > 0 && (
+            <div>
+              <h4 className="mb-3 text-lg font-semibold text-white">
+                {t("works.collaborators")}
+              </h4>
+              <ul className="flex flex-wrap gap-2">
+                {project.collaborators.map((collaborator) => (
+                  <li key={collaborator.name}>
+                    {collaborator.link ? (
+                      <a
+                        href={collaborator.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-lg border border-[#3E5480] bg-[#000F2E] px-3 py-1.5 text-sm text-gray-200 transition-colors duration-300 hover:border-[#00C7FF] hover:text-[#00C7FF]"
+                      >
+                        {collaborator.name}
+                        <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 rounded-lg border border-[#3E5480] bg-[#000F2E] px-3 py-1.5 text-sm text-gray-200">
+                        {collaborator.name}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Technologies */}
           {project.technologies && project.technologies.length > 0 && (
             <div>
@@ -106,7 +136,7 @@ export function ProjectModal({
                 {project.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded border border-white/10 bg-white/5 px-3 py-1 text-sm text-gray-300"
+                    className="rounded border border-[#3E5480] bg-[#000F2E] px-3 py-1 font-mono text-sm text-gray-200"
                   >
                     {tech}
                   </span>
@@ -122,7 +152,7 @@ export function ProjectModal({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#12F7D6] px-6 py-3 font-medium text-[#292F36] transition-colors hover:bg-[#12F7D6]/90"
+                className="inline-flex items-center gap-2 rounded-full bg-[#00C7FF] px-6 py-3 font-medium text-[#000F2E] transition-colors hover:bg-[#00C7FF]/90"
               >
                 <span>{t("works.viewLive")}</span>
                 <ExternalLink className="h-4 w-4" />

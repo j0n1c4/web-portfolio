@@ -6,7 +6,7 @@ interface DividerLineProps {
 }
 
 /** Molecule — vertical decorative dashed line with dots at both ends */
-export function DividerLine({ className, accentColor = "#12F7D6" }: DividerLineProps) {
+export function DividerLine({ className, accentColor = "#00C7FF" }: DividerLineProps) {
   return (
     <div className={cn("relative flex flex-col items-center", className)}>
       {/* Top dot */}

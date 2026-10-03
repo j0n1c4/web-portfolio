@@ -6,15 +6,20 @@ interface AboutImageProps {
   className?: string
 }
 
-/** Molecule — image with hover glow effect */
+/** Molecule — portrait (cadre `rounded-xl border p-2` des cartes du template) */
 export function AboutImage({ src, alt, className }: AboutImageProps) {
   return (
-    <div className={cn("group relative", className)}>
-      <div className="absolute inset-0 rounded-2xl bg-[#12F7D6]/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
+    <div
+      className={cn(
+        "group rounded-xl border border-[#192742] p-2 transition duration-300 hover:-translate-y-1 hover:border-[#00C7FF] hover:opacity-90",
+        className,
+      )}
+    >
       <img
         src={src}
         alt={alt}
-        className="relative h-full w-full rounded-2xl border border-white/10 object-cover shadow-2xl"
+        loading="lazy"
+        className="w-full rounded-md object-cover"
       />
     </div>
   )

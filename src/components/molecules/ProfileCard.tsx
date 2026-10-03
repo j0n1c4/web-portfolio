@@ -29,14 +29,14 @@ export function ProfileCard({
   skills = [],
   downloadCVUrl,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: ProfileCardProps) {
   const { t } = useI18n()
 
   return (
     <div
       className={cn(
-        "relative w-full  md:w-72 overflow-hidden rounded-tl-[80px] rounded-br-[80px] border-2 border-white bg-[#292F36]",
+        "relative w-full md:w-74 overflow-hidden rounded-tl-[80px] rounded-br-[80px] border-2 border-white bg-[#000F2E]",
         className,
       )}
     >
@@ -66,7 +66,7 @@ export function ProfileCard({
         {/* Name & Title */}
         <div className="mb-6 text-center">
           <h3 className="mb-1 text-xl font-bold text-white">{name}</h3>
-          <p className="font-mono text-sm text-gray-400">{title}</p>
+          <p className="font-mono text-sm text-gray-300">{title}</p>
         </div>
 
         {/* Info Rows */}
@@ -93,7 +93,7 @@ export function ProfileCard({
           <button
             type="button"
             onClick={() => window.open(downloadCVUrl, "_blank")}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-[#292F36] transition-all duration-300 hover:scale-105 hover:bg-gray-100"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-[#000F2E] transition-all duration-300 hover:scale-105 hover:bg-gray-100"
           >
             <span>{t("hero.downloadCv")}</span>
             <Download className="h-5 w-5" />

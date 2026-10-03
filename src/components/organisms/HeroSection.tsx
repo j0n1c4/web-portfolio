@@ -1,6 +1,5 @@
-import { Mail } from "lucide-react"
-import { CodeTag } from "@/components/atoms"
 import { ProfileCard } from "@/components/molecules/ProfileCard"
+import { Doodle, DoodleLayer } from "@/components/molecules/Doodles"
 import { Sidebar } from "@/components/molecules/Sidebar"
 import { StatsCard } from "@/components/molecules/StatsCard"
 import { useI18n } from "@/i18n"
@@ -34,7 +33,11 @@ interface HeroSectionProps {
   accentColor?: string
 }
 
-/** Organism — full hero with sidebar, profile card, headline & stats */
+/**
+ * Organism — hero (design `blue-portfolio` : ProfileCard conservée à gauche,
+ * colonne de texte blanche `tracking-tighter`, CTA en pilule contour cyan,
+ * doodles flottants autour du contenu).
+ */
 export function HeroSection({
   name,
   title,
@@ -53,8 +56,8 @@ export function HeroSection({
   activeSection,
   onCTAClick,
   className,
-  bgColor = "#292F36",
-  accentColor = "#12F7D6",
+  bgColor = "#000A1F",
+  accentColor = "#00C7FF",
 }: HeroSectionProps) {
   const { t } = useI18n()
   const firstName = name.split(" ")[0]
@@ -65,13 +68,87 @@ export function HeroSection({
       className={cn("relative min-h-screen overflow-hidden", className)}
       style={{ backgroundColor: bgColor }}
     >
-      {/* Sidebar */}
+      {/* Sidebar (design actuel conservé) */}
       <Sidebar activeItem={activeSection} accentColor={accentColor} />
 
+      {/* Doodles décoratifs */}
+      <DoodleLayer>
+        <Doodle
+          src="/static/doodles/hero/coder.svg"
+          position="right-[2%] top-[12%] hidden lg:block"
+          width={300}
+          opacity={0.5}
+          delay={0}
+        />
+        <Doodle
+          src="/static/doodles/hero/code.svg"
+          position="left-[42%] top-[8%] hidden md:block"
+          width={60}
+          opacity={0.7}
+          delay={1.2}
+        />
+        <Doodle
+          src="/static/doodles/hero/html.svg"
+          position="right-[26%] top-[62%] hidden xl:block"
+          width={54}
+          opacity={0.65}
+          delay={2.4}
+        />
+        <Doodle
+          src="/static/doodles/hero/js.svg"
+          position="right-[16%] bottom-[8%] hidden xl:block"
+          width={48}
+          opacity={0.6}
+          delay={3.1}
+        />
+        <Doodle
+          src="/static/doodles/hero/paintbrush.svg"
+          position="left-[38%] bottom-[6%] hidden md:block"
+          width={74}
+          opacity={0.45}
+          delay={0.8}
+        />
+        <Doodle
+          src="/static/doodles/hero/pop1.svg"
+          position="left-[26%] top-[16%] hidden lg:block"
+          width={26}
+          opacity={0.8}
+          delay={1.8}
+        />
+        <Doodle
+          src="/static/doodles/hero/pop2.svg"
+          position="right-[34%] top-[26%] hidden lg:block"
+          width={30}
+          opacity={0.7}
+          delay={2.9}
+        />
+        <Doodle
+          src="/static/doodles/hero/left-squiggle.svg"
+          position="left-[-26px] bottom-[14%] hidden lg:block"
+          width={110}
+          opacity={0.3}
+          delay={1.4}
+        />
+        <Doodle
+          src="/static/doodles/hero/right-squiggle.svg"
+          position="right-[-40px] top-[38%] hidden lg:block"
+          width={170}
+          opacity={0.25}
+          delay={2.1}
+        />
+        <Doodle
+          src="/static/doodles/hero/fancyLinesSm.svg"
+          position="left-1/2 top-[52%] hidden -translate-x-1/2 lg:block"
+          width={640}
+          opacity={0.16}
+          delay={0.4}
+        />
+      </DoodleLayer>
+
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-20">
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:min-h-[calc(100vh-8rem)]">
-          {/* Left Column - Profile Card */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-24">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:min-h-[calc(100vh-9rem)]">
+          {/* Left Column — ProfileCard (design actuel conservé) */}
           <div
             data-reveal
             className="flex justify-center lg:col-span-3 lg:justify-start"
@@ -90,60 +167,59 @@ export function HeroSection({
             />
           </div>
 
-          {/* Center Column - Main Content */}
-          <div className="space-y-8 px-4 lg:col-span-6">
-            {/* Big "Developer" text */}
-            <h1
-              data-reveal
-              className="text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl"
-              style={{ color: accentColor }}
-            >
-              {headline ?? t("hero.headline")}
-            </h1>
-
-            {/* Heading with code tags */}
-            <div data-reveal className="space-y-2">
-              <CodeTag tag="h1" accentColor={accentColor} />
-              <h2 className="text-4xl leading-tight font-bold text-white md:text-5xl lg:text-6xl">
-                Hey
-                <br />
-                I&apos;m <span style={{ color: accentColor }}>{firstName},</span>
-                <br />
+          {/* Center Column — texte principal */}
+          <div className="animate-hero-in flex flex-col gap-6 px-4 lg:col-span-6">
+            <div data-reveal className="flex flex-col gap-3">
+              <span className="font-mono text-xs font-bold tracking-widest text-gray-300 uppercase">
                 {subtitle}
-              </h2>
-              <CodeTag tag="h1" closing accentColor={accentColor} />
+              </span>
+              <h1 className="text-4xl leading-tight font-bold tracking-tighter text-white md:text-6xl">
+                {headline ?? t("hero.headline")}{" "}
+                <span style={{ color: accentColor }}>{firstName}</span>
+              </h1>
+              <p className="text-base font-medium text-gray-300 md:text-lg">
+                {title}
+              </p>
             </div>
 
-            {/* Description with code tags */}
-            <div data-reveal className="max-w-xl space-y-2">
-              <CodeTag tag="p" accentColor={accentColor} />
-              <p className="font-mono text-base leading-relaxed text-gray-300">{description}</p>
-              <CodeTag tag="p" closing accentColor={accentColor} />
-            </div>
-
-            {/* CTA Button */}
-            <button
+            <p
               data-reveal
-              type="button"
-              onClick={onCTAClick}
-              className="group inline-flex items-center gap-3"
+              className="max-w-xl text-base leading-relaxed text-gray-300"
             >
-              <span
-                className="font-mono text-2xl font-bold transition-all duration-300 group-hover:translate-x-2 md:text-3xl"
-                style={{ color: accentColor }}
+              {description}
+            </p>
+
+            {/* CTAs — pilule contour cyan (style template) */}
+            <div data-reveal className="flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={onCTAClick}
+                className="rounded-full border-2 px-8 py-3 text-sm font-bold transition-colors duration-300"
+                style={{
+                  borderColor: accentColor,
+                  color: "#ffffff",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = accentColor
+                  e.currentTarget.style.color = "#000A1F"
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent"
+                  e.currentTarget.style.color = "#ffffff"
+                }}
               >
                 {ctaText ?? t("hero.cta")}
-              </span>
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"
-                style={{ backgroundColor: `${accentColor}20` }}
+              </button>
+              <a
+                href="#projects"
+                className="rounded-full border-2 border-[#192742] px-8 py-3 text-sm font-bold text-white transition-colors duration-300 hover:border-[#00C7FF] hover:text-[#00C7FF]"
               >
-                <Mail className="h-5 w-5" style={{ color: accentColor }} />
-              </div>
-            </button>
+                {t("hero.ctaProjects")}
+              </a>
+            </div>
           </div>
 
-          {/* Right Column - Stats */}
+          {/* Right Column — Stats */}
           <div
             data-reveal
             className="flex justify-center lg:col-span-3 lg:justify-end"
@@ -151,18 +227,6 @@ export function HeroSection({
             <StatsCard stats={stats} accentColor={accentColor} />
           </div>
         </div>
-      </div>
-
-      {/* Decorative element — symbole de code en filigrane, lg et plus */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-20 right-20 hidden select-none lg:block"
-        style={{
-          maskImage: "linear-gradient(to bottom, black 45%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 45%, transparent 100%)",
-        }}
-      >
-        <span className="font-mono text-[20rem] leading-none text-slate-900/15">{"</>"}</span>
       </div>
     </section>
   )

@@ -37,7 +37,7 @@ export function Terminal({
   typingSpeed = 50,
   delayBetweenCommands = 1000,
   prompt = "j0n1c4@portfolio",
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
   className,
 }: TerminalProps) {
   const [lines, setLines] = useState<TerminalLine[]>([]);

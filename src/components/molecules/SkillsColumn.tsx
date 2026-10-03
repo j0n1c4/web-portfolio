@@ -1,6 +1,6 @@
 import { Minus, Plus, type LucideIcon } from "lucide-react"
 import { useState } from "react"
-import { SkillCard, SkillCircle } from "@/components/atoms"
+import { Doodle } from "@/components/molecules/Doodles"
 import { cn } from "@/lib/utils"
 
 interface SkillItem {
@@ -27,10 +27,10 @@ interface SkillsColumnProps {
   accentColor?: string
 }
 
-/** Nombre de skills visibles au repos : 4 = une ligne pleine en `sm` et plus. */
-const VISIBLE_SKILLS = 4
+/** Nombre de skills visibles au repos : 6 = une ligne pleine en `md` et plus. */
+const VISIBLE_SKILLS = 6
 
-/** Molecule — one skills column: title, category cards & skill circles */
+/** Molecule — grille d'icônes façon `blue-portfolio` (3 → 6 colonnes) */
 export function SkillsColumn({
   title,
   categories,
@@ -39,7 +39,7 @@ export function SkillsColumn({
   showMoreLabel,
   showLessLabel,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: SkillsColumnProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -48,33 +48,65 @@ export function SkillsColumn({
   const hiddenCount = skills.length - visibleCount
 
   return (
-    <div className={cn("space-y-8", className)}>
-      {/* Column Title */}
-      <div className="mb-8 text-center">
-        <h3 className="font-mono text-2xl  font-bold md:text-3xl" style={{ color: accentColor }}>
+    <div className={cn("flex flex-col gap-8", className)}>
+      {/* Titre de colonne — mono cyan + filet, façon label du template */}
+      <div className="relative flex items-center gap-3">
+        <Doodle
+          src="/static/doodles/projects/pop.svg"
+          position="right-[2%] top-1/2 hidden -translate-y-1/2 sm:block"
+          width={62}
+          opacity={0.5}
+          delay={2.6}
+        />
+        <h3
+          className="font-mono text-sm font-bold tracking-widest uppercase"
+          style={{ color: accentColor }}
+        >
           {title}
         </h3>
-        <div className="mx-auto mt-2 h-0.5 w-16 " style={{ backgroundColor: accentColor }} />
+        <div
+          className="h-px flex-1"
+          style={{ backgroundColor: `${accentColor}40` }}
+        />
       </div>
 
-      {/* Skill Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {categories.map((category) => (
-          <SkillCard
-            key={category.title}
-            icon={category.icon}
-            title={category.title}
-            subtitle={category.subtitle}
-            accentColor={accentColor}
-          />
-        ))}
-      </div>
+      {/* Catégories — liste simple (plus de cartes pleine couleur) */}
+      {categories.length > 0 && (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {categories.map((category) => {
+            const Icon = category.icon
+            return (
+              <div key={category.title} className="flex items-start gap-3">
+                <Icon className="mt-1 h-4 w-4 shrink-0" style={{ color: accentColor }} />
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-white">{category.title}</span>
+                  <span className="font-mono text-xs text-gray-300">{category.subtitle}</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
 
-      {/* Skill Circles — 4 par défaut, le reste derrière un bouton */}
-      <div className="grid grid-cols-2 justify-items-center gap-6 sm:grid-cols-4">
-        {visibleSkills.map((skill) => (
-          <SkillCircle key={skill.label} icon={skill.icon} label={skill.label} color={skill.color} />
-        ))}
+      {/* Grille d'icônes */}
+      <div className="grid grid-cols-3 items-center justify-items-center gap-8 sm:grid-cols-4 md:gap-10 md:grid-cols-6">
+        {visibleSkills.map((skill) => {
+          const Icon = skill.icon
+          return (
+            <div
+              key={skill.label}
+              className="group flex flex-col items-center gap-2 text-center"
+            >
+              <Icon
+                className="h-9 w-9 transition-transform duration-300 group-hover:-translate-y-1 md:h-10 md:w-10"
+                style={{ color: accentColor }}
+              />
+              <span className="font-mono text-xs font-semibold tracking-wide text-gray-200 transition-colors duration-300 group-hover:text-[#00C7FF]">
+                {skill.label}
+              </span>
+            </div>
+          )
+        })}
       </div>
 
       {canExpand && (
@@ -83,7 +115,7 @@ export function SkillsColumn({
             type="button"
             onClick={() => setIsExpanded((previous) => !previous)}
             aria-expanded={isExpanded}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border-2 px-6 py-2.5 font-mono text-sm font-bold transition-all duration-300 hover:bg-white/5"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border-2 px-6 py-2.5 font-mono text-sm font-bold transition-colors duration-300 hover:bg-[#00C7FF] hover:text-[#000A1F]"
             style={{ borderColor: accentColor, color: accentColor }}
           >
             {isExpanded ? (

@@ -1,6 +1,13 @@
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, GitBranch } from "lucide-react"
 import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
+
+/** Personne avec qui le projet a été réalisé — le nom peut être cliquable. */
+export interface ProjectCollaborator {
+  name: string
+  /** Portfolio / profil externe. Absent = nom affiché sans lien. */
+  link?: string
+}
 
 export interface WorkProject {
   id: string
@@ -14,6 +21,8 @@ export interface WorkProject {
   technologies?: string[]
   /** Poste occupé sur le projet — porte le signal DevOps sur la carte. */
   role?: string
+  /** Mention explicite des co-auteurs (équipe, mentors, designers…). */
+  collaborators?: ProjectCollaborator[]
 }
 
 interface WorkProjectCardProps {
@@ -38,19 +47,19 @@ const renderRole = (role: string, accentColor: string) =>
     ),
   )
 
-/** Molecule — project card with hover overlay & tags */
+/** Molecule — project card (design `blue-portfolio`) */
 export function WorkProjectCard({
   project,
   onClick,
   className,
-  accentColor = "#12F7D6",
+  accentColor = "#00C7FF",
 }: WorkProjectCardProps) {
   const { t } = useI18n()
 
   return (
     <div
       className={cn(
-        "group relative cursor-pointer overflow-hidden rounded-xl border border-white/10 shadow-2xl transition-all duration-300 hover:border-[#12F7D6]/50",
+        "group mx-auto flex w-full max-w-sm cursor-pointer flex-col transition duration-300 hover:-translate-y-2 hover:opacity-80",
         className,
       )}
       onClick={onClick}
@@ -58,47 +67,75 @@ export function WorkProjectCard({
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && onClick()}
     >
-      {/* Image */}
-      <div className="relative aspect-video overflow-hidden">
+      {/* Visuel — cadre `rounded-xl border p-2` du template */}
+      <div className="rounded-xl border border-[#192742] p-2 transition-colors duration-300 group-hover:border-[#00C7FF]">
         <img
           src={project.image}
           alt={project.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+          className="max-h-50 w-full rounded-md object-cover object-top md:max-h-45"
         />
-
-        {/* Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div
-            className="inline-flex translate-y-4 items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-[#292F36] transition-transform duration-300 group-hover:translate-y-0"
-            style={undefined}
-          >
-            <span style={{ color: "#292F36" }}>{t("works.viewDetails")}</span>
-            <ExternalLink className="h-4 w-4" style={{ color: accentColor }} />
-          </div>
-        </div>
       </div>
 
-      {/* Content */}
-      <div className="bg-[#2d343c] p-6">
+      {/* Métadonnées */}
+      <div className="mt-5 w-full">
         {project.role && (
-          <p className="mb-2 font-mono text-xs uppercase tracking-wide text-gray-400">
+          <p className="mb-1 font-mono text-xs tracking-wide text-gray-400 uppercase">
             {renderRole(project.role, accentColor)}
           </p>
         )}
-        <h3 className="mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#12F7D6]">
-          {project.title}
-        </h3>
-        <p className="mb-4 line-clamp-2 text-sm text-gray-400">{project.description}</p>
 
-        {/* Tags */}
-        {project.tags && project.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span key={tag} className="rounded bg-[#12F7D6]/10 px-2 py-1 font-mono text-xs text-[#12F7D6]">
-                {tag}
+        {project.collaborators && project.collaborators.length > 0 && (
+          <p className="mb-2 font-mono text-xs text-gray-400">
+            {t("works.with")}{" "}
+            {project.collaborators.map((collaborator, index) => (
+              <span key={collaborator.name}>
+                {index > 0 && ", "}
+                {collaborator.link ? (
+                  <a
+                    href={collaborator.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                    className="text-[#00C7FF] underline-offset-2 hover:underline"
+                  >
+                    {collaborator.name}
+                  </a>
+                ) : (
+                  collaborator.name
+                )}
               </span>
             ))}
+          </p>
+        )}
+
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-lg font-bold text-white transition-colors group-hover:text-[#00C7FF]">
+            {project.title}
+          </h3>
+          <div className="pointer-events-none flex gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {project.liveUrl && (
+              <ExternalLink className="h-4 w-4" style={{ color: accentColor }} />
+            )}
+            {project.githubUrl && <GitBranch className="h-4 w-4" style={{ color: accentColor }} />}
           </div>
+        </div>
+
+        {project.description && (
+          <p className="mt-1 text-sm text-gray-300">{project.description}</p>
+        )}
+
+        {project.tags && project.tags.length > 0 && (
+          <ul className="mt-3 flex flex-wrap -ml-2 list-none">
+            {project.tags.map((tag) => (
+              <li
+                key={tag}
+                className="m-1 cursor-default rounded-lg bg-[#009ac5]/20 px-2 py-1 font-mono text-xs text-gray-200 transition-opacity duration-300 hover:opacity-75"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>

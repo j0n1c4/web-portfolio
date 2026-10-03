@@ -15,14 +15,14 @@ interface BlogPostBodyProps {
  * `<code>` via un split, ce qui évite d'installer un parseur pour deux ou
  * trois occurrences par paragraphe.
  */
-export function BlogPostBody({ content, accentColor = "#12F7D6", className }: BlogPostBodyProps) {
+export function BlogPostBody({ content, accentColor = "#00C7FF", className }: BlogPostBodyProps) {
   /** Rend un paragraphe en remplaçant les `backticks` par des <code>. */
   const renderInline = (text: string) =>
     text.split(/(`[^`]+`)/g).map((chunk, index) =>
       chunk.startsWith("`") && chunk.endsWith("`") && chunk.length > 2 ? (
         <code
           key={index}
-          className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#12F7D6]"
+          className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#00C7FF]"
         >
           {chunk.slice(1, -1)}
         </code>

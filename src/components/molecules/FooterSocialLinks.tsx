@@ -21,7 +21,7 @@ interface FooterSocialLinksProps {
  * (`instagram.com`, `discord.com`) affiche un compte qui n'appartient pas au
  * propriétaire du site. Les liens réels viennent de `data/navigation.ts`.
  */
-export function FooterSocialLinks({ links = [], className, accentColor = "#12F7D6" }: FooterSocialLinksProps) {
+export function FooterSocialLinks({ links = [], className, accentColor = "#00C7FF" }: FooterSocialLinksProps) {
   return (
     <div className={cn("flex items-center gap-4", className)}>
       {links.map((link) => (
