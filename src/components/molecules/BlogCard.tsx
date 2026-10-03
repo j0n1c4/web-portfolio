@@ -15,6 +15,13 @@ export type BlogBlock =
   | { type: "code"; language: string; code: string }
   | { type: "quote"; text: string }
 
+/** Référence externe d'un article (doc officielle, KEP, dépôt…). */
+export interface BlogSource {
+  /** Nom de la ressource, tel qu'elle est publiée (independamment de la locale). */
+  label: string
+  url: string
+}
+
 export interface BlogPost {
   id: string
   image: string
@@ -27,6 +34,12 @@ export interface BlogPost {
   slug?: string
   /** Corps de l'article, lu dans `BlogPostModal`. */
   content: BlogBlock[]
+  /**
+   * Sources vérifiables qui étayent les affirmations de l'article. Rendues en
+   * bas du lecteur (`BlogPostModal`) pour que le visiteur puisse contrôler
+   * l'origine des informations. Absentes sur un post => bloc masqué.
+   */
+  sources?: BlogSource[]
 }
 
 interface BlogCardProps {
@@ -70,7 +83,7 @@ export function BlogCard({ post, onReadMore, className, accentColor = "#00C7FF" 
           {post.title}
         </h3>
 
-        <p className="mt-1 line-clamp-3 text-sm text-gray-300">{post.excerpt}</p>
+        <p className="mt-1 text-sm break-words text-gray-300">{post.excerpt}</p>
 
         <div className="mt-3 flex flex-wrap items-center gap-4">
           <ReadMoreLink onClick={() => onReadMore?.(post)} accentColor={accentColor} />

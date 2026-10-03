@@ -63,6 +63,8 @@ const en: Dictionary = {
     with: "with",
     viewLive: "View live site",
     viewCode: "View code",
+    perPage: "Per page",
+    pagination: "Achievements pagination",
   },
   blog: {
     title: "Blog",
@@ -74,6 +76,9 @@ const en: Dictionary = {
     author: "Author",
     date: "Date",
     readTime: "Read",
+    sources: "Sources",
+    sourcesHint:
+      "Every claim above is backed by its primary documentation. The links below have been verified.",
   },
   contact: {
     title: "Contact",

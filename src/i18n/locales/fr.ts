@@ -61,6 +61,8 @@ const fr = {
     with: "avec",
     viewLive: "Voir le site",
     viewCode: "Voir le code",
+    perPage: "Par page",
+    pagination: "Pagination des réalisations",
   },
   blog: {
     title: "Blog",
@@ -72,6 +74,9 @@ const fr = {
     author: "Auteur",
     date: "Date",
     readTime: "Lecture",
+    sources: "Sources",
+    sourcesHint:
+      "Chaque affirmation ci-dessus est rattachée à sa documentation primaire. Les liens ci-dessous ont été vérifiés.",
   },
   contact: {
     title: "Contact",

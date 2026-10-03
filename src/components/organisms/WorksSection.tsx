@@ -1,6 +1,6 @@
 import { SectionTitle } from "@/components/atoms";
-import { CarouselControls } from "@/components/molecules/CarouselControls";
 import { Doodle, DoodleLayer } from "@/components/molecules/Doodles";
+import { Pagination } from "@/components/molecules/Pagination";
 import { ProjectModal } from "@/components/molecules/ProjectModal";
 import {
   WorkProjectCard,
@@ -8,10 +8,10 @@ import {
 } from "@/components/molecules/WorkProjectCard";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
-/** Nombre de projets affichés par page. */
-const PROJECTS_PER_PAGE = 3;
+/** Choix « par page » proposés au visiteur : 3, 6 ou 9 réalisations. */
+const PER_PAGE_OPTIONS = [3, 6, 9];
 
 interface WorksSectionProps {
   title?: string;
@@ -22,7 +22,7 @@ interface WorksSectionProps {
 }
 
 /**
- * Organism — réalisations paginées par 3 (design `blue-portfolio` :
+ * Organism — réalisations paginées (design `blue-portfolio` :
  * cartes `rounded-xl border p-2`, hover `-translate-y-2` + bordure cyan) avec
  * la modale de détail conservée.
  */
@@ -35,23 +35,36 @@ export function WorksSection({
 }: WorksSectionProps) {
   const { t } = useI18n();
   const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(3);
   const [selectedProject, setSelectedProject] = useState<WorkProject | null>(
     null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const totalPages = Math.max(1, Math.ceil(projects.length / PROJECTS_PER_PAGE));
+  // 14 réalisations => 03 / 06 / 09 disponibles ; 4 réalisations => 03 seul.
+  const perPageOptions = useMemo(() => {
+    const options = PER_PAGE_OPTIONS.filter((option) => option < projects.length);
+    return options.length > 0 ? options : [projects.length];
+  }, [projects.length]);
+
+  const totalPages = Math.max(1, Math.ceil(projects.length / perPage));
   const visibleProjects = useMemo(
-    () =>
-      projects.slice(
-        page * PROJECTS_PER_PAGE,
-        page * PROJECTS_PER_PAGE + PROJECTS_PER_PAGE,
-      ),
-    [projects, page],
+    () => projects.slice(page * perPage, page * perPage + perPage),
+    [projects, page, perPage],
   );
 
-  const goToPage = (index: number) =>
+  // Changer de page ou de taille remet le visiteur sur le haut de la grille.
+  const goToPage = (index: number) => {
     setPage(Math.max(0, Math.min(index, totalPages - 1)));
+    gridRef.current?.scrollIntoView({ block: "start" });
+  };
+
+  const changePerPage = (next: number) => {
+    setPerPage(next);
+    setPage(0);
+    gridRef.current?.scrollIntoView({ block: "start" });
+  };
 
   const openModal = (project: WorkProject) => {
     setSelectedProject(project);
@@ -111,10 +124,13 @@ export function WorksSection({
           </p>
         </div>
 
-        {/* Grille de projets — 3 par page */}
+        {/* Grille paginée — `perPage` réalisations par page */}
         {projects.length > 0 && (
           <div data-reveal className="flex flex-col gap-12">
-            <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+            <div
+              ref={gridRef}
+              className="grid scroll-mt-28 grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-6 lg:grid-cols-3"
+            >
               {visibleProjects.map((project) => (
                 <WorkProjectCard
                   key={project.id}
@@ -125,16 +141,15 @@ export function WorksSection({
               ))}
             </div>
 
-            {totalPages > 1 && (
-              <CarouselControls
-                total={totalPages}
-                currentIndex={page}
-                onPrev={() => goToPage(page - 1)}
-                onNext={() => goToPage(page + 1)}
-                onDotClick={goToPage}
-                accentColor={accentColor}
-              />
-            )}
+            <Pagination
+              totalPages={totalPages}
+              currentPage={page}
+              onPageChange={goToPage}
+              perPageOptions={perPageOptions}
+              perPage={perPage}
+              onPerPageChange={changePerPage}
+              accentColor={accentColor}
+            />
           </div>
         )}
       </div>

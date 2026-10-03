@@ -170,6 +170,34 @@ export function ProjectModal({
               </a>
             )}
           </div>
+          {(project.liveUrl || project.githubUrl) && (
+            <ul className="mt-4 space-y-1 text-xs text-gray-400">
+              {project.liveUrl && (
+                <li className="min-w-0 break-all">
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 transition-colors hover:text-[#00C7FF]"
+                  >
+                    {project.liveUrl}
+                  </a>
+                </li>
+              )}
+              {project.githubUrl && (
+                <li className="min-w-0 break-all">
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 transition-colors hover:text-[#00C7FF]"
+                  >
+                    {project.githubUrl}
+                  </a>
+                </li>
+              )}
+            </ul>
+          )}
         </div>
       </div>
     </div>,

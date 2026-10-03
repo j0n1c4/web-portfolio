@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { createPortal } from "react-dom"
-import { CalendarDays, Clock, X } from "lucide-react"
+import { BookMarked, CalendarDays, Clock, X } from "lucide-react"
 import { BlogCategoryBadge } from "@/components/atoms"
 import type { BlogPost } from "@/components/molecules/BlogCard"
 import { BlogPostBody } from "@/components/molecules/BlogPostBody"
@@ -95,6 +95,43 @@ export function BlogPostModal({ post, isOpen, onClose, accentColor = "#00C7FF" }
 
           {/* Body */}
           <BlogPostBody content={post.content} accentColor={accentColor} />
+
+          {/* Sources — chaque affirmation de l'article est rattachée à sa
+              documentation primaire, pour que le lecteur puisse vérifier. */}
+          {post.sources && post.sources.length > 0 && (
+            <section
+              aria-labelledby="blog-sources"
+              className="rounded-xl border border-white/10 bg-white/[0.02] p-5"
+            >
+              <div className="flex items-center gap-2">
+                <BookMarked className="h-4 w-4" style={{ color: accentColor }} />
+                <h3 id="blog-sources" className="font-mono text-sm uppercase tracking-widest text-white">
+                  {t("blog.sources")}
+                </h3>
+              </div>
+              <p className="mt-2 text-sm text-gray-400">{t("blog.sourcesHint")}</p>
+              <ol className="mt-4 space-y-2">
+                {post.sources.map((source, index) => (
+                  <li key={source.url} className="flex min-w-0 gap-3 text-sm">
+                    <span className="shrink-0 font-mono text-xs text-gray-500">
+                      [{String(index + 1).padStart(2, "0")}]
+                    </span>
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group min-w-0 break-all text-gray-200 underline decoration-white/20 underline-offset-4 transition-colors hover:text-[#00C7FF] hover:decoration-[#00C7FF]"
+                    >
+                      {source.label}
+                      <span className="block font-mono text-xs break-all text-gray-500 group-hover:text-gray-300">
+                        {source.url}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
         </article>
       </div>
     </div>,

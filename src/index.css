@@ -104,4 +104,7 @@ body::-webkit-scrollbar-thumb {
 body {
   @apply bg-background text-foreground antialiased;
   font-family: var(--font-sans);
+  /* `overflow-wrap` est hérité : les longues URL (sans espaces) passent à la
+     ligne au lieu de déborder et d'être tronquées. */
+  overflow-wrap: break-word;
 }

@@ -22,7 +22,7 @@ export function BlogPostBody({ content, accentColor = "#00C7FF", className }: Bl
       chunk.startsWith("`") && chunk.endsWith("`") && chunk.length > 2 ? (
         <code
           key={index}
-          className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#00C7FF]"
+          className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] break-all text-[#00C7FF]"
         >
           {chunk.slice(1, -1)}
         </code>
@@ -32,7 +32,7 @@ export function BlogPostBody({ content, accentColor = "#00C7FF", className }: Bl
     )
 
   return (
-    <div className={cn("space-y-5 leading-relaxed text-gray-300", className)}>
+    <div className={cn("space-y-5 leading-relaxed break-words text-gray-300", className)}>
       {content.map((block, index) => {
         switch (block.type) {
           case "h2":

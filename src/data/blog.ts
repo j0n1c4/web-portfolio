@@ -4,7 +4,7 @@ import coverGitOps from "@/assets/blog/gitops-declarative-sync.svg";
 import coverK8s from "@/assets/blog/kubernetes-resource-limits.svg";
 import coverOtel from "@/assets/blog/opentelemetry-observability.svg";
 import coverZod from "@/assets/blog/zod-runtime-validation.svg";
-import type { BlogPost } from "@/components/molecules/BlogCard";
+import type { BlogPost, BlogSource } from "@/components/molecules/BlogCard";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/i18n";
 
@@ -533,4 +533,93 @@ export type UserRegistration = z.infer<typeof userRegistrationSchema>`,
   ],
 };
 
-export const getBlogPosts = (locale: Locale) => blogPosts[locale];
+/**
+ * Sources officielles des articles, indexées par `id` donc partagées entre les
+ * locales (les URL et les intitulés de documentation ne se traduisent pas).
+ * Chaque URL a été vérifiée en HTTP 200 : le lecteur peut remonter à la
+ * documentation primaire et vérifier les affirmations de l'article.
+ */
+const postSources: Record<string, BlogSource[]> = {
+  "kubernetes-dra-gpu-scheduling": [
+    {
+      label: "Kubernetes Docs — Dynamic Resource Allocation",
+      url: "https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/",
+    },
+    {
+      label: "KEP-3063 — Dynamic Resource Allocation (enhancement proposal)",
+      url: "https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/3063-dynamic-resource-allocation",
+    },
+  ],
+  "docker-containerd-build-cloud": [
+    {
+      label: "Docker Docs — containerd image store",
+      url: "https://docs.docker.com/storage/containerd/",
+    },
+    {
+      label: "Docker Docs — BuildKit cache backends",
+      url: "https://docs.docker.com/build/cache/backends/",
+    },
+    {
+      label: "Docker Docs — Dockerfile reference (RUN --mount)",
+      url: "https://docs.docker.com/reference/dockerfile/",
+    },
+  ],
+  "opentelemetry-ebpf-observability": [
+    {
+      label: "OpenTelemetry Docs — Zero-code instrumentation",
+      url: "https://opentelemetry.io/docs/zero-code/",
+    },
+    {
+      label: "OpenTelemetry eBPF Instrumentation (dépôt officiel)",
+      url: "https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation",
+    },
+    {
+      label: "OpenTelemetry Docs — Languages",
+      url: "https://opentelemetry.io/docs/languages/",
+    },
+  ],
+  "opentofu-gitops-infrastructure": [
+    {
+      label: "OpenTofu Docs — v1.9",
+      url: "https://opentofu.org/docs/v1.9/",
+    },
+    {
+      label: "OpenTofu Docs — State encryption",
+      url: "https://opentofu.org/docs/language/state/encryption/",
+    },
+    {
+      label: "OpenGitOps — principes",
+      url: "https://opengitops.dev/",
+    },
+  ],
+  "nodejs-native-typescript-corepack": [
+    {
+      label: "Node.js Docs — TypeScript (type stripping)",
+      url: "https://nodejs.org/api/typescript.html",
+    },
+    {
+      label: "Node.js v24.0.0 — notes de version",
+      url: "https://nodejs.org/en/blog/release/v24.0.0",
+    },
+    {
+      label: "Node.js Docs — Corepack",
+      url: "https://nodejs.org/api/corepack.html",
+    },
+  ],
+  "zod-type-safe-contracts": [
+    {
+      label: "Zod Docs",
+      url: "https://zod.dev/",
+    },
+    {
+      label: "Zod v4 — changelog",
+      url: "https://zod.dev/v4/changelog",
+    },
+  ],
+};
+
+export const getBlogPosts = (locale: Locale): BlogPost[] =>
+  blogPosts[locale].map((post) => ({
+    ...post,
+    sources: postSources[post.id] ?? [],
+  }));
