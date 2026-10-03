@@ -72,7 +72,10 @@ export function HeroSection({
       <div className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-20">
         <div className="grid items-center gap-8 lg:grid-cols-12 lg:min-h-[calc(100vh-8rem)]">
           {/* Left Column - Profile Card */}
-          <div className="flex justify-center lg:col-span-3 lg:justify-start">
+          <div
+            data-reveal
+            className="flex justify-center lg:col-span-3 lg:justify-start"
+          >
             <ProfileCard
               name={name}
               title={title}
@@ -91,6 +94,7 @@ export function HeroSection({
           <div className="space-y-8 px-4 lg:col-span-6">
             {/* Big "Developer" text */}
             <h1
+              data-reveal
               className="text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl"
               style={{ color: accentColor }}
             >
@@ -98,7 +102,7 @@ export function HeroSection({
             </h1>
 
             {/* Heading with code tags */}
-            <div className="space-y-2">
+            <div data-reveal className="space-y-2">
               <CodeTag tag="h1" accentColor={accentColor} />
               <h2 className="text-4xl leading-tight font-bold text-white md:text-5xl lg:text-6xl">
                 Hey
@@ -111,14 +115,19 @@ export function HeroSection({
             </div>
 
             {/* Description with code tags */}
-            <div className="max-w-xl space-y-2">
+            <div data-reveal className="max-w-xl space-y-2">
               <CodeTag tag="p" accentColor={accentColor} />
               <p className="font-mono text-base leading-relaxed text-gray-300">{description}</p>
               <CodeTag tag="p" closing accentColor={accentColor} />
             </div>
 
             {/* CTA Button */}
-            <button type="button" onClick={onCTAClick} className="group inline-flex items-center gap-3">
+            <button
+              data-reveal
+              type="button"
+              onClick={onCTAClick}
+              className="group inline-flex items-center gap-3"
+            >
               <span
                 className="font-mono text-2xl font-bold transition-all duration-300 group-hover:translate-x-2 md:text-3xl"
                 style={{ color: accentColor }}
@@ -135,7 +144,10 @@ export function HeroSection({
           </div>
 
           {/* Right Column - Stats */}
-          <div className="flex justify-center lg:col-span-3 lg:justify-end">
+          <div
+            data-reveal
+            className="flex justify-center lg:col-span-3 lg:justify-end"
+          >
             <StatsCard stats={stats} accentColor={accentColor} />
           </div>
         </div>

@@ -53,7 +53,10 @@ export function Header({
       style={{ backgroundColor: bgColor }}
     >
       <div className="mx-auto max-w-7xl px-4">
-        <div className="flex h-20 items-center justify-between">
+        <div
+          data-reveal
+          className="flex h-20 items-center justify-between"
+        >
           {/* Logo */}
           <Logo text={logoText} codeColor={accentColor} />
 

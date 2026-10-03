@@ -50,13 +50,13 @@ export function ContactSection({
       <div className="mx-auto max-w-4xl px-4">
         {/* Scroll Indicator */}
         {showScrollIndicator && (
-          <div className="mb-16 flex justify-center">
+          <div data-reveal className="mb-16 flex justify-center">
             <ScrollIndicator accentColor={accentColor} />
           </div>
         )}
 
         {/* Section Title */}
-        <div className="mb-12">
+        <div data-reveal className="mb-12">
           <SectionTitle
             variant="centered"
             title={title ?? t("contact.title")}
@@ -84,7 +84,7 @@ export function ContactSection({
         )}
 
         {/* Contact Form */}
-        <div id="contact-form">
+        <div id="contact-form" data-reveal>
           <ContactForm onSubmit={onSubmit} accentColor={accentColor} />
         </div>
       </div>

@@ -65,12 +65,12 @@ export function SkillsSection({
 
       <div className="mx-auto max-w-7xl px-4">
         {/* Scroll Indicator */}
-        <div className="mb-16 flex justify-center">
+        <div data-reveal className="mb-16 flex justify-center">
           <ScrollIndicator accentColor={accentColor} />
         </div>
 
         {/* Section Title */}
-        <div className="mb-20">
+        <div data-reveal className="mb-20">
           <SectionTitle
             variant="centered"
             title={title ?? t("skills.title")}
@@ -80,7 +80,10 @@ export function SkillsSection({
         </div>
 
         {/* Skills Grid with Divider */}
-        <div className="grid items-start gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-12">
+        <div
+          data-reveal
+          className="grid items-start gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-12"
+        >
           {/* DEV Column */}
           <SkillsColumn
             title={t("skills.dev")}

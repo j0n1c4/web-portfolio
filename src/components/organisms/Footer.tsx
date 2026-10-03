@@ -48,7 +48,10 @@ export function Footer({
       )}
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+        <div
+          data-reveal
+          className="flex flex-col items-center justify-between gap-6 md:flex-row"
+        >
           {/* Left — Copyright */}
           <div className="order-2 md:order-1">
             <CopyrightText text={copyrightText} />

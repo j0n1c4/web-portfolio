@@ -89,13 +89,13 @@ export function BlogsSection({
       <div className="mx-auto max-w-5xl px-4">
         {/* Scroll Indicator */}
         {showScrollIndicator && (
-          <div className="mb-16 flex justify-center">
+          <div data-reveal className="mb-16 flex justify-center">
             <ScrollIndicator accentColor={accentColor} />
           </div>
         )}
 
         {/* Section Title */}
-        <div className="mb-16">
+        <div data-reveal className="mb-16">
           <SectionTitle
             variant="centered"
             title={title ?? t("blog.title")}
@@ -105,7 +105,7 @@ export function BlogsSection({
         </div>
 
         {/* Blog Posts List */}
-        <div className="space-y-0">
+        <div data-reveal className="space-y-0">
           {visiblePosts.map((post, index) => (
             <BlogCard
               key={post.id}
@@ -119,7 +119,7 @@ export function BlogsSection({
 
         {/* CTA Buttons */}
         {showCTAButtons && visiblePosts.length > 0 && (
-          <div className="mt-16">
+          <div data-reveal className="mt-16">
             <BlogCTAButtons
               onToggle={handleToggle}
               onSubscribe={handleSubscribe}

@@ -34,8 +34,11 @@ import {
   devopsSkills,
 } from "@/data/skills";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useRefreshScrollTriggers, useRevealOnScroll } from "@/hooks/useGsap";
 import { useI18n } from "@/i18n";
 import { GraduationCap, MapPin, Target, type LucideIcon } from "lucide-react";
+import { useRef } from "react";
+import { ScrollProgress } from "@/components/ui/gsap/ScrollProgress";
 
 /**
  * Icône associée à chaque ligne d'identité du bloc « À propos ».
@@ -63,8 +66,15 @@ export function LandingPage() {
   // Scroll-spy partagé : une seule source de vérité pour le Header et la Sidebar.
   const activeSection = useActiveSection([...SECTION_IDS]);
 
+  // Animations : un seul scope pour toute la page, un attribut `data-reveal`
+  // par bloc à animer (voir `useGsap`).
+  const pageRef = useRef<HTMLElement>(null);
+  useRevealOnScroll(pageRef);
+  useRefreshScrollTriggers(locale);
+
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <main ref={pageRef} className="relative min-h-screen overflow-hidden">
+      <ScrollProgress />
       <Header
         logoText={profile.handle}
         navItems={getNavItems(t)}
