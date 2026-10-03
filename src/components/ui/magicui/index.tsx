@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
+import { cn } from "@/lib/utils";
 import {
   motion,
   useAnimationFrame,
   useMotionTemplate,
   useMotionValue,
   useTransform,
-} from "motion/react"
-import { useRef } from "react"
-import { cn } from "@/lib/utils"
+} from "motion/react";
+import { useRef } from "react";
 
 interface BlurFadeProps {
-  children: React.ReactNode
-  className?: string
-  delay?: number
-  duration?: number
-  inView?: boolean
-  blur?: string
-  y?: number
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  duration?: number;
+  inView?: boolean;
+  blur?: string;
+  y?: number;
 }
 
 export function BlurFade({
@@ -38,15 +38,15 @@ export function BlurFade({
     >
       {children}
     </motion.div>
-  )
+  );
 }
 
 interface MarqueeProps {
-  children: React.ReactNode
-  className?: string
-  reverse?: boolean
-  pauseOnHover?: boolean
-  duration?: number
+  children: React.ReactNode;
+  className?: string;
+  reverse?: boolean;
+  pauseOnHover?: boolean;
+  duration?: number;
 }
 
 export function Marquee({
@@ -58,11 +58,10 @@ export function Marquee({
 }: MarqueeProps) {
   return (
     <div
-      style={{ "--duration": `${duration}s`, "--gap": "1rem" } as React.CSSProperties}
-      className={cn(
-        "flex w-full overflow-hidden [--gap:1rem]",
-        className,
-      )}
+      style={
+        { "--duration": `${duration}s`, "--gap": "1rem" } as React.CSSProperties
+      }
+      className={cn("flex w-full overflow-hidden [--gap:1rem]", className)}
     >
       <div
         className={cn(
@@ -75,41 +74,45 @@ export function Marquee({
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 interface NumberTickerProps {
-  value: number
-  className?: string
-  suffix?: string
+  value: number;
+  className?: string;
+  suffix?: string;
 }
 
-export function NumberTicker({ value, className, suffix = "" }: NumberTickerProps) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const motionValue = useMotionValue(0)
-  const rounded = useTransform(() => Math.round(motionValue.get()))
-  const started = useRef(false)
+export function NumberTicker({
+  value,
+  className,
+  suffix = "",
+}: NumberTickerProps) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(() => Math.round(motionValue.get()));
+  const started = useRef(false);
 
   useAnimationFrame((t) => {
-    if (started.current) return
-    if (t > 300) started.current = true
-    const progress = Math.min(Math.max((t - 300) / 1500, 0), 1)
-    motionValue.set(value * (1 - Math.pow(1 - progress, 3)))
-  })
+    if (started.current) return;
+    if (t > 300) started.current = true;
+    const progress = Math.min(Math.max((t - 300) / 1500, 0), 1);
+    motionValue.set(value * (1 - Math.pow(1 - progress, 3)));
+  });
 
   return (
     <span ref={ref} className={cn("inline-block tabular-nums", className)}>
       <motion.span>{rounded}</motion.span>
       {suffix}
     </span>
-  )
+  );
 }
 
 interface BorderBeamProps {
-  className?: string
-  size?: number
-  duration?: number
-  color?: string
+  className?: string;
+  size?: number;
+  duration?: number;
+  color?: string;
 }
 
 export function BorderBeam({
@@ -140,17 +143,20 @@ export function BorderBeam({
         }}
       />
     </div>
-  )
+  );
 }
 
 interface AnimatedGradientTextProps {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
-export function AnimatedGradientText({ children, className }: AnimatedGradientTextProps) {
-  const gradient = useMotionTemplate`linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b, #8b5cf6)`
-  const backgroundPosition = useMotionValue("0% 50%")
+export function AnimatedGradientText({
+  children,
+  className,
+}: AnimatedGradientTextProps) {
+  const gradient = useMotionTemplate`linear-gradient(90deg, #8b5cf6, #ec4899, #f59e0b, #8b5cf6)`;
+  const backgroundPosition = useMotionValue("0% 50%");
 
   return (
     <motion.span
@@ -165,5 +171,5 @@ export function AnimatedGradientText({ children, className }: AnimatedGradientTe
     >
       {children}
     </motion.span>
-  )
+  );
 }
