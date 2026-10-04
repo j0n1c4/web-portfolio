@@ -114,6 +114,7 @@ const fr = {
     next: "Réalisation suivante",
     close: "Fermer",
     goToSlide: "Aller à la diapositive",
+    enlargeImage: "Agrandir l'image",
   },
 }
 

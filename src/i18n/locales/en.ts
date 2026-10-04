@@ -115,6 +115,7 @@ const en: Dictionary = {
     next: "Next achievement",
     close: "Close",
     goToSlide: "Go to slide",
+    enlargeImage: "Enlarge image",
   },
 }
 

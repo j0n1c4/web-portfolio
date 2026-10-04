@@ -1,7 +1,9 @@
 import { Briefcase, Download, Link2, Mail, MapPin } from "lucide-react"
 import { InfoRow, SkillBadge } from "@/components/atoms"
+import { ImageLightbox } from "@/components/molecules/ImageLightbox"
 import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 interface ProfileCardProps {
   name: string
@@ -32,6 +34,7 @@ export function ProfileCard({
   accentColor = "#00C7FF",
 }: ProfileCardProps) {
   const { t } = useI18n()
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false)
 
   return (
     <div
@@ -53,15 +56,25 @@ export function ProfileCard({
       />
 
       <div className="relative p-6 pt-8">
-        {/* Avatar */}
+        {/* Avatar — clic = visionneuse plein écran */}
         <div className="mb-4 flex justify-center">
-          <div
-            className="h-28 w-28 overflow-hidden rounded-full border-2 md:h-24 md:w-24"
+          <button
+            type="button"
+            onClick={() => setIsPhotoOpen(true)}
+            aria-label={t("common.enlargeImage")}
+            className="h-28 w-28 cursor-zoom-in overflow-hidden rounded-full border-2 transition duration-300 hover:scale-105 md:h-24 md:w-24"
             style={{ borderColor: accentColor }}
           >
             <img src={avatar} alt={name} className="h-full w-full object-cover" />
-          </div>
+          </button>
         </div>
+
+        <ImageLightbox
+          src={avatar}
+          alt={name}
+          isOpen={isPhotoOpen}
+          onClose={() => setIsPhotoOpen(false)}
+        />
 
         {/* Name & Title */}
         <div className="mb-6 text-center">
