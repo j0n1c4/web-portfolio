@@ -52,7 +52,7 @@ export function Header({
       )}
       style={{ backgroundColor: bgColor }}
     >
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-5">
         <div
           data-reveal
           className="flex h-20 items-center justify-between"

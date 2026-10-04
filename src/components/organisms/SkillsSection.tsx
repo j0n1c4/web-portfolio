@@ -58,13 +58,13 @@ export function SkillsSection({
   return (
     <section
       id="skills"
-      className={cn("relative overflow-hidden py-24 md:py-32", className)}
+      className={cn("relative overflow-hidden py-16 md:py-32", className)}
       style={{ backgroundColor: bgColor }}
     >
       <DoodleLayer>
         <Doodle
           src="/static/doodles/skills/laptop.svg"
-          position="left-[4%] top-[12%] hidden lg:block"
+          position="left-[4%] top-[12%]"
           width={130}
           opacity={0.4}
           delay={0.3}
@@ -78,28 +78,28 @@ export function SkillsSection({
         />
         <Doodle
           src="/static/doodles/skills/youtube.svg"
-          position="right-[5%] top-[16%] hidden lg:block"
+          position="right-[5%] top-[16%]"
           width={74}
           opacity={0.5}
           delay={2.2}
         />
         <Doodle
           src="/static/doodles/skills/fillStar.svg"
-          position="left-[12%] bottom-[8%] hidden xl:block"
+          position="left-[12%] bottom-[8%]"
           width={52}
           opacity={0.5}
           delay={3}
         />
         <Doodle
           src="/static/doodles/skills/star-outline.svg"
-          position="right-[10%] bottom-[10%] hidden xl:block"
+          position="right-[10%] bottom-[10%]"
           width={44}
           opacity={0.45}
           delay={1.7}
         />
       </DoodleLayer>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 md:gap-12">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-5 md:gap-12">
         {/* Titre à gauche, paragraphe à droite */}
         <div
           data-reveal
@@ -116,7 +116,7 @@ export function SkillsSection({
         </div>
 
         {/* Colonnes DEV / DEVOPS */}
-        <div data-reveal className="flex flex-col gap-14">
+        <div data-reveal className="flex flex-col gap-8 md:gap-14">
           <SkillsColumn
             title={t("skills.dev")}
             categories={resolveCategories(devCategories)}

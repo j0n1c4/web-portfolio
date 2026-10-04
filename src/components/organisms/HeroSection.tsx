@@ -75,63 +75,64 @@ export function HeroSection({
       <DoodleLayer>
         <Doodle
           src="/static/doodles/hero/coder.svg"
-          position="right-[2%] top-[12%] hidden lg:block"
+          position="right-[2%] top-[12%]"
           width={300}
           opacity={0.5}
+          scale="scale-40 sm:scale-60 md:scale-80 lg:scale-100"
           delay={0}
         />
         <Doodle
           src="/static/doodles/hero/code.svg"
-          position="left-[42%] top-[8%] hidden md:block"
+          position="left-[42%] top-[8%]"
           width={60}
           opacity={0.7}
           delay={1.2}
         />
         <Doodle
           src="/static/doodles/hero/html.svg"
-          position="right-[26%] top-[62%] hidden xl:block"
+          position="right-[26%] top-[62%]"
           width={54}
           opacity={0.65}
           delay={2.4}
         />
         <Doodle
           src="/static/doodles/hero/js.svg"
-          position="right-[16%] bottom-[8%] hidden xl:block"
+          position="right-[16%] bottom-[8%]"
           width={48}
           opacity={0.6}
           delay={3.1}
         />
         <Doodle
           src="/static/doodles/hero/paintbrush.svg"
-          position="left-[38%] bottom-[6%] hidden md:block"
+          position="left-[38%] bottom-[6%]"
           width={74}
           opacity={0.45}
           delay={0.8}
         />
         <Doodle
           src="/static/doodles/hero/pop1.svg"
-          position="left-[26%] top-[16%] hidden lg:block"
+          position="left-[26%] top-[16%]"
           width={26}
           opacity={0.8}
           delay={1.8}
         />
         <Doodle
           src="/static/doodles/hero/pop2.svg"
-          position="right-[34%] top-[26%] hidden lg:block"
+          position="right-[34%] top-[26%]"
           width={30}
           opacity={0.7}
           delay={2.9}
         />
         <Doodle
           src="/static/doodles/hero/left-squiggle.svg"
-          position="left-[-26px] bottom-[14%] hidden lg:block"
+          position="left-[-26px] bottom-[14%]"
           width={110}
           opacity={0.3}
           delay={1.4}
         />
         <Doodle
           src="/static/doodles/hero/right-squiggle.svg"
-          position="right-[-40px] top-[38%] hidden lg:block"
+          position="right-[-40px] top-[38%]"
           width={170}
           opacity={0.25}
           delay={2.1}
@@ -141,12 +142,13 @@ export function HeroSection({
           position="left-1/2 top-[52%] hidden -translate-x-1/2 lg:block"
           width={640}
           opacity={0.16}
+          scale="scale-40 sm:scale-60 md:scale-80 lg:scale-100"
           delay={0.4}
         />
       </DoodleLayer>
 
       {/* Main Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-32 pb-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 pt-24 pb-16">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:min-h-[calc(100vh-9rem)]">
           {/* Left Column — ProfileCard (design actuel conservé) */}
           <div

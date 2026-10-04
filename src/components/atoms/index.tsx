@@ -253,9 +253,9 @@ export function InfoRow({
   accentColor = "#00C7FF",
 }: InfoRowProps) {
   return (
-    <div className={cn("flex items-center gap-3 text-sm", className)}>
-      <Icon className="h-4 w-4 shrink-0" style={{ color: accentColor }} />
-      <span className="font-mono text-xs text-gray-300">{text}</span>
+    <div className={cn("flex items-center gap-3 text-base md:text-sm", className)}>
+      <Icon className="h-5 w-5 shrink-0 md:h-4 md:w-4" style={{ color: accentColor }} />
+      <span className="font-mono text-sm break-all text-gray-300 md:text-xs">{text}</span>
     </div>
   );
 }

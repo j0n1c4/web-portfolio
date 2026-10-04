@@ -54,7 +54,7 @@ export function BlogCard({ post, onReadMore, className, accentColor = "#00C7FF" 
   return (
     <article
       className={cn(
-        "group mx-auto flex w-full max-w-sm cursor-pointer flex-col transition duration-300 hover:-translate-y-2 hover:opacity-80",
+        "group mx-auto flex w-full max-w-md cursor-pointer flex-col transition duration-300 hover:-translate-y-2 hover:opacity-80",
         className,
       )}
       onClick={() => onReadMore?.(post)}

@@ -82,35 +82,35 @@ export function WorksSection({
     <section
       id="projects"
       className={cn(
-        "relative isolate w-full overflow-hidden bg-[#000A1F] py-24 md:py-32",
+        "relative isolate w-full overflow-hidden bg-[#000A1F] py-16 md:py-32",
         className,
       )}
     >
       <DoodleLayer>
         <Doodle
           src="/static/doodles/projects/ahh.svg"
-          position="right-[8%] top-[6%] hidden lg:block"
+          position="right-[8%] top-[6%]"
           width={104}
           opacity={0.5}
           delay={0.5}
         />
         <Doodle
           src="/static/doodles/projects/ooh.svg"
-          position="right-[20%] top-[26%] hidden xl:block"
+          position="right-[20%] top-[26%]"
           width={96}
           opacity={0.45}
           delay={1.8}
         />
         <Doodle
           src="/static/doodles/projects/squiggle.svg"
-          position="left-[3%] bottom-[14%] hidden lg:block"
+          position="left-[3%] bottom-[14%]"
           width={52}
           opacity={0.5}
           delay={2.6}
         />
       </DoodleLayer>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 md:gap-16">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-5 md:gap-16">
         {/* Titre à gauche, sous-titre à droite */}
         <div
           data-reveal
@@ -131,7 +131,7 @@ export function WorksSection({
           <div data-reveal className="flex flex-col gap-8">
             <div
               ref={gridRef}
-              className="grid scroll-mt-28 grid-cols-1 items-start md:grid-cols-2 md:gap-6 lg:grid-cols-3 gap-6"
+              className="grid scroll-mt-28 grid-cols-1 items-start md:grid-cols-2 md:gap-8 lg:grid-cols-3 gap-8"
             >
               {visibleProjects.map((project) => (
                 <WorkProjectCard

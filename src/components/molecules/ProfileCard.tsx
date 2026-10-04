@@ -56,7 +56,7 @@ export function ProfileCard({
         {/* Avatar */}
         <div className="mb-4 flex justify-center">
           <div
-            className="h-24 w-24 overflow-hidden rounded-full border-2"
+            className="h-28 w-28 overflow-hidden rounded-full border-2 md:h-24 md:w-24"
             style={{ borderColor: accentColor }}
           >
             <img src={avatar} alt={name} className="h-full w-full object-cover" />
@@ -65,12 +65,12 @@ export function ProfileCard({
 
         {/* Name & Title */}
         <div className="mb-6 text-center">
-          <h3 className="mb-1 text-xl font-bold text-white">{name}</h3>
-          <p className="font-mono text-sm text-gray-300">{title}</p>
+          <h3 className="mb-1 text-2xl font-bold text-white md:text-xl">{name}</h3>
+          <p className="font-mono text-base text-gray-300 md:text-sm">{title}</p>
         </div>
 
         {/* Info Rows */}
-        <div className="mb-6 space-y-3">
+        <div className="mb-6 space-y-4 md:space-y-3">
           {email && <InfoRow icon={Mail} text={email} accentColor={accentColor} />}
           {location && <InfoRow icon={MapPin} text={location} accentColor={accentColor} />}
           {availability && (

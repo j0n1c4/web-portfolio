@@ -34,7 +34,7 @@ export function ContactSection({
     <section
       id="contact"
       className={cn(
-        "relative isolate w-full overflow-hidden border-t border-[#192742] bg-[#000A1F] py-24 md:py-32",
+        "relative isolate w-full overflow-hidden border-t border-[#192742] bg-[#000A1F] py-16 md:py-32",
         className,
       )}
     >
@@ -48,35 +48,35 @@ export function ContactSection({
         />
         <Doodle
           src="/static/doodles/testimonials/yay.svg"
-          position="left-[8%] top-[16%] hidden lg:block"
+          position="left-[8%] top-[16%]"
           width={84}
           opacity={0.6}
           delay={1.1}
         />
         <Doodle
           src="/static/doodles/skills/fillStar.svg"
-          position="left-[6%] top-[30%] hidden lg:block"
+          position="left-[6%] top-[30%]"
           width={56}
           opacity={0.5}
           delay={1.6}
         />
         <Doodle
           src="/static/doodles/projects/pop.svg"
-          position="right-[7%] top-[22%] hidden lg:block"
+          position="right-[7%] top-[22%]"
           width={66}
           opacity={0.55}
           delay={2.4}
         />
         <Doodle
           src="/static/doodles/hero/dino.svg"
-          position="right-[4%] bottom-[8%] hidden xl:block"
+          position="right-[4%] bottom-[8%]"
           width={120}
           opacity={0.35}
           delay={3.3}
         />
       </DoodleLayer>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-8 px-4">
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-8 px-5">
         {/* Titre centré */}
         <div data-reveal className="flex flex-col items-center gap-4 text-center">
           <h2 className="text-3xl font-bold tracking-tighter text-white md:text-5xl">

@@ -40,7 +40,7 @@ export function Footer({
   return (
     <footer
       className={cn(
-        "relative flex flex-col w-full bg-[#000A1F] px-4 py-10",
+        "relative flex flex-col w-full bg-[#000A1F] px-5 py-8 md:py-10",
         showDivider && "border-t border-[#192742]",
         className,
       )}

@@ -41,6 +41,13 @@ export type DoodleProps = {
   /** Délai de l'animation flottante (s) */
   delay?: number;
   opacity?: number;
+  /**
+   * Échelle appliquée sur petit écran. Les doodles sont dessinés pour le
+   * desktop : sur un téléphone ils sont réduits pour rester décoratifs et ne
+   * pas couvrir le texte. L'échelle est posée sur le wrapper (et non sur
+   * l'image) car `animate-float` pilote `transform` sur l'image.
+   */
+  scale?: string;
   style?: CSSProperties;
 };
 
@@ -52,13 +59,22 @@ export function Doodle({
   className,
   delay = 0,
   opacity = 0.6,
+  scale = "scale-50 sm:scale-75 md:scale-90 lg:scale-100",
   style,
 }: DoodleProps) {
   // Le positioning (y compris les `translate-*` de centrage) est porté par le
   // wrapper : l'animation `float` redefinit `transform` sur l'image, donc les
   // deux ne peuvent pas partager le même élément.
+  //
+  // L'opacité demandée est passée en variable CSS : sur mobile on l'atténue
+  // encore (le texte est plus petit et plus serré), sur grand écran on rend la
+  // valeur exacte de la section.
   return (
-    <div aria-hidden="true" className={cn("absolute", position)} style={style}>
+    <div
+      aria-hidden="true"
+      className={cn("absolute", position, scale)}
+      style={{ ...style, "--doodle-opacity": opacity } as CSSProperties}
+    >
       <img
         src={src}
         alt=""
@@ -67,10 +83,12 @@ export function Doodle({
         style={{
           width,
           animationDelay: `${delay}s`,
-          opacity,
         }}
-        className={cn("animate-float h-auto", className)}
+        className={cn(
+          "animate-float h-auto opacity-40 md:opacity-(--doodle-opacity)",
+          className,
+        )}
       />
     </div>
-  )
+  );
 }

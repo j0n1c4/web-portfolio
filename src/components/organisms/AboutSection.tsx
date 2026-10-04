@@ -51,7 +51,7 @@ export function AboutSection({
     <section
       id="about"
       className={cn(
-        "relative isolate w-full overflow-hidden bg-[#000A1F] py-24 md:py-32",
+        "relative isolate w-full overflow-hidden bg-[#000A1F] py-16 md:py-32",
         className,
       )}
     >
@@ -61,32 +61,33 @@ export function AboutSection({
           position="right-[-60px] top-[6%] hidden opacity-70 xl:block"
           width={420}
           opacity={0.28}
+          scale="scale-40 sm:scale-60 md:scale-80 lg:scale-100"
           delay={0.2}
         />
         <Doodle
           src="/static/doodles/projects/corner.svg"
-          position="left-[46%] top-[18%] hidden lg:block"
+          position="left-[46%] top-[18%]"
           width={54}
           opacity={0.7}
           delay={0.6}
         />
         <Doodle
           src="/static/doodles/skills/star-outline.svg"
-          position="right-[6%] top-[24%] hidden xl:block"
+          position="right-[6%] top-[24%]"
           width={40}
           opacity={0.6}
           delay={1.9}
         />
         <Doodle
           src="/static/doodles/projects/squiggle.svg"
-          position="right-[12%] bottom-[12%] hidden lg:block"
+          position="right-[12%] bottom-[12%]"
           width={48}
           opacity={0.5}
           delay={2.7}
         />
       </DoodleLayer>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-4 lg:flex-row lg:items-start lg:justify-between lg:gap-12 xl:gap-16">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-5 lg:flex-row lg:items-start lg:justify-between lg:gap-12 xl:gap-16">
         {/* Titre + identité (colonne gauche) */}
         <div className="flex w-full flex-col lg:max-w-xs lg:shrink-0">
           <div data-reveal>
@@ -99,7 +100,7 @@ export function AboutSection({
           {info.length > 0 && (
             <div
               data-reveal
-              className="mt-8 flex flex-col gap-3 border-t border-[#192742] pt-6"
+              className="mt-8 flex flex-col gap-4 border-t border-[#192742] pt-6 md:gap-3"
             >
               {info.map((item) => (
                 <InfoRow
@@ -114,7 +115,7 @@ export function AboutSection({
         </div>
 
         {/* Contenu (colonne droite) : portrait à côté du texte dès xl */}
-        <div className="flex w-full flex-1 flex-col gap-10 xl:flex-row xl:items-start xl:gap-12">
+        <div className="flex w-full flex-1 flex-col gap-8 xl:flex-row xl:items-start xl:gap-12">
           <div data-reveal className="w-full shrink-0 xl:max-w-[280px]">
             <AboutImage src={imageSrc} alt={imageAlt} />
           </div>

@@ -82,34 +82,34 @@ export function BlogsSection({
   return (
     <section
       id="blog"
-      className={cn("relative overflow-hidden py-24 md:py-32", className)}
+      className={cn("relative overflow-hidden py-16 md:py-32", className)}
       style={{ backgroundColor: bgColor }}
     >
       <DoodleLayer>
         <Doodle
           src="/static/doodles/testimonials/speech.svg"
-          position="right-[6%] top-[8%] hidden lg:block"
+          position="right-[6%] top-[8%]"
           width={68}
           opacity={0.55}
           delay={0.9}
         />
         <Doodle
           src="/static/doodles/testimonials/underline.svg"
-          position="left-[34%] top-[3%] hidden md:block"
+          position="left-[34%] top-[3%]"
           width={96}
           opacity={0.5}
           delay={2.1}
         />
         <Doodle
           src="/static/doodles/testimonials/squiggle2.svg"
-          position="left-[4%] bottom-[10%] hidden xl:block"
+          position="left-[4%] bottom-[10%]"
           width={42}
           opacity={0.5}
           delay={3.2}
         />
       </DoodleLayer>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 md:gap-20">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-10 px-5 md:gap-20">
         {/* Titre à gauche, sous-titre à droite */}
         <div
           data-reveal
@@ -128,7 +128,7 @@ export function BlogsSection({
         {/* Grille d'articles */}
         <div
           data-reveal
-          className="grid grid-cols-1 items-start gap-x-6 gap-y-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-20"
+          className="grid grid-cols-1 items-start gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-20"
         >
           {visiblePosts.map((post) => (
             <BlogCard
