@@ -1,29 +1,9 @@
 import { ExternalLink, GitBranch } from "lucide-react"
 import { useI18n } from "@/i18n"
+import { countBuildWith, type WorkProject } from "@/lib/project"
 import { cn } from "@/lib/utils"
 
-/** Personne avec qui le projet a été réalisé — le nom peut être cliquable. */
-export interface ProjectCollaborator {
-  name: string
-  /** Portfolio / profil externe. Absent = nom affiché sans lien. */
-  link?: string
-}
-
-export interface WorkProject {
-  id: string
-  image: string
-  title: string
-  description?: string
-  liveUrl?: string
-  githubUrl?: string
-  tags?: string[]
-  longDescription?: string
-  technologies?: string[]
-  /** Poste occupé sur le projet — porte le signal DevOps sur la carte. */
-  role?: string
-  /** Mention explicite des co-auteurs (équipe, mentors, designers…). */
-  collaborators?: ProjectCollaborator[]
-}
+export type { ProjectCollaborator, WorkProject } from "@/lib/project"
 
 interface WorkProjectCardProps {
   project: WorkProject
@@ -56,6 +36,14 @@ export function WorkProjectCard({
 }: WorkProjectCardProps) {
   const { t } = useI18n()
 
+  // La carte reste volontairement vague (« avec 11 autres personnes ») : les
+  // noms et leurs portfolios sont dans la modale, pas sur la carte.
+  const peopleCount = countBuildWith(project.buildWith)
+  const peopleLabel =
+    peopleCount > 1
+      ? t("works.withOthersMany").replace("{count}", String(peopleCount))
+      : t("works.withOthersOne").replace("{count}", String(peopleCount))
+
   return (
     <div
       className={cn(
@@ -82,30 +70,6 @@ export function WorkProjectCard({
         {project.role && (
           <p className="mb-1 font-mono text-xs tracking-wide text-gray-400 uppercase">
             {renderRole(project.role, accentColor)}
-          </p>
-        )}
-
-        {project.collaborators && project.collaborators.length > 0 && (
-          <p className="mb-2 font-mono text-xs text-gray-400">
-            {t("works.with")}{" "}
-            {project.collaborators.map((collaborator, index) => (
-              <span key={collaborator.name}>
-                {index > 0 && ", "}
-                {collaborator.link ? (
-                  <a
-                    href={collaborator.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(event) => event.stopPropagation()}
-                    className="text-[#00C7FF] underline-offset-2 hover:underline"
-                  >
-                    {collaborator.name}
-                  </a>
-                ) : (
-                  collaborator.name
-                )}
-              </span>
-            ))}
           </p>
         )}
 
@@ -136,6 +100,13 @@ export function WorkProjectCard({
               </li>
             ))}
           </ul>
+        )}
+
+        {/* Équipe — résumé only, les noms sont dans la modale */}
+        {peopleCount > 0 && (
+          <p className="mt-4 border-t border-[#192742] pt-3 font-mono text-xs text-gray-400">
+            {peopleLabel}
+          </p>
         )}
       </div>
     </div>

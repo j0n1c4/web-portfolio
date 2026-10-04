@@ -1,5 +1,5 @@
 import type { Locale } from "@/i18n"
-import type { WorkProject } from "@/components/molecules/WorkProjectCard"
+import type { WorkProject } from "@/lib/project"
 
 /**
  * Réalisations — reprises depuis v1/lib/data/projects.ts, réordonnées :
@@ -7,15 +7,17 @@ import type { WorkProject } from "@/components/molecules/WorkProjectCard"
  *
  * `liveUrl` de MadAtlas a été mis à jour vers le nouveau domaine madatlas.mg.
  * Les textes (description / longDescription / role) sont bilingues ; `tags`,
- * `technologies` et `collaborators` sont des noms propres, donc identiques.
+ * `technologies` et `buildWith` sont des noms propres, donc identiques.
  *
- * `collaborators` (optionnel) mentionne les personnes avec qui le projet a été
- * réalisé ; le nom est cliquable si un portfolio est fourni :
+ * `buildWith` (optionnel) liste l'équipe du projet. La carte n'affiche que le
+ * nombre (« avec 3 autres personnes »), la modale liste tous les noms. Un nom
+ * devient cliquable dès que `portfolioLink` est renseigné — la plupart des
+ * portfolios sont encore vides, d'où les `portfolioLink: ""` :
  *
  * ```ts
- * collaborators: [
- *   { name: "Prénom Nom", link: "https://exemple.dev" },
- *   { name: "Autre personne" }, // sans lien : affiché en texte simple
+ * buildWith: [
+ *   { name: "Prénom Nom", portfolioLink: "https://exemple.dev" },
+ *   { name: "Autre personne", portfolioLink: "" }, // sans lien : texte simple
  * ]
  * ```
  */
@@ -47,6 +49,7 @@ const localizedProjects: LocalizedProject[] = [
     },
     liveUrl: "https://agroesthet.org/",
     githubUrl: "/",
+    buildWith: [{ name: "ADRIAMBOLANIRINA Nasandratra \"Bruhar's\"", portfolioLink: "" }],
     tags: ["Next.js", "Express.js", "MySQL", "Minio", "Tailwind CSS"],
     technologies: [
       "Next.js",
@@ -77,6 +80,10 @@ const localizedProjects: LocalizedProject[] = [
     },
     liveUrl: "https://madatlas.mg/",
     githubUrl: "/",
+    buildWith: [
+      { name: "Bruhar's", portfolioLink: "" },
+      { name: "Minosoa (MAROLOOK)", portfolioLink: "" },
+    ],
     tags: ["Next.js", "Express.js", "PostgreSQL", "Minio", "Tailwind CSS"],
     technologies: [
       "Next.js",
@@ -106,6 +113,21 @@ const localizedProjects: LocalizedProject[] = [
       en: "Keho sends real-time notifications and alerts to keep users informed about emergencies, critical events and important updates. The platform enables fast communication between authorities, organisations and the public. I mentor the team on the React Native mobile side and on Keycloak authentication.",
     },
     githubUrl: "https://github.com/j0n1c4",
+    buildWith: [
+      { name: "Bruhar's", portfolioLink: "" },
+      { name: "Kevin Rand", portfolioLink: "" },
+      { name: "Kaiser", portfolioLink: "" },
+      { name: "Shania", portfolioLink: "" },
+      { name: "Erwan", portfolioLink: "" },
+      { name: "Mihaingo Andiniaina", portfolioLink: "" },
+      { name: "Maminiaina Indrafo", portfolioLink: "" },
+      { name: "Alain Patrick", portfolioLink: "" },
+      { name: "Miarisoa Faniry", portfolioLink: "" },
+      { name: "Mirado", portfolioLink: "" },
+      { name: "Laiscia", portfolioLink: "" },
+      // Les autres membres de l'équipe viendront s'ajouter ici quand leurs
+      // noms complets seront connus : le compteur de la carte suivra tout seul.
+    ],
     tags: ["React Native", "NestJS", "PostgreSQL", "Keycloak", "Microservices"],
     technologies: [
       "React Native",

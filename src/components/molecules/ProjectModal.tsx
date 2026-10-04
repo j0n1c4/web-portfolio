@@ -3,7 +3,7 @@ import { createPortal } from "react-dom"
 import { ExternalLink, GitBranch, X } from "lucide-react"
 import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
-import type { WorkProject } from "@/components/molecules/WorkProjectCard"
+import { countBuildWith, type WorkProject } from "@/lib/project"
 
 interface ProjectModalProps {
   project: WorkProject | null
@@ -42,6 +42,9 @@ export function ProjectModal({
   }, [onClose])
 
   if (!isOpen || !project) return null
+
+  // Une seule fois pour le resume « avec n autres personnes ».
+  const teamCount = countBuildWith(project.buildWith)
 
   // Rendue via un portail sur `document.body` : la section parente déclare
   // `isolate`, ce qui crée un contexte d'empilement dans lequel le `z` de la
@@ -97,36 +100,6 @@ export function ProjectModal({
             <p>{project.description}</p>
             {project.longDescription && <p>{project.longDescription}</p>}
           </div>
-
-          {/* Collaborateurs */}
-          {project.collaborators && project.collaborators.length > 0 && (
-            <div>
-              <h4 className="mb-3 text-lg font-semibold text-white">
-                {t("works.collaborators")}
-              </h4>
-              <ul className="flex flex-wrap gap-2">
-                {project.collaborators.map((collaborator) => (
-                  <li key={collaborator.name}>
-                    {collaborator.link ? (
-                      <a
-                        href={collaborator.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg border border-[#3E5480] bg-[#000F2E] px-3 py-1.5 text-sm text-gray-200 transition-colors duration-300 hover:border-[#00C7FF] hover:text-[#00C7FF]"
-                      >
-                        {collaborator.name}
-                        <ExternalLink className="h-3.5 w-3.5 opacity-70" />
-                      </a>
-                    ) : (
-                      <span className="inline-flex items-center gap-2 rounded-lg border border-[#3E5480] bg-[#000F2E] px-3 py-1.5 text-sm text-gray-200">
-                        {collaborator.name}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           {/* Technologies */}
           {project.technologies && project.technologies.length > 0 && (
@@ -197,6 +170,42 @@ export function ProjectModal({
                 </li>
               )}
             </ul>
+          )}
+
+          {/* Équipe — dernier bloc : les technologies sont mises en valeur avant.
+              Chaque nom mène a son portfolio quand celui-ci est renseigne. */}
+          {project.buildWith && project.buildWith.length > 0 && (
+            <div className="border-t border-[#192742] pt-6">
+              <h4 className="mb-1 text-lg font-semibold text-white">
+                {t("works.buildWith")}
+              </h4>
+              <p className="mb-3 font-mono text-xs text-gray-400">
+                {teamCount > 1
+                  ? t("works.withOthersMany").replace("{count}", String(teamCount))
+                  : t("works.withOthersOne").replace("{count}", String(teamCount))}
+              </p>
+              <ul className="flex flex-wrap gap-2">
+                {project.buildWith.map((person) => (
+                  <li key={person.name}>
+                    {person.portfolioLink ? (
+                      <a
+                        href={person.portfolioLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-lg border border-[#3E5480] bg-[#000F2E] px-3 py-1.5 text-sm text-gray-200 transition-colors duration-300 hover:border-[#00C7FF] hover:text-[#00C7FF]"
+                      >
+                        {person.name}
+                        <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 rounded-lg border border-[#3E5480] bg-[#000F2E] px-3 py-1.5 text-sm text-gray-200">
+                        {person.name}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       </div>
